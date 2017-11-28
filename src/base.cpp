@@ -26,19 +26,20 @@ void rangeCallback(const sensor_msgs::LaserScan::ConstPtr& msg) {
       minimal = i;
     }
   }
-  ROS_INFO("Minimal distance is: ", minimal);
+  ROS_INFO("Minimal distance is: %f", minimal);
 }
 
 int main(int argc, char **argv)
 {
   ros::init(argc, argv, "base");
   ros::NodeHandle nh;
+  ros::NodeHandle nh2;
   cv::namedWindow("view");
   cv::startWindowThread();
   image_transport::ImageTransport it(nh);
   image_transport::Subscriber sub = it.subscribe("camera/rgb/image_raw", 1, imageCallback);
   
-  ros::Subscriber sub = n.subscribe("scan", 10, rangeCallback);
+  ros::Subscriber sub2 = nh2.subscribe("scan", 10, rangeCallback);
 
   ros::spin();
   cv::destroyWindow("view");
