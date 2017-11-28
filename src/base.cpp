@@ -4,18 +4,29 @@
 #include <sensor_msgs/image_encodings.h>
 #include <opencv2/imgproc/imgproc.hpp>
 #include <opencv2/highgui/highgui.hpp>
+#include "sensor_msgs/LaserScan.h"
 
 void imageCallback(const sensor_msgs::ImageConstPtr& msg)
 {
   try
   {
     cv::imshow("view", cv_bridge::toCvShare(msg, "bgr8")->image);
-    cv::waitKey(30);
+    cv::waitKey(1);
   }
   catch (cv_bridge::Exception& e)
   {
     ROS_ERROR("Could not convert from '%s' to 'bgr8'.", msg->encoding.c_str());
   }
+}
+
+void rangeCallback(const sensor_msgs::LaserScan::ConstPtr& msg) {
+  float minimal = 10;
+  for (auto &i : msg->ranges) {
+    if (i < minimal) {
+      minimal = i;
+    }
+  }
+  ROS_INFO("Minimal distance is: ", minimal);
 }
 
 int main(int argc, char **argv)
@@ -26,6 +37,9 @@ int main(int argc, char **argv)
   cv::startWindowThread();
   image_transport::ImageTransport it(nh);
   image_transport::Subscriber sub = it.subscribe("camera/rgb/image_raw", 1, imageCallback);
+  
+  ros::Subscriber sub = n.subscribe("scan", 10, rangeCallback);
+
   ros::spin();
   cv::destroyWindow("view");
 }
