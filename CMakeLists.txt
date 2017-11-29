@@ -11,6 +11,7 @@ find_package(catkin REQUIRED COMPONENTS
   geometry_msgs
   message_generation
   roscpp
+  rostest
   sensor_msgs
   cv_bridge
   image_transport
@@ -191,19 +192,23 @@ include_directories(
 #   DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION}
 # )
 
+## Add folders to be run by python nosetests
+# catkin_add_nosetests(test)
+
 #############
 ## Testing ##
 #############
 
-## Add gtest based cpp test target and link libraries
-# catkin_add_gtest(${PROJECT_NAME}-test test/test_final_package.cpp)
-# if(TARGET ${PROJECT_NAME}-test)
-#   target_link_libraries(${PROJECT_NAME}-test ${PROJECT_NAME})
-# endif()
 
-## Add folders to be run by python nosetests
-# catkin_add_nosetests(test)
+#add_rostest_gtest(base_test
+#  test/base_test.test
+#  test/base_test.cpp
+#)
+#target_link_libraries(base_test ${catkin_LIBRARIES})
+
+catkin_add_gtest(base_test test/base_test)
 
 add_executable(base src/base.cpp)
 target_link_libraries(base ${catkin_LIBRARIES} ${OpenCV_LIBRARIES})
 add_dependencies(base ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
+

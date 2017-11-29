@@ -33,3 +33,10 @@ to build the ROS package.
 ```
 roslaunch final_package turtlebot_world.launch
 ```
+
+## Simple test
+1. This test is just for verifying that the unit testing is configured correctly.
+```
+cd <catkin_ws>
+catkin_make run_tests_final_package_gtest_base_test
+```
