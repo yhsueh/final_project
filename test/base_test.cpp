@@ -25,14 +25,14 @@
 /** @file talker_test.cpp
  *	@brief Integration test on service/client nodes.
  */
-
+#include "Base.hpp"
 #include <ros/ros.h>
 #include <ros/service_client.h>
 #include <gtest/gtest.h>
-//#include <boost/shared_ptr.hpp>
+#include <boost/shared_ptr.hpp>
 
 
-//std::shared_ptr<ros::NodeHandle> nh;
+std::shared_ptr<ros::NodeHandle> nh;
 
 /** 
  * Testing case confirming that the messages passed between service and 
@@ -45,6 +45,12 @@ TEST(TESTSuite, test_setup) {
   	EXPECT_EQ(i,1);
 }
 
+
+/*TEST(UnitTesting base_test_range_callback) {
+
+
+}
+*/
 int main(int argc, char **argv) {
   //ros::init(argc, argv, "base_test");
   //nh.reset(new ros::NodeHandle);
