@@ -4,7 +4,18 @@ language: cpp
 
 services:
   - docker
-
+  
+addons:
+        apt:
+          sources:
+            - boost-latest
+            - ubuntu-toolchain-r-test
+            - george-edison55-precise-backports
+          packages:
+            - g++-5
+            - cmake
+            - cmake-data
+            - libboost1.55-all-dev
 env:
   global:
     - toolset_branch: master
@@ -13,6 +24,43 @@ env:
     - ubuntu_version_name: xenial
     - used_modules: check_cache,software_tests
     - remote_shell_script: 'https://raw.githubusercontent.com/shadow-robot/sr-build-tools/$toolset_branch/bin/sr-run-ci-build.sh'
+
+
+install:
+  - sudo apt-get install -y -qq lcov
+  #OpenCV Dependencies
+  - sudo apt-get install -y build-essential
+  - sudo apt-get install -y cmake git libgtk2.0-dev pkg-config libavcodec-dev libavformat-dev libswscale-dev
+  - sudo apt-get install -y python-dev python-numpy libtbb2 libtbb-dev libjpeg-dev libpng-dev libtiff-dev libjasper-dev libdc1394-22-dev
+
+# Download v3.2.0 .zip file and extract.
+  - curl -sL https://github.com/Itseez/opencv/archive/3.2.0.zip > opencv.zip
+  - unzip opencv.zip
+  - cd opencv-3.2.0
+  
+  # Create a new 'build' folder.
+  - mkdir build
+  - cd build
+  
+  # Set build instructions for Ubuntu distro.
+  - cmake -D CMAKE_BUILD_TYPE=RELEASE -D CMAKE_INSTALL_PREFIX=/usr/local -D WITH_TBB=ON -D BUILD_NEW_PYTHON_SUPPORT=ON -D WITH_V4L=ON -D INSTALL_C_EXAMPLES=ON -D INSTALL_PYTHON_EXAMPLES=ON -D BUILD_EXAMPLES=ON -D WITH_QT=ON -D WITH_OPENGL=ON ..
+  
+  # Run 'make' with four threads.
+  - make -j4
+  
+  # Install to OS.
+  - sudo make install
+  
+  # Add configuration to OpenCV to tell it where the library files are located on the file system (/usr/local/lib)
+  - sudo sh -c 'echo "/usr/local/lib" > /etc/ld.so.conf.d/opencv.conf'
+  
+  - sudo ldconfig
+  - echo "OpenCV installed."
+  
+  # We need to return to the repo "root" folder, so we can then 'cd' into the C++ project folder.
+  - cd ../../ 
+
+
 
 script:
   - curl -s "$( echo "$remote_shell_script" | sed 's/#/%23/g' )" | bash -x /dev/stdin "$toolset_branch" $server_type $used_modules
