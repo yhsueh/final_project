@@ -2,7 +2,7 @@
 [![Build Status](https://travis-ci.org/yhsueh/Midterm.svg?branch=master)](https://travis-ci.org/yhsueh/Midterm)
 
 ## Project Descriptioin
-The project focus on a portion of the application of the ball collector robot. In a closed environment like cafe, the robot would detect a few balls and move toward them based on the camera images.  
+The project focus on a portion of the application of the ball collector robot. In a closed environment like cafe, the robot would detect the balls and move toward them based on the camera images. Once the robot gets to the object, the object would be removed. The final task is to remove all the objects present in the cafe.
 
 ## Project Personnel
 The author of this ROS package is a second year master student enrolling at the University of Maryland at College Park. This pcakge is the final deliverable for the final project of the class software developement of robotics. 
