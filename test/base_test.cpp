@@ -29,10 +29,9 @@
 #include <gtest/gtest.h>
 #include "sensor_msgs/LaserScan.h"
 #include "std_msgs/Float32.h"
-#include "BaseTestCallback.hpp"
 #include <iostream>
-std::shared_ptr<ros::NodeHandle> nh;
 
+std::shared_ptr<ros::NodeHandle> nh;
 float min_dist;
 
 /** 
@@ -46,31 +45,30 @@ void distanceCallback(const std_msgs::Float32::ConstPtr& msg) {
 	min_dist = msg->data;
 }
 
-
-/*
-TEST(TESTSuite, test_setup) {
-	int i = 1;
-  	EXPECT_EQ(i,1);
-}
-*/
-
 TEST(integrationTest, range_call_back) {
-	BaseTestCallback BaseObj;
 	sensor_msgs::LaserScan msg;
 	
-	msg.ranges.resize(3);
-	msg.ranges[0] = 1.0;
-	msg.ranges[1] = 2.0;
-	msg.ranges[2] = 3.0;
-	
 	ros::Publisher pub = nh->advertise<sensor_msgs::LaserScan>("scan",100);
-	//ros::Subscriber sub = nh->subscribe("base/min_distance", 100, &BaseTestCallback::distanceCallback, &BaseObj);
 	ros::Subscriber sub = nh->subscribe("base/min_distance", 100, distanceCallback);
-	pub.publish(msg);
+	ros::Rate loop_rate(10);
 
-	ros::spinOnce();
-	//EXPECT_EQ(2,BaseObj.minimum);
-	EXPECT_EQ(2,min_dist);
+	int count = 0;
+	while (count < 30) {
+	    sensor_msgs::LaserScan msg;
+	  
+	    msg.ranges.resize(3);
+	    msg.ranges[0] = 5.0;
+	    msg.ranges[1] = 2.0;
+	    msg.ranges[2] = 3.0;   
+
+	    pub.publish(msg);
+
+		ros::spinOnce();
+	    loop_rate.sleep();
+	    ++count;
+  	}
+
+  	EXPECT_EQ(2,min_dist);
 }
 
 int main(int argc, char **argv) {

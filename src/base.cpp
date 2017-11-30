@@ -11,9 +11,9 @@
 int main(int argc, char **argv)
 {
   ros::init(argc, argv, "base");
-  cv::namedWindow("view");
-  cv::startWindowThread();
+ // cv::namedWindow("view");
+ // cv::startWindowThread();
   Base baseObj;
   ros::spin();
-  cv::destroyWindow("view");
+ // cv::destroyWindow("view");
 }

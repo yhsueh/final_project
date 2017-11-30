@@ -170,3 +170,6 @@ add_executable(base src/base.cpp src/Base.cpp)
 target_link_libraries(base ${catkin_LIBRARIES} ${OpenCV_LIBRARIES})
 add_dependencies(base ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
 
+add_executable(final_talker src/final_talker.cpp)
+target_link_libraries(final_talker ${catkin_LIBRARIES})
+add_dependencies(final_talker ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
