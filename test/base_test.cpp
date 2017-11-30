@@ -45,6 +45,11 @@ void distanceCallback(const std_msgs::Float32::ConstPtr& msg) {
 	min_dist = msg->data;
 }
 
+
+/**
+  * Sending fake laserscan measurment and subscribe to the base node and 
+  * see if the result is expected.
+  */
 TEST(integrationTest, range_call_back) {
 	sensor_msgs::LaserScan msg;
 	
