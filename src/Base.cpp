@@ -6,11 +6,13 @@
 #include <opencv2/imgproc/imgproc.hpp>
 #include <opencv2/highgui/highgui.hpp>
 #include "sensor_msgs/LaserScan.h"
+#include "std_msgs/Float32.h"
 
 Base::Base() {
   image_transport::ImageTransport it(nh);
-	imageSub = it.subscribe("camera/rgb/image_raw", 1, &Base::imageCallback, this);  
-  sub = nh.subscribe("scan", 1, &Base::rangeCallback, this);
+	imageSub = it.subscribe("camera/rgb/image_raw", 100, &Base::imageCallback, this);  
+  sub = nh.subscribe("scan", 100, &Base::rangeCallback, this);
+  pub = nh.advertise<std_msgs::Float32>("base/min_distance",100);
 }
 
 void Base::imageCallback(const sensor_msgs::ImageConstPtr& msg) {
@@ -33,6 +35,8 @@ void Base::rangeCallback(const sensor_msgs::LaserScan::ConstPtr& msg) {
       minimal = i;
     }
   }
-  minDistance = minimal;
+  std_msgs::Float32 distMsg;
+  distMsg.data = minimal;
+  pub.publish(distMsg);
   ROS_INFO("Minimal distance is: %f", minimal);
 }

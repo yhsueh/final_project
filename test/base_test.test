@@ -1,0 +1,4 @@
+<launch>
+	<node pkg="final_package" name="base" type="base" />
+	<test test-name="base_test" pkg="final_package" type="base_test" />
+</launch>

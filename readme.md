@@ -53,3 +53,7 @@ roslaunch final_package turtlebot_world.launch
 cd <catkin_ws>
 catkin_make run_tests_final_package_gtest_base_test
 ```
+2. Using rostest
+```
+catkin_make run_tests_final_package
+```

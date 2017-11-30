@@ -13,6 +13,7 @@ find_package(catkin REQUIRED COMPONENTS
   roscpp
   rostest
   sensor_msgs
+  std_msgs
   cv_bridge
   image_transport
 )
@@ -157,13 +158,14 @@ include_directories(
 #############
 
 
-#add_rostest_gtest(base_test
-#  test/base_test.test
-#  test/base_test.cpp
-#)
-#target_link_libraries(base_test ${catkin_LIBRARIES})
+add_rostest_gtest(base_test
+  test/base_test.test
+  test/base_test.cpp
+  src/BaseTestCallback.cpp
+)
+target_link_libraries(base_test ${catkin_LIBRARIES})
 
-catkin_add_gtest(base_test test/base_test)
+#catkin_add_gtest(base_test test/base_test)
 
 add_executable(base src/base.cpp src/Base.cpp)
 target_link_libraries(base ${catkin_LIBRARIES} ${OpenCV_LIBRARIES})
