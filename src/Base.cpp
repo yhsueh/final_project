@@ -1,4 +1,5 @@
 #include "Base.hpp"
+#include "ImageProcess.hpp"
 #include <ros/ros.h>
 #include <image_transport/image_transport.h>
 #include <cv_bridge/cv_bridge.h>
@@ -16,11 +17,17 @@ Base::Base() {
 }
 
 void Base::imageCallback(const sensor_msgs::ImageConstPtr& msg) {
+  ImageProcess imgProcess;
+  cv::Mat newImage;
 	try
 	{
-    	cv::imshow("view", cv_bridge::toCvShare(msg, "bgr8")->image);
-    	lastImage = cv_bridge::toCvShare(msg, "bgr8")->image;
-    	cv::waitKey(1);
+    	//cv::imshow("view", cv_bridge::toCvShare(msg, "bgr8")->image);
+    	imgProcess.loadImage(cv_bridge::toCvShare(msg, "bgr8")->image);
+      
+      newImage = imgProcess.getImage();
+      cv::imshow("view", newImage);
+
+    	cv::waitKey(5);
   	}
   	catch (cv_bridge::Exception& e)
   	{

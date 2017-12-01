@@ -166,6 +166,6 @@ target_link_libraries(base_test ${catkin_LIBRARIES})
 
 #catkin_add_gtest(base_test test/base_test)
 
-add_executable(base src/base.cpp src/Base.cpp)
+add_executable(base src/base.cpp src/Base.cpp src/ImageProcess.cpp)
 target_link_libraries(base ${catkin_LIBRARIES} ${OpenCV_LIBRARIES})
 add_dependencies(base ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})

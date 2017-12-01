@@ -12,13 +12,13 @@ class Base {
 		Base();
 		void imageCallback(const sensor_msgs::ImageConstPtr& msg);
 		void rangeCallback(const sensor_msgs::LaserScan::ConstPtr& msg);
-
+		//void computeCentroids()
 	private:
 		ros::NodeHandle nh;
 		ros::Subscriber sub;
 		ros::Publisher pub;
 		image_transport::Subscriber imageSub;
-		cv::Mat lastImage;
+		//cv::Mat lastImage;
 		//float minDistance;
 };
 
