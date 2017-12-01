@@ -6,6 +6,7 @@
 #include <opencv2/imgproc/imgproc.hpp>
 #include <opencv2/highgui/highgui.hpp>
 #include "sensor_msgs/LaserScan.h"
+#include "ImageProcess.hpp"
 
 class Base {
 	public:
@@ -18,6 +19,7 @@ class Base {
 		ros::Subscriber sub;
 		ros::Publisher pub;
 		image_transport::Subscriber imageSub;
+		ImageProcess imgProcess;
 		//cv::Mat lastImage;
 		//float minDistance;
 };

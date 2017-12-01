@@ -14,6 +14,14 @@ int main(int argc, char **argv)
   cv::namedWindow("view");
   cv::startWindowThread();
   Base baseObj;
-  ros::spin();
+
+  ros::Rate loop_rate(5);
+
+  while(ros::ok()) {
+
+  	ros::spinOnce();
+  	loop_rate.sleep();
+  }
+  
   cv::destroyWindow("view");
 }

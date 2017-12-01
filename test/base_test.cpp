@@ -29,6 +29,12 @@
 #include <gtest/gtest.h>
 #include "sensor_msgs/LaserScan.h"
 #include "std_msgs/Float32.h"
+#include "ImageProcess.hpp"
+#include <image_transport/image_transport.h>
+#include <opencv2/highgui/highgui.hpp>
+#include <cv_bridge/cv_bridge.h>
+#include <opencv2/core/core.hpp>
+#include <opencv2/opencv.hpp>
 #include <iostream>
 
 std::shared_ptr<ros::NodeHandle> nh;
@@ -74,6 +80,25 @@ TEST(integrationTest, range_call_back) {
   	}
 
   	EXPECT_EQ(2,min_dist);
+}
+
+TEST(integrationTest, image_call_back){
+	image_transport::ImageTransport it(nh);
+	image_transport::Publisher pub = it.advertise("camera/rgb/image_raw",1);
+	cv:: Mat image = cv::imread("/home/yuyuhsueh/catkin_ws/src/final_package",
+		CV_LOAD_IMAGE_COLOR);
+	cv::waitKey(0.1);
+	sensor_msgs::ImagePtr msg = cv_bridge::CvImage(std_msgs::Header(), "bgr8", image).toImageMsg();
+   
+     ros::Rate loop_rate(5);
+     int count = 0;
+     while (count < 20) {
+       pub.publish(msg);
+       ros::spinOnce();
+       loop_rate.sleep();
+       ++count;
+    }
+
 }
 
 int main(int argc, char **argv) {
