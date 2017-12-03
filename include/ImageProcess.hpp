@@ -5,23 +5,13 @@
 
 class ImageProcess {
 public:
-	ImageProcess() : detectFlag(false){}
+	ImageProcess() : detectFlag(false) {}
 	void loadImage(const cv::Mat&);
 	void detection();
 	const cv::Mat& getImage() {return lastImage;}
 	std::vector<cv::Vec3f>circles;
+	bool detectFlag;
 
 private:
 	cv::Mat lastImage;
-	bool detectFlag;
-	
-
-
-
-
-
-
-
-
-
 };

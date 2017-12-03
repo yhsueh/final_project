@@ -7,8 +7,6 @@
 #include <vector>
 
 
-ImageProcess::ImageProcess() {};
-
 void ImageProcess::loadImage (const cv::Mat& img) {
 	lastImage = img;
 }
@@ -21,17 +19,7 @@ void ImageProcess::detection() {
 	cv::erode(lastImage, lastImage, structure);
 	cv::HoughCircles(lastImage, circles, CV_HOUGH_GRADIENT, 2, lastImage.rows/16, 100, 30, 1, 300);
 
-	int count = 0;
-	/*
-	for (auto&i : circles) {
-		cv::Point center(cvRound(i[0]),cvRound(i[1]));
-		ROS_INFO("CircleCenter X:%d,Y:%d",center.x,center.y);
-		count+=1;
-	}
-	*/
-	if (count > 0) {
+	if (circles.size() > 0) {
 		detectFlag = true;
 	}
-
-
 }

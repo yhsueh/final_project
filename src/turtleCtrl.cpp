@@ -27,46 +27,8 @@
  *  laserReading node and pass the velocities message to the turtlebot.
  */
 
-#include <sstream>
-#include <iostream>
 #include "ros/ros.h"
-#include "geometry_msgs/Twist.h"
-#include "std_msgs/Bool.h"
 
-geometry_msgs::Twist msg; /**<The geometry msgs that would be sent to the mobile node */
-
-/**
- * Takes the msg from the laserReading node and decides the velocities of the turtlebot.
- */
-void motion_callback(const std_msgs::Bool& vel_msg) {
-
-  if (vel_msg.data) {
-    msg.linear.x = 0.5;
-    msg.linear.y = 0.0;
-    msg.linear.z = 0.0;
-
-    msg.angular.x = 0.0;
-    msg.angular.y = 0.0;
-    msg.angular.z = 0.0;
-  } else {
-    msg.linear.x = 0.0;
-    msg.linear.y = 0.0;
-    msg.linear.z = 0.0;
-
-    msg.angular.x = 0.0;
-    msg.angular.y = 0.0;
-    msg.angular.z = 0.5;
-  }
-}
-
-
-  ros::NodeHandle n;
-
-  ros::Publisher ctrl_pub = n.advertise < geometry_msgs::Twist
-      > ("/mobile_base/commands/velocity", 10);
-
-  ros::Subscriber sub = n.subscribe("base/disp", 10,
-                                    motion_callback);
 
 int main(int argc, char **argv)
 {

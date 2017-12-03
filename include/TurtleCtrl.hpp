@@ -2,17 +2,16 @@
 #include <ros/ros.h>
 #include "std_msgs/Int64.h"
 #include "geometry_msgs/Twist.h"
-#include <vector>
 
 class TurtleCtrl {
 public:
-
-
-
-
+	TurtleCtrl();
+	void dispCallback(const std_msgs::Int64& dispMsg);
 private:
-	Ros
-
-
-
+	ros::NodeHandle nh;
+	ros::Publisher velPub;
+	ros::Subscriber dispSub;
 };
+
+
+

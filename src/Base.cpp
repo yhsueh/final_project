@@ -14,6 +14,7 @@
 Base::Base() {
   centerline = 640/2;
   buffer = 5;
+  lDisp = 10000;
   image_transport::ImageTransport it(nh);
 	imageSub = it.subscribe("camera/rgb/image_raw", 10, &Base::imageCallback, this);  
   rngSub = nh.subscribe("scan", 10, &Base::rangeCallback, this);
@@ -24,30 +25,41 @@ Base::Base() {
 
 void Base::imageCallback(const sensor_msgs::ImageConstPtr& msg) {
   //cv::Mat newImage;
-	int displacement;
+	int disp;
   try
-	{  
-    	//cv::imshow("view", cv_bridge::toCvShare(msg, "bgr8")->image);
-    	//newImage = cv_bridge::toCvShare(msg, "bgr8")->image;
-      
+	{        
       imgProcess.loadImage(cv_bridge::toCvShare(msg, "bgr8")->image);
       imgProcess.detection();
-      //newImage = ;
-      //ROS_INFO("CircleSize:%zu", imgProcess.circles.size());
-      
+
+      /*Flag detected*/
+
+      ROS_INFO("FLAG:%d",imgProcess.detectFlag);
+
       if (imgProcess.detectFlag) {
-        //PID PIDObj;
         for (auto &i : imgProcess.circles) {
-          //cv::Point center(cvRound(i[0]),cvRound(i[1]));
-          displacement = cvRound(i[0]) - centerline;
-          break;
+          disp = cvRound(i[0]) - centerline;
+          
+          /*Tracking*/
+          if (std::abs(disp-lDisp) < 50 || lDisp == 10000) { 
+            break;
+          }
         }
 
-        std_msgs::Int64 dispMsg;
-        dispMsg.data = displacement;
-        cmdPub.publish(dispMsg);
-        ROS_INFO("Displacement is: %d", displacement);
+        ROS_INFO("Displacment is:%d LDisp is :%d", disp, lDisp);
+
+        if (std::abs(disp-lDisp) < 50 || lDisp == 10000) {
+          std_msgs::Int64 dispMsg;
+          dispMsg.data = disp;
+          cmdPub.publish(dispMsg);
+
+          //ROS_INFO("Displacement is: %d", disp);
+          lDisp = disp;
+        }
+        else {
+          ROS_ERROR("Tracked object is missing");
+        }
       }
+      
 
 //      cv::imshow("view", imgProcess.getImage());
 //    	cv::waitKey(1);
