@@ -12,22 +12,23 @@
 Base::Base() {
   image_transport::ImageTransport it(nh);
 	imageSub = it.subscribe("camera/rgb/image_raw", 1000, &Base::imageCallback, this);  
-  sub = nh.subscribe("scan", 1000, &Base::rangeCallback, this);
-  pub = nh.advertise<std_msgs::Float32>("base/min_distance",1000);
+  rngSub = nh.subscribe("scan", 1000, &Base::rangeCallback, this);
+  rngPub = nh.advertise<std_msgs::Float32>("base/min_distance",1000);
 }
 
 void Base::imageCallback(const sensor_msgs::ImageConstPtr& msg) {
-  cv::Mat newImage;
+  //cv::Mat newImage;
 	try
 	{  
-    	cv::imshow("view", cv_bridge::toCvShare(msg, "bgr8")->image);
+    	//cv::imshow("view", cv_bridge::toCvShare(msg, "bgr8")->image);
     	//newImage = cv_bridge::toCvShare(msg, "bgr8")->image;
-      /*
+      
       imgProcess.loadImage(cv_bridge::toCvShare(msg, "bgr8")->image);
       imgProcess.detection();
-      newImage = imgProcess.getImage();
-      cv::imshow("view", newImage);
-*/
+      //newImage = ;
+      //ROS_INFO("CircleSize:%zu", imgProcess.circles.size());
+      cv::imshow("view", imgProcess.getImage());
+
     	cv::waitKey(1);
   	}
   	catch (cv_bridge::Exception& e)
@@ -45,6 +46,6 @@ void Base::rangeCallback(const sensor_msgs::LaserScan::ConstPtr& msg) {
   }
   std_msgs::Float32 distMsg;
   distMsg.data = minimal;
-  pub.publish(distMsg);
+  rngPub.publish(distMsg);
   ROS_INFO("Minimal distance is: %f", minimal);
 }

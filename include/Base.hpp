@@ -16,8 +16,8 @@ class Base {
 		//void computeCentroids()
 	private:
 		ros::NodeHandle nh;
-		ros::Subscriber sub;
-		ros::Publisher pub;
+		ros::Subscriber rngSub;
+		ros::Publisher rngPub;
 		image_transport::Subscriber imageSub;
 		ImageProcess imgProcess;
 		//cv::Mat lastImage;

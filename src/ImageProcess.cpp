@@ -1,6 +1,11 @@
 #include "ImageProcess.hpp"
+#include <ros/ros.h>
 #include <opencv2/core/core.hpp>
 #include <opencv2/opencv.hpp>
+#include "opencv2/highgui/highgui.hpp"
+#include "opencv2/imgproc/imgproc.hpp"
+#include <vector>
+#include <iostream>
 
 ImageProcess::ImageProcess() {};
 
@@ -12,11 +17,19 @@ void ImageProcess::loadImage (const cv::Mat& img) {
 
 
 void ImageProcess::detection() {
-	cv::Mat lastImageHSV;
-	cv::Mat HSVchannels[3];
-	cv::Mat mask;
-	cv::cvtColor(lastImage, lastImageHSV, CV_BGR2HSV);
-	//cv::split(lastImageHSV,HSVchannels);
-	cv::inRange(lastImageHSV, cv::Scalar(0,0,86.3), cv::Scalar(0,0,41.2), mask);
-    lastImage = mask;
+	cv::Mat structure = cv::getStructuringElement(1,cv::Size(7,7));
+	cv::cvtColor(lastImage, lastImage, CV_BGR2HSV);
+	cv::inRange(lastImage, cv::Scalar(0,70,0), cv::Scalar(0,255,255), lastImage);
+	cv::erode(lastImage, lastImage, structure);
+	cv::HoughCircles(lastImage, circles, CV_HOUGH_GRADIENT, 2, lastImage.rows/16, 100, 30, 1, 300);
+
+	ROS_INFO("CircleSize:%zu", circles.size());
+
+	/*
+	int count = 0;
+	for (auto&i : circles) {
+		cv::Point center(cvRound(i[1]),cvRound(i[2]));
+		count+=1;
+	}
+	*/
 }
