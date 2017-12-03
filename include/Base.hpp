@@ -18,8 +18,11 @@ class Base {
 		ros::NodeHandle nh;
 		ros::Subscriber rngSub;
 		ros::Publisher rngPub;
+		ros::Publisher cmdPub;
 		image_transport::Subscriber imageSub;
 		ImageProcess imgProcess;
+		const int centerline;
+		const int buffer;
 		//cv::Mat lastImage;
 		//float minDistance;
 };

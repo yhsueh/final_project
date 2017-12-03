@@ -15,7 +15,7 @@ int main(int argc, char **argv)
   cv::startWindowThread();
   Base baseObj;
 
-  ros::Rate loop_rate(5);
+  ros::Rate loop_rate(5); //5 Htz
 
   while(ros::ok()) {
 

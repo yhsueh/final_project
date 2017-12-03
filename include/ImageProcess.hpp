@@ -5,7 +5,7 @@
 
 class ImageProcess {
 public:
-	ImageProcess();
+	ImageProcess() : detectFlag(false){}
 	void loadImage(const cv::Mat&);
 	void detection();
 	const cv::Mat& getImage() {return lastImage;}
@@ -13,6 +13,8 @@ public:
 
 private:
 	cv::Mat lastImage;
+	bool detectFlag;
+	
 
 
 

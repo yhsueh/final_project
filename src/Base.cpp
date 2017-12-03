@@ -8,17 +8,24 @@
 #include <opencv2/highgui/highgui.hpp>
 #include "sensor_msgs/LaserScan.h"
 #include "std_msgs/Float32.h"
+#include "std_msgs/Int64.h"
+#include <stdlib.h>  
 
 Base::Base() {
+  centerline = 640/2;
+  buffer = 5;
   image_transport::ImageTransport it(nh);
-	imageSub = it.subscribe("camera/rgb/image_raw", 1000, &Base::imageCallback, this);  
-  rngSub = nh.subscribe("scan", 1000, &Base::rangeCallback, this);
-  rngPub = nh.advertise<std_msgs::Float32>("base/min_distance",1000);
+	imageSub = it.subscribe("camera/rgb/image_raw", 10, &Base::imageCallback, this);  
+  rngSub = nh.subscribe("scan", 10, &Base::rangeCallback, this);
+  rngPub = nh.advertise<std_msgs::Float32>("base/min_distance",10);
+  cmdPub = nh.advertise<std_msgs::Int64>("base/disp",10);
+
 }
 
 void Base::imageCallback(const sensor_msgs::ImageConstPtr& msg) {
   //cv::Mat newImage;
-	try
+	int displacement;
+  try
 	{  
     	//cv::imshow("view", cv_bridge::toCvShare(msg, "bgr8")->image);
     	//newImage = cv_bridge::toCvShare(msg, "bgr8")->image;
@@ -27,9 +34,23 @@ void Base::imageCallback(const sensor_msgs::ImageConstPtr& msg) {
       imgProcess.detection();
       //newImage = ;
       //ROS_INFO("CircleSize:%zu", imgProcess.circles.size());
-      cv::imshow("view", imgProcess.getImage());
+      
+      if (imgProcess.detectFlag) {
+        //PID PIDObj;
+        for (auto &i : imgProcess.circles) {
+          //cv::Point center(cvRound(i[0]),cvRound(i[1]));
+          displacement = cvRound(i[0]) - centerline;
+          break;
+        }
 
-    	cv::waitKey(1);
+        std_msgs::Int64 dispMsg;
+        dispMsg.data = displacement;
+        cmdPub.publish(dispMsg);
+        ROS_INFO("Displacement is: %d", displacement);
+      }
+
+//      cv::imshow("view", imgProcess.getImage());
+//    	cv::waitKey(1);
   	}
   	catch (cv_bridge::Exception& e)
   	{

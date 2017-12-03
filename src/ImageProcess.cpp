@@ -5,14 +5,12 @@
 #include "opencv2/highgui/highgui.hpp"
 #include "opencv2/imgproc/imgproc.hpp"
 #include <vector>
-#include <iostream>
+
 
 ImageProcess::ImageProcess() {};
 
 void ImageProcess::loadImage (const cv::Mat& img) {
 	lastImage = img;
-	//cv::fastNlMeansDenoisingColored(lastImage, lastImage);
-	//cv::cvtColor(lastImage, lastImage, )
 }
 
 
@@ -23,13 +21,17 @@ void ImageProcess::detection() {
 	cv::erode(lastImage, lastImage, structure);
 	cv::HoughCircles(lastImage, circles, CV_HOUGH_GRADIENT, 2, lastImage.rows/16, 100, 30, 1, 300);
 
-	ROS_INFO("CircleSize:%zu", circles.size());
-
-	/*
 	int count = 0;
+	/*
 	for (auto&i : circles) {
-		cv::Point center(cvRound(i[1]),cvRound(i[2]));
+		cv::Point center(cvRound(i[0]),cvRound(i[1]));
+		ROS_INFO("CircleCenter X:%d,Y:%d",center.x,center.y);
 		count+=1;
 	}
 	*/
+	if (count > 0) {
+		detectFlag = true;
+	}
+
+
 }
