@@ -1,12 +1,16 @@
 #include <ros/ros.h>
 #include <stdlib.h>
 #include "std_msgs/Int64.h"
+#include "sensor_msgs/LaserScan.h"
+#include "std_msgs/Float32.h"
 #include "geometry_msgs/Twist.h"
 #include "TurtleCtrl.hpp"
 
 TurtleCtrl::TurtleCtrl() {
 	dispSub = nh.subscribe("base/disp",10, &TurtleCtrl::dispCallback, this);
 	velPub = nh.advertise<geometry_msgs::Twist>("/mobile_base/commands/velocity", 10);
+	rngSub = nh.subscribe("scan", 10, &TurtleCtrl::rangeCallback, this);
+    rngPub = nh.advertise<std_msgs::Float32>("base/min_distance",10);
 	kp = 0.001;
 	velMax = 0.3;
 }
@@ -14,6 +18,8 @@ TurtleCtrl::TurtleCtrl() {
 void TurtleCtrl::dispCallback( const std_msgs::Int64& dispMsg) {
 	geometry_msgs::Twist msg;
 	int disp = dispMsg.data;
+
+	ROS_INFO("DISP:%d",disp);
 
 	msg.linear.x = 0.0;
     msg.linear.y = 0.0;
@@ -43,4 +49,17 @@ void TurtleCtrl::dispCallback( const std_msgs::Int64& dispMsg) {
 		}
 	}
 	velPub.publish(msg);
+}
+
+void TurtleCtrl::rangeCallback(const sensor_msgs::LaserScan::ConstPtr& msg) {
+  float minimal = 10;
+  for (auto &i : msg->ranges) {
+    if (i < minimal) {
+      minimal = i;
+    }
+  }
+  std_msgs::Float32 distMsg;
+  distMsg.data = minimal;
+  rngPub.publish(distMsg);
+  ROS_INFO("Minimal distance is: %f", minimal);
 }
