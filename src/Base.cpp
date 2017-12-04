@@ -11,7 +11,6 @@
 
 Base::Base() {
   centerline = 640/2;
-  buffer = 5;
   lDisp = 10000;
   image_transport::ImageTransport it(nh);
 	imageSub = it.subscribe("camera/rgb/image_raw", 10, &Base::imageCallback, this);  

@@ -18,8 +18,7 @@ class Base {
 		ros::Publisher cmdPub;
 		image_transport::Subscriber imageSub;
 		ImageProcess imgProcess;
-	    int centerline;
-		int buffer;
+		float centerline;
 		int lDisp;
 		//cv::Mat lastImage;
 		//float minDistance;
