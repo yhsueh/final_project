@@ -11,6 +11,9 @@ private:
 	ros::NodeHandle nh;
 	ros::Publisher velPub;
 	ros::Subscriber dispSub;
+	float velMax;
+	float kp;
+	float odometry;
 };
 
 

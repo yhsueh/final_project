@@ -169,3 +169,7 @@ target_link_libraries(base_test ${catkin_LIBRARIES})
 add_executable(base src/base.cpp src/Base.cpp src/ImageProcess.cpp)
 target_link_libraries(base ${catkin_LIBRARIES} ${OpenCV_LIBRARIES})
 add_dependencies(base ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
+
+add_executable(turtleCtrller src/turtleCtrl.cpp src/TurtleCtrl.cpp)
+target_link_libraries(turtleCtrller ${catkin_LIBRARIES} ${OpenCV_LIBRARIES})
+add_dependencies(base ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})

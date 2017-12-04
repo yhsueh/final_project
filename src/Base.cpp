@@ -26,6 +26,7 @@ Base::Base() {
 void Base::imageCallback(const sensor_msgs::ImageConstPtr& msg) {
   //cv::Mat newImage;
 	int disp;
+  std_msgs::Int64 dispMsg;
   try
 	{        
       imgProcess.loadImage(cv_bridge::toCvShare(msg, "bgr8")->image);
@@ -47,22 +48,21 @@ void Base::imageCallback(const sensor_msgs::ImageConstPtr& msg) {
 
         ROS_INFO("Displacment is:%d LDisp is :%d", disp, lDisp);
 
-        if (std::abs(disp-lDisp) < 50 || lDisp == 10000) {
-          std_msgs::Int64 dispMsg;
-          dispMsg.data = disp;
-          cmdPub.publish(dispMsg);
+        dispMsg.data = disp;
+        cmdPub.publish(dispMsg);
 
-          //ROS_INFO("Displacement is: %d", disp);
-          lDisp = disp;
-        }
-        else {
-          ROS_ERROR("Tracked object is missing");
-        }
+        if (std::abs(disp-lDisp) > 50)
+          ROS_INFO("Tracked object is missing, tracking new object");
+        
+        lDisp = disp;
+      }
+      else {
+        dispMsg.data = 10000;
       }
       
 
-//      cv::imshow("view", imgProcess.getImage());
-//    	cv::waitKey(1);
+      cv::imshow("view", imgProcess.getImage());
+    	cv::waitKey(1);
   	}
   	catch (cv_bridge::Exception& e)
   	{

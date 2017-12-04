@@ -28,14 +28,15 @@
  */
 
 #include "ros/ros.h"
+#include "TurtleCtrl.hpp"
 
 
 int main(int argc, char **argv)
 {
-  ros::init(argc, argv, "turtleCtrl");
+  ros::init(argc, argv, "turtleCtrller");
   TurtleCtrl turtleCtrlObj;
 
-  ros::Rate loop_rate(5); //5 Htz
+  ros::Rate loop_rate(10); //5 Htz
 
   while(ros::ok()) {
 
