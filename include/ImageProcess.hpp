@@ -10,8 +10,12 @@ public:
 	void detection();
 	const cv::Mat& getImage() {return lastImage;}
 	std::vector<cv::Vec3f>circles;
+	int getColor() {return color;}
 	bool detectFlag;
+	bool clean;
+
 
 private:
 	cv::Mat lastImage;
+	int color;
 };

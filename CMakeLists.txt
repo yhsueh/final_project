@@ -83,6 +83,8 @@ include_directories(
   include
   ${catkin_INCLUDE_DIRS}
   ${OpenCV_INCLUDE_DIRS}
+  ${GAZEBO_INCLUDE_DIRS}
+  ${GAZEBO_MSG_INCLUDE_DIRS}
 )
 
 ## Declare a C++ library
@@ -171,5 +173,5 @@ target_link_libraries(base ${catkin_LIBRARIES} ${OpenCV_LIBRARIES})
 add_dependencies(base ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
 
 add_executable(turtleCtrller src/turtleCtrl.cpp src/TurtleCtrl.cpp)
-target_link_libraries(turtleCtrller ${catkin_LIBRARIES} ${OpenCV_LIBRARIES})
+target_link_libraries(turtleCtrller ${catkin_LIBRARIES} ${OpenCV_LIBRARIES} ${GAZEBO_LIBRARIES})
 add_dependencies(base ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})

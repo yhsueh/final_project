@@ -12,12 +12,14 @@ public:
 private:
 	ros::NodeHandle nh;
 	ros::Subscriber rngSub;
-	ros::Publisher rngPub;
 	ros::Publisher velPub;
 	ros::Subscriber dispSub;
+	ros::ServiceClient colorClient;
 	float velMax;
 	float kp;
 	float odometry;
+	float lMinimal;
+	int color;
 };
 
 
