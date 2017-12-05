@@ -24,7 +24,7 @@ bool TurtleCtrl::colorChangeSrv(final_package::ColorChange::Request &req,
 				final_package::ColorChange::Response &resp) {
 	color = req.input;
 	bool completeFlag = false;
-	completeFlag = cmdVel();
+	completeFlag = this->cmdVel();
 	resp.output = completeFlag;
 	return true;	
 }
