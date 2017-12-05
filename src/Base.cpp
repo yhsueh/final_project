@@ -1,6 +1,9 @@
 #include "Base.hpp"
 #include "ImageProcess.hpp"
 #include <ros/ros.h>
+#include <ros/advertise_service_options.h>
+#include <ros/spinner.h>
+#include <ros/callback_queue.h>
 #include <image_transport/image_transport.h>
 #include <cv_bridge/cv_bridge.h>
 #include <sensor_msgs/image_encodings.h>
@@ -11,17 +14,19 @@
 #include "final_package/ColorChange.h"
 
 Base::Base() {
+  nh2.setCallbackQueue(&queue);
+  image_transport::ImageTransport it(nh);
+	imageSub = it.subscribe("camera/rgb/image_raw", 10, &Base::imageCallback, this);  
+  cmdPub = nh.advertise<std_msgs::Int64>("base/disp",10);  
+  colorChangeCli_ = nh2.serviceClient<final_package::ColorChange>("color_change");
   centerline = 640/2;
   lDisp = 10000;
   color = 1;
-  image_transport::ImageTransport it(nh);
-	imageSub = it.subscribe("camera/rgb/image_raw", 10, &Base::imageCallback, this);  
-  cmdPub = nh.advertise<std_msgs::Int64>("base/disp",10);
-  colorChangeCli_ = nh.serviceClient<final_package::ColorChange>("color_change");
 }
 
 void Base::imageCallback(const sensor_msgs::ImageConstPtr& msg) {
   //cv::Mat newImage;
+  ROS_INFO("ImageCallback");
 	int disp;
   std_msgs::Int64 dispMsg;
   try

@@ -19,16 +19,11 @@ TurtleCtrl::TurtleCtrl() {
 	deleteClient = nh.serviceClient <gazebo_msgs::DeleteModel>("gazebo/delete_model");
 	nh2.setCallbackQueue(&color_queue);
 	colorChangeSrv_ = nh2.advertiseService("color_change",&TurtleCtrl::colorCallback,this);
-	/*
-	ops = ros::AdvertiseServiceOptions::create<final_package::ColorChange>(
-		"color_change", this->colorChangeSrv, ros::VoidPtr(), &color_queue);
-	asynServer = nh.advertiseService(ops);
-	*/
-
 	kp = 0.001;
 	velMax = 0.3;
 	lMinimal = 10;
-	color = 1;
+	color = 0;
+	completeFlag = false;
 	ROS_INFO("INITIZLIATION");
 }
 
@@ -36,9 +31,9 @@ bool TurtleCtrl::colorCallback(final_package::ColorChange::Request &req,
 				final_package::ColorChange::Response &resp) {
 	color = req.input;
 	ROS_INFO("Color input from Base:%d",color);
-	bool completeFlag = false;
-	//completeFlag = this->cmdVel();
-	std::getchar();
+	while(!completeFlag){
+		ROS_INFO("INHERE");
+	}
 	resp.output = completeFlag;
 	return true;	
 }
@@ -82,6 +77,8 @@ bool TurtleCtrl::cmdVel() {
 			 //Calling rosmodel delete service 
 			gazebo_msgs::DeleteModel srv;
 			switch(color) {
+			case 0:
+				ROS_ERROR("Something wrong with the call service.");
 			case 1:
 				srv.request.model_name = "RedBall";
 				deleteClient.call(srv);		
@@ -101,24 +98,22 @@ bool TurtleCtrl::cmdVel() {
 		}
 	}
 	velPub.publish(msg);
+	ROS_INFO("DeletFlag:%d",deleteFlag);
 	return deleteFlag;
 }
 
 void TurtleCtrl::dispCallback( const std_msgs::Int64& dispMsg) {	
 	disp = dispMsg.data;
-	ROS_INFO("ROSDISPCALLBACK");
-	//**TEST THIS FIRST
-	//this->cmdVel();
+	completeFlag = this->cmdVel();
 }
 
 void TurtleCtrl::rangeCallback(const sensor_msgs::LaserScan::ConstPtr& msg) {
   float minimal = 10;
-  ROS_INFO("RANGE");
   for (auto &i : msg->ranges) {
     if (i < minimal) {
       minimal = i;
     }
   }
+  ROS_INFO("MINIMAL");
   lMinimal = minimal;
-  ROS_INFO("Minimal distance is: %f", minimal);
 }

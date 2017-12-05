@@ -26,14 +26,13 @@ private:
 	ros::Subscriber dispSub;
 	ros::ServiceClient deleteClient;
 	ros::ServiceServer colorChangeSrv_;
-    //ros::AdvertiseServiceOptions ops;
-	//ros::ServiceServer asynServer;
 	float velMax;
 	float kp;
 	float odometry;
 	float lMinimal;
 	int color;
 	int disp;
+	bool completeFlag;
 };
 
 

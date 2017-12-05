@@ -37,7 +37,7 @@ int main(int argc, char **argv)
 {
   ros::init(argc, argv, "turtleCtrller");
   TurtleCtrl turtleCtrlObj;
-  ros::AsyncSpinner async_spinner(1, &turtleCtrlObj.color_queue);
+  ros::AsyncSpinner async_spinner(2, &turtleCtrlObj.color_queue);
   async_spinner.start();
   ros::Rate loop_rate(10); //5 Htz
 
