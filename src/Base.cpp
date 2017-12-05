@@ -12,6 +12,7 @@
 Base::Base() {
   centerline = 640/2;
   lDisp = 10000;
+  color = 1;
   image_transport::ImageTransport it(nh);
 	imageSub = it.subscribe("camera/rgb/image_raw", 10, &Base::imageCallback, this);  
   cmdPub = nh.advertise<std_msgs::Int64>("base/disp",10);
@@ -50,7 +51,7 @@ void Base::imageCallback(const sensor_msgs::ImageConstPtr& msg) {
         lDisp = disp;
       }
       else {
-        dispMsg.data = 10000;
+        disp = 10000;
       }
 
       dispMsg.data = disp;

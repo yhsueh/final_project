@@ -9,6 +9,7 @@ public:
 	TurtleCtrl();
 	void dispCallback(const std_msgs::Int64& dispMsg);
 	void rangeCallback(const sensor_msgs::LaserScan::ConstPtr& msg);
+	bool cmdVel();
 private:
 	ros::NodeHandle nh;
 	ros::Subscriber rngSub;
@@ -20,6 +21,7 @@ private:
 	float odometry;
 	float lMinimal;
 	int color;
+	int disp;
 };
 
 

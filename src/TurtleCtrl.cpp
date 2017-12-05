@@ -6,6 +6,7 @@
 #include "geometry_msgs/Twist.h"
 #include "TurtleCtrl.hpp"
 #include "gazebo_msgs/DeleteModel.h"
+#include "final_package/ColorChange.h"
 
 TurtleCtrl::TurtleCtrl() {
 	dispSub = nh.subscribe("base/disp",10, &TurtleCtrl::dispCallback, this);
@@ -18,10 +19,8 @@ TurtleCtrl::TurtleCtrl() {
 	color = 1;
 }
 
-void TurtleCtrl::dispCallback( const std_msgs::Int64& dispMsg) {
+bool TurtleCtrl::cmdVel() {
 	geometry_msgs::Twist msg;
-	int disp = dispMsg.data;
-
 	ROS_INFO("DISP:%d",disp);
 
 	msg.linear.x = 0.0;
@@ -32,13 +31,12 @@ void TurtleCtrl::dispCallback( const std_msgs::Int64& dispMsg) {
     msg.angular.y = 0.0;
     msg.angular.z = 0.0;
 
-
 	if (disp == 10000) {
 		msg.angular.z = 0.3;
 		// Add something to track the robot 
 	} 
 	else {
-		if (lMinimal > 0.8) {
+		if (lMinimal > 0.6) {
 			if (abs(disp) < 25) {
 				msg.linear.x = 0.2;
 			}
@@ -62,19 +60,24 @@ void TurtleCtrl::dispCallback( const std_msgs::Int64& dispMsg) {
 			case 1:
 				srv.request.model_name = "RedBall";
 				colorClient.call(srv);
-				//cv::inRange(lastImage, cv::Scalar(0,70,0), cv::Scalar(0,255,255), lastImage); //R
 				break;
 			case 2:
-				//cv::inRange(lastImage, cv::Scalar(50,90,0), cv::Scalar(70,255,255), lastImage) //G
+				srv.request.model_name = "GreenBall";
+				colorClient.call(srv);
 				break;
 			case 3:
-				//cv::inRange(lastImage, cv::Scalar(120,50,0), cv::Scalar(120,255,255), lastImage);//B
+				srv.request.model_name = "BlueBall";
+				colorClient.call(srv);
 				break;
 			}
 		}
-
 	}
 	velPub.publish(msg);
+}
+
+void TurtleCtrl::dispCallback( const std_msgs::Int64& dispMsg) {	
+	disp = dispMsg.data;
+	this->cmdVel();
 }
 
 void TurtleCtrl::rangeCallback(const sensor_msgs::LaserScan::ConstPtr& msg) {

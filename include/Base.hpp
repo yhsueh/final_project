@@ -20,6 +20,7 @@ class Base {
 		ImageProcess imgProcess;
 		float centerline;
 		int lDisp;
+		int color;
 		//cv::Mat lastImage;
 		//float minDistance;
 };

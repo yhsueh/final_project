@@ -53,8 +53,12 @@ find_package(OpenCV REQUIRED)
 ##   * uncomment the generate_messages entry below
 ##   * add every package in MSG_DEP_SET to generate_messages(DEPENDENCIES ...)
 
+add_service_files(
+  FILES
+  ColorChange.srv
+)
 
-
+generate_messages(DEPENDENCIES std_msgs)
 
 
 ###################################
