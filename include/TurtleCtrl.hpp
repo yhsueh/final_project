@@ -20,7 +20,7 @@ private:
 	ros::Publisher velPub;
 	ros::Subscriber dispSub;
 	ros::ServiceClient deleteClient;
-	ros::ServiceServer colorChangeServ;
+	ros::ServiceServer colorChangeSrv_;
 	float velMax;
 	float kp;
 	float odometry;

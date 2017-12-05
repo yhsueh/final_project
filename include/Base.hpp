@@ -11,7 +11,8 @@ class Base {
 	public:
 		Base();
 		void imageCallback(const sensor_msgs::ImageConstPtr& msg);
-		
+		ros::ServiceClient colorChangeSrv_;
+		int color;
 		//void computeCentroids()
 	private:
 		ros::NodeHandle nh;		
@@ -20,8 +21,5 @@ class Base {
 		ImageProcess imgProcess;
 		float centerline;
 		int lDisp;
-		int color;
-		//cv::Mat lastImage;
-		//float minDistance;
 };
 

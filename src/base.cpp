@@ -6,6 +6,7 @@
 #include <opencv2/imgproc/imgproc.hpp>
 #include <opencv2/highgui/highgui.hpp>
 #include "sensor_msgs/LaserScan.h"
+#include "final_package/ColorChange.h"
 
 
 int main(int argc, char **argv)
@@ -13,11 +14,25 @@ int main(int argc, char **argv)
   ros::init(argc, argv, "base");
   cv::namedWindow("view");
   cv::startWindowThread();
+  final_package::ColorChange srv;
   Base baseObj;
+  bool colorChangeFlag;
+  srv.request.input = baseObj.color;
+  colorChangeFlag = baseObj.colorChangeSrv_.call(srv);
 
   ros::Rate loop_rate(5); //5 Htz
 
   while(ros::ok()) {
+    colorChangeFlag = false;
+    srv.request.input = baseObj.color;
+
+    if (srv.response.output) {
+      baseObj.color += 1;
+      if (baseObj.color > 3) {
+        ROS_INFO("Nothing is left");
+        ros::shutdown();
+      }
+    }    
 
   	ros::spinOnce();
   	loop_rate.sleep();

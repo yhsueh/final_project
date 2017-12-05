@@ -13,7 +13,7 @@ TurtleCtrl::TurtleCtrl() {
 	velPub = nh.advertise<geometry_msgs::Twist>("/mobile_base/commands/velocity", 10);
 	rngSub = nh.subscribe("scan", 10, &TurtleCtrl::rangeCallback, this);
 	deleteClient = nh.serviceClient <gazebo_msgs::DeleteModel>("gazebo/delete_model");
-	colorChangeServ = nh.advertiseService("color_change",&TurtleCtrol::colorChangeSrv,this);
+	colorChangeSrv_ = nh.advertiseService("color_change",&TurtleCtrl::colorChangeSrv,this);
 	kp = 0.001;
 	velMax = 0.3;
 	lMinimal = 10;

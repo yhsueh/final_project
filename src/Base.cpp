@@ -7,7 +7,8 @@
 #include <opencv2/imgproc/imgproc.hpp>
 #include <opencv2/highgui/highgui.hpp>
 #include "std_msgs/Int64.h"
-#include <stdlib.h>  
+#include <stdlib.h>
+#include "final_package/ColorChange.h"
 
 Base::Base() {
   centerline = 640/2;
@@ -16,7 +17,7 @@ Base::Base() {
   image_transport::ImageTransport it(nh);
 	imageSub = it.subscribe("camera/rgb/image_raw", 10, &Base::imageCallback, this);  
   cmdPub = nh.advertise<std_msgs::Int64>("base/disp",10);
-
+  colorChangeSrv_ = nh.serviceClient<final_package::ColorChange>("color_change");
 }
 
 void Base::imageCallback(const sensor_msgs::ImageConstPtr& msg) {
