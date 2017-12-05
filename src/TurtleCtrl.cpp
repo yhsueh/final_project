@@ -12,14 +12,25 @@ TurtleCtrl::TurtleCtrl() {
 	dispSub = nh.subscribe("base/disp",10, &TurtleCtrl::dispCallback, this);
 	velPub = nh.advertise<geometry_msgs::Twist>("/mobile_base/commands/velocity", 10);
 	rngSub = nh.subscribe("scan", 10, &TurtleCtrl::rangeCallback, this);
-	colorClient = nh.serviceClient <gazebo_msgs::DeleteModel>("gazebo/delete_model");
+	deleteClient = nh.serviceClient <gazebo_msgs::DeleteModel>("gazebo/delete_model");
+	colorChangeServ = nh.advertiseService("color_change",&TurtleCtrol::colorChangeSrv,this);
 	kp = 0.001;
 	velMax = 0.3;
 	lMinimal = 10;
 	color = 1;
 }
 
+bool TurtleCtrl::colorChangeSrv(final_package::ColorChange::Request &req,
+				final_package::ColorChange::Response &resp) {
+	color = req.input;
+	bool completeFlag = false;
+	completeFlag = cmdVel();
+	resp.output = completeFlag;
+	return true;	
+}
+
 bool TurtleCtrl::cmdVel() {
+	bool deleteFlag = false;
 	geometry_msgs::Twist msg;
 	ROS_INFO("DISP:%d",disp);
 
@@ -59,25 +70,30 @@ bool TurtleCtrl::cmdVel() {
 			switch(color) {
 			case 1:
 				srv.request.model_name = "RedBall";
-				colorClient.call(srv);
+				deleteClient.call(srv);		
+				deleteFlag = true;
 				break;
 			case 2:
 				srv.request.model_name = "GreenBall";
-				colorClient.call(srv);
+				deleteClient.call(srv);
+				deleteFlag = true;
 				break;
 			case 3:
 				srv.request.model_name = "BlueBall";
-				colorClient.call(srv);
+				deleteClient.call(srv);
+				deleteFlag = true;
 				break;
 			}
 		}
 	}
 	velPub.publish(msg);
+	return deleteFlag;
 }
 
 void TurtleCtrl::dispCallback( const std_msgs::Int64& dispMsg) {	
 	disp = dispMsg.data;
-	this->cmdVel();
+	//**TEST THIS FIRST
+	//this->cmdVel();
 }
 
 void TurtleCtrl::rangeCallback(const sensor_msgs::LaserScan::ConstPtr& msg) {
