@@ -11,7 +11,7 @@ class Base {
 	public:
 		Base();
 		void imageCallback(const sensor_msgs::ImageConstPtr& msg);
-		ros::ServiceClient colorChangeSrv_;
+		ros::ServiceClient colorChangeCli_;
 		int color;
 		//void computeCentroids()
 	private:

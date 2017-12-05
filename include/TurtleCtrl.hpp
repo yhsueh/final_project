@@ -1,5 +1,8 @@
 #pragma once
 #include <ros/ros.h>
+#include <ros/spinner.h>
+#include <ros/callback_queue.h>
+#include <ros/advertise_service_options.h>
 #include "std_msgs/Int64.h"
 #include "geometry_msgs/Twist.h"
 #include "sensor_msgs/LaserScan.h"
@@ -12,15 +15,19 @@ public:
 	void rangeCallback(const sensor_msgs::LaserScan::ConstPtr& msg);
 	bool srvCallback();
 	bool cmdVel();
-	bool colorChangeSrv(final_package::ColorChange::Request &req,
+	bool colorCallback(final_package::ColorChange::Request &req,
 				final_package::ColorChange::Response &resp);
+	ros::CallbackQueue color_queue;
 private:
 	ros::NodeHandle nh;
+	ros::NodeHandle nh2;
 	ros::Subscriber rngSub;
 	ros::Publisher velPub;
 	ros::Subscriber dispSub;
 	ros::ServiceClient deleteClient;
 	ros::ServiceServer colorChangeSrv_;
+    //ros::AdvertiseServiceOptions ops;
+	//ros::ServiceServer asynServer;
 	float velMax;
 	float kp;
 	float odometry;

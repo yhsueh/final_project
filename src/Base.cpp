@@ -17,7 +17,7 @@ Base::Base() {
   image_transport::ImageTransport it(nh);
 	imageSub = it.subscribe("camera/rgb/image_raw", 10, &Base::imageCallback, this);  
   cmdPub = nh.advertise<std_msgs::Int64>("base/disp",10);
-  colorChangeSrv_ = nh.serviceClient<final_package::ColorChange>("color_change");
+  colorChangeCli_ = nh.serviceClient<final_package::ColorChange>("color_change");
 }
 
 void Base::imageCallback(const sensor_msgs::ImageConstPtr& msg) {
@@ -32,7 +32,7 @@ void Base::imageCallback(const sensor_msgs::ImageConstPtr& msg) {
 
       /*Flag detected*/
 
-      ROS_INFO("FLAG:%d",imgProcess.detectFlag);
+      //ROS_INFO("FLAG:%d",imgProcess.detectFlag);
 
       if (imgProcess.detectFlag) {
         for (auto &i : imgProcess.circles) {
@@ -44,7 +44,7 @@ void Base::imageCallback(const sensor_msgs::ImageConstPtr& msg) {
           }
         }
 
-        ROS_INFO("Displacment is:%d LDisp is :%d", disp, lDisp);
+        //ROS_INFO("Displacment is:%d LDisp is :%d", disp, lDisp);
 
         if (std::abs(disp-lDisp) > 50)
           ROS_INFO("Tracked object is missing, tracking new object");

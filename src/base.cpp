@@ -18,7 +18,9 @@ int main(int argc, char **argv)
   Base baseObj;
   bool colorChangeFlag;
   srv.request.input = baseObj.color;
-  colorChangeFlag = baseObj.colorChangeSrv_.call(srv);
+  colorChangeFlag = baseObj.colorChangeCli_.call(srv);
+  ROS_INFO("service request bool: %c", srv.request.input);
+  ROS_INFO("Service reseponse: %c", srv.response.output);
 
   ros::Rate loop_rate(5); //5 Htz
 
@@ -26,6 +28,7 @@ int main(int argc, char **argv)
     colorChangeFlag = false;
     srv.request.input = baseObj.color;
 
+    /*
     if (srv.response.output) {
       baseObj.color += 1;
       if (baseObj.color > 3) {
@@ -33,7 +36,7 @@ int main(int argc, char **argv)
         ros::shutdown();
       }
     }    
-
+  */
   	ros::spinOnce();
   	loop_rate.sleep();
   }

@@ -28,6 +28,8 @@
  */
 
 #include "ros/ros.h"
+#include <ros/spinner.h>
+#include <ros/callback_queue.h>
 #include "TurtleCtrl.hpp"
 
 
@@ -35,7 +37,8 @@ int main(int argc, char **argv)
 {
   ros::init(argc, argv, "turtleCtrller");
   TurtleCtrl turtleCtrlObj;
-
+  ros::AsyncSpinner async_spinner(1, &turtleCtrlObj.color_queue);
+  async_spinner.start();
   ros::Rate loop_rate(10); //5 Htz
 
   while(ros::ok()) {

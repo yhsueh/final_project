@@ -1,4 +1,7 @@
 #include <ros/ros.h>
+#include <ros/advertise_service_options.h>
+#include <ros/spinner.h>
+#include <ros/callback_queue.h>
 #include <stdlib.h>
 #include "std_msgs/Int64.h"
 #include "sensor_msgs/LaserScan.h"
@@ -7,24 +10,35 @@
 #include "TurtleCtrl.hpp"
 #include "gazebo_msgs/DeleteModel.h"
 #include "final_package/ColorChange.h"
+#include <iostream>
 
 TurtleCtrl::TurtleCtrl() {
 	dispSub = nh.subscribe("base/disp",10, &TurtleCtrl::dispCallback, this);
 	velPub = nh.advertise<geometry_msgs::Twist>("/mobile_base/commands/velocity", 10);
 	rngSub = nh.subscribe("scan", 10, &TurtleCtrl::rangeCallback, this);
 	deleteClient = nh.serviceClient <gazebo_msgs::DeleteModel>("gazebo/delete_model");
-	colorChangeSrv_ = nh.advertiseService("color_change",&TurtleCtrl::colorChangeSrv,this);
+	nh2.setCallbackQueue(&color_queue);
+	colorChangeSrv_ = nh2.advertiseService("color_change",&TurtleCtrl::colorCallback,this);
+	/*
+	ops = ros::AdvertiseServiceOptions::create<final_package::ColorChange>(
+		"color_change", this->colorChangeSrv, ros::VoidPtr(), &color_queue);
+	asynServer = nh.advertiseService(ops);
+	*/
+
 	kp = 0.001;
 	velMax = 0.3;
 	lMinimal = 10;
 	color = 1;
+	ROS_INFO("INITIZLIATION");
 }
 
-bool TurtleCtrl::colorChangeSrv(final_package::ColorChange::Request &req,
+bool TurtleCtrl::colorCallback(final_package::ColorChange::Request &req,
 				final_package::ColorChange::Response &resp) {
 	color = req.input;
+	ROS_INFO("Color input from Base:%d",color);
 	bool completeFlag = false;
-	completeFlag = this->cmdVel();
+	//completeFlag = this->cmdVel();
+	std::getchar();
 	resp.output = completeFlag;
 	return true;	
 }
@@ -92,12 +106,14 @@ bool TurtleCtrl::cmdVel() {
 
 void TurtleCtrl::dispCallback( const std_msgs::Int64& dispMsg) {	
 	disp = dispMsg.data;
+	ROS_INFO("ROSDISPCALLBACK");
 	//**TEST THIS FIRST
 	//this->cmdVel();
 }
 
 void TurtleCtrl::rangeCallback(const sensor_msgs::LaserScan::ConstPtr& msg) {
   float minimal = 10;
+  ROS_INFO("RANGE");
   for (auto &i : msg->ranges) {
     if (i < minimal) {
       minimal = i;
