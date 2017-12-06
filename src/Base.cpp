@@ -16,8 +16,8 @@
 
 Base::Base() {
   image_transport::ImageTransport it(nh);
-	imageSub = it.subscribe("camera/rgb/image_raw", 10, &Base::imageCallback, this);  
-  cmdPub = nh.advertise<std_msgs::Int64>("base/disp",10);  
+	imageSub = it.subscribe("camera/rgb/image_raw", 1, &Base::imageCallback, this);  
+  cmdPub = nh.advertise<std_msgs::Int64>("base/disp",1);  
   colorChangeCli_ = nh.serviceClient<final_package::ColorChange>("base_color_change");
   statusSrv_ = nh.advertiseService("status_check",&Base::statusCallback,this);
   centerline = 640/2;

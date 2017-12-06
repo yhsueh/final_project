@@ -42,8 +42,11 @@ int main(int argc, char **argv)
   ros::Rate loop_rate(5); //5 Htz
 
   while(ros::ok()) {
-
     ros::spinOnce();
     loop_rate.sleep();
+    if (turtleCtrlObj.terminate)
+    	break;
   }
+  ROS_INFO("Shutting down");
+  ros::shutdown();
 }

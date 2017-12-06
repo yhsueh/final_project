@@ -13,31 +13,36 @@
 #include "final_package/StatusCheck.h"
 
 TurtleCtrl::TurtleCtrl() {
-	dispSub = nh.subscribe("base/disp",10, &TurtleCtrl::dispCallback, this);
-	velPub = nh.advertise<geometry_msgs::Twist>("/mobile_base/commands/velocity", 10);
-	rngSub = nh.subscribe("scan", 10, &TurtleCtrl::rangeCallback, this);
+	dispSub = nh.subscribe("base/disp",1, &TurtleCtrl::dispCallback, this);
+	velPub = nh.advertise<geometry_msgs::Twist>("/mobile_base/commands/velocity", 1);
+	rngSub = nh.subscribe("scan", 1, &TurtleCtrl::rangeCallback, this);
 	deleteClient = nh.serviceClient <gazebo_msgs::DeleteModel>("gazebo/delete_model");
 	statusCheckCli_ = nh.serviceClient<final_package::StatusCheck>("status_check");
 	//nh2.setCallbackQueue(&color_queue);
 	colorChangeSrv_ = nh.advertiseService("base_color_change",&TurtleCtrl::colorCallback,this);
 	kp = 0.001;
-	velMax = 0.3;
+	kd = 0.0001;
+	velMax = 0.15;
 	lMinimal = 10;
 	color = 0;
+	terminate = false;
 	ROS_INFO("INITIZLIATION");
 }
 
 bool TurtleCtrl::colorCallback(final_package::ColorChange::Request &req,
 				final_package::ColorChange::Response &resp) {
 	color = req.input;
+	if (color == -1){
+		terminate = true;
+	}
 	ROS_INFO("Color input from Base:%d",color);
 	return true;	
 }
 
-void TurtleCtrl::cmdVel() {
+void TurtleCtrl::dispCallback( const std_msgs::Int64& dispMsg) {	
+	disp = dispMsg.data;
 	bool deleteFlag = false;
 	geometry_msgs::Twist msg;
-	ROS_INFO("DISP:%d\nColor:%d",disp,color);
 
 	msg.linear.x = 0.0;
     msg.linear.y = 0.0;
@@ -48,24 +53,21 @@ void TurtleCtrl::cmdVel() {
     msg.angular.z = 0.0;
 
 	if (disp == 10000) {
-		msg.angular.z = 0.3;
+		msg.angular.z = 0.5;
 		// Add something to track the robot 
 	} 
 	else {
 		if (lMinimal > 0.6) {
-			if (abs(disp) < 25) {
+			if (abs(disp) < 35) {
 				msg.linear.x = 0.2;
 			}
-			else if (disp > 0) {
-				msg.angular.z = -kp*disp;
-				if (abs(msg.angular.z) > velMax) {
-					msg.angular.z = -velMax;
-				}
-			}
-			else if (disp < 0) {
-				msg.angular.z = kp*disp;
-				if (abs(msg.angular.z) > velMax) {
+			else{
+				msg.angular.z = -(kp*disp+kd*(disp-lDisp));
+				if (msg.angular.z > velMax) {
 					msg.angular.z = velMax;
+				}
+				else if (msg.angular.z < -velMax) {
+					msg.angular.z = -velMax;
 				}
 			}
 		}
@@ -79,7 +81,6 @@ void TurtleCtrl::cmdVel() {
 			case 1:
 				srv.request.model_name = "RedBall";
 				statusSrv.request.input = true;
-				ROS_INFO("Model delete twice");
 				deleteClient.call(srv);
 				statusCheckCli_.call(statusSrv);
 				deleteFlag = true;
@@ -102,12 +103,7 @@ void TurtleCtrl::cmdVel() {
 		}
 	}
 	velPub.publish(msg);
-	ROS_INFO("DeletFlag:%d",deleteFlag);
-}
-
-void TurtleCtrl::dispCallback( const std_msgs::Int64& dispMsg) {	
-	disp = dispMsg.data;
-	this->cmdVel();
+	lDisp = disp;
 }
 
 void TurtleCtrl::rangeCallback(const sensor_msgs::LaserScan::ConstPtr& msg) {

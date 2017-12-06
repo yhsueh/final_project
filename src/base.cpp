@@ -26,13 +26,7 @@ int main(int argc, char **argv)
 
   cv::namedWindow("view");
   cv::startWindowThread();
-  
-  /*
-  if (baseObj.colorChangeCli_.call(srv)) {
-    ROS_INFO("Collecting <%d> Ball, where <1> is red, <2> green, <3> blue.",
-            baseObj.color);
-  }
-*/
+
   ros::Rate loop_rate(5); //5 Htz
 
   while(ros::ok()) {
@@ -46,13 +40,14 @@ int main(int argc, char **argv)
       baseObj.completeFlag = false;
       if (pickCount == 3) {
         ROS_INFO("All ball are being collected");
-        ros::shutdown();
+        break;
       }
     }
-
   	ros::spinOnce();
   	loop_rate.sleep();
   }
-  
+  srv.request.input = -1;
+  baseObj.colorChangeCli_.call(srv);
   cv::destroyWindow("view");
+  ros::shutdown();
 }

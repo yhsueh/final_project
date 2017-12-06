@@ -18,6 +18,7 @@ public:
 				final_package::ColorChange::Response &resp);
 	//ros::CallbackQueue color_queue;
 	ros::ServiceClient statusCheckCli_;
+	bool terminate;
 private:
 	ros::NodeHandle nh;
 	ros::NodeHandle nh2;
@@ -28,10 +29,11 @@ private:
 	ros::ServiceServer colorChangeSrv_;
 	float velMax;
 	float kp;
-	float odometry;
+	float kd;
 	float lMinimal;
 	int color;
 	int disp;
+	int lDisp; //for derivative control term
 };
 
 

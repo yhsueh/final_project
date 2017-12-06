@@ -11,7 +11,6 @@ void ImageProcess::loadImage (const cv::Mat& img) {
 	lastImage = img;
 }
 
-
 void ImageProcess::detection() {
 	cv::Mat structure = cv::getStructuringElement(1,cv::Size(7,7));
 	cv::cvtColor(lastImage, lastImage, CV_BGR2HSV);
@@ -34,7 +33,7 @@ void ImageProcess::detection() {
 
 	if (!noColor) {
 		cv::erode(lastImage, lastImage, structure);
-		cv::HoughCircles(lastImage, circles, CV_HOUGH_GRADIENT, 2, lastImage.rows/16, 100, 30, 1, 400);
+		cv::HoughCircles(lastImage, circles, CV_HOUGH_GRADIENT, 2, lastImage.rows/16, 100, 30, 1, 500);
 
 		if (circles.size() > 0) {
 			detectFlag = true;
