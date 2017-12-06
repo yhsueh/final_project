@@ -30,7 +30,7 @@ https://docs.google.com/document/d/1imp_Num2covjx0czFeErUQy3KCeT4MHiEl-_trNzzP8/
 ## Build procedures:
 1. Clone from github by inputting
 ```
-git clone https://github.com/yhsueh/final_project.git
+git clone -b FW3MultiThreading https://github.com/yhsueh/final_project.git
 ```
 
 2. Make sure ROS_PACKAGE_PATH enviroment variable contain the workspace folder. This is done by sourcing the generated setup file under devel folder in the parent directory.
@@ -42,10 +42,19 @@ catkin_make
 to build the ROS package.
 
 ## Procedures for running the turtlebot simulation:
-1. Run roslaunch file to start gazebo, and two necessary nodes.
+1. Run roslaunch file to start gazebo, and two necessary nodes and a launch file.
 ```
-roslaunch final_package turtlebot_world.launch
+roslaunch final_package turtle_bot_only_world.launch
 ```
+In a second terminal
+```
+rosrun final_package turtleCtrller
+```
+and
+```
+rosrun final_package base
+```
+NOTE: The nodes must be executed in this order. If the order is reversed, the program will result in unexpected condition.
 
 ## Simple test
 1. This test is just for verifying that the unit testing is configured correctly.
