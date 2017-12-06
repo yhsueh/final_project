@@ -24,7 +24,6 @@ TurtleCtrl::TurtleCtrl() {
 	velMax = 0.3;
 	lMinimal = 10;
 	color = 0;
-	completeFlag = false;
 	ROS_INFO("INITIZLIATION");
 }
 
@@ -35,7 +34,7 @@ bool TurtleCtrl::colorCallback(final_package::ColorChange::Request &req,
 	return true;	
 }
 
-bool TurtleCtrl::cmdVel() {
+void TurtleCtrl::cmdVel() {
 	bool deleteFlag = false;
 	geometry_msgs::Twist msg;
 	ROS_INFO("DISP:%d\nColor:%d",disp,color);
@@ -80,6 +79,7 @@ bool TurtleCtrl::cmdVel() {
 			case 1:
 				srv.request.model_name = "RedBall";
 				statusSrv.request.input = true;
+				ROS_INFO("Model delete twice");
 				deleteClient.call(srv);
 				statusCheckCli_.call(statusSrv);
 				deleteFlag = true;
@@ -103,12 +103,11 @@ bool TurtleCtrl::cmdVel() {
 	}
 	velPub.publish(msg);
 	ROS_INFO("DeletFlag:%d",deleteFlag);
-	return deleteFlag;
 }
 
 void TurtleCtrl::dispCallback( const std_msgs::Int64& dispMsg) {	
 	disp = dispMsg.data;
-	completeFlag = this->cmdVel();
+	this->cmdVel();
 }
 
 void TurtleCtrl::rangeCallback(const sensor_msgs::LaserScan::ConstPtr& msg) {

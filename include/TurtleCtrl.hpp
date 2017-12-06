@@ -13,7 +13,7 @@ public:
 	TurtleCtrl();
 	void dispCallback(const std_msgs::Int64& dispMsg);
 	void rangeCallback(const sensor_msgs::LaserScan::ConstPtr& msg);
-	bool cmdVel();
+	void cmdVel();
 	bool colorCallback(final_package::ColorChange::Request &req,
 				final_package::ColorChange::Response &resp);
 	//ros::CallbackQueue color_queue;
@@ -32,7 +32,6 @@ private:
 	float lMinimal;
 	int color;
 	int disp;
-	bool completeFlag;
 };
 
 
