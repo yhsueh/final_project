@@ -1,11 +1,11 @@
+#include <stdlib.h>
 #include <ros/ros.h>
 #include <ros/advertise_service_options.h>
 #include <ros/spinner.h>
 #include <ros/callback_queue.h>
-#include <stdlib.h>
 #include "std_msgs/Int64.h"
-#include "sensor_msgs/LaserScan.h"
 #include "std_msgs/Float32.h"
+#include "sensor_msgs/LaserScan.h"
 #include "geometry_msgs/Twist.h"
 #include "TurtleCtrl.hpp"
 #include "gazebo_msgs/DeleteModel.h"

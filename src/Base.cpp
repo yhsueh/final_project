@@ -1,5 +1,4 @@
-#include "Base.hpp"
-#include "ImageProcess.hpp"
+#include <stdlib.h>
 #include <ros/ros.h>
 #include <ros/advertise_service_options.h>
 #include <ros/spinner.h>
@@ -10,9 +9,10 @@
 #include <opencv2/imgproc/imgproc.hpp>
 #include <opencv2/highgui/highgui.hpp>
 #include "std_msgs/Int64.h"
-#include <stdlib.h>
 #include "final_package/ColorChange.h"
 #include "final_package/StatusCheck.h"
+#include "Base.hpp"
+#include "ImageProcess.hpp"
 
 Base::Base() {
   image_transport::ImageTransport it(nh);
