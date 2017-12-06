@@ -56,6 +56,7 @@ find_package(OpenCV REQUIRED)
 add_service_files(
   FILES
   ColorChange.srv
+  StatusCheck.srv
 )
 
 generate_messages(DEPENDENCIES std_msgs)

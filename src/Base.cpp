@@ -12,21 +12,27 @@
 #include "std_msgs/Int64.h"
 #include <stdlib.h>
 #include "final_package/ColorChange.h"
+#include "final_package/StatusCheck.h"
 
 Base::Base() {
   image_transport::ImageTransport it(nh);
 	imageSub = it.subscribe("camera/rgb/image_raw", 10, &Base::imageCallback, this);  
   cmdPub = nh.advertise<std_msgs::Int64>("base/disp",10);  
   colorChangeCli_ = nh.serviceClient<final_package::ColorChange>("base_color_change");
+  statusSrv_ = nh.advertiseService("status_check",&Base::statusCallback,this);
   centerline = 640/2;
   lDisp = 10000;
   color = 0;
   completeFlag = false;
 }
 
+bool Base::statusCallback(final_package::StatusCheck::Request &req,
+				final_package::StatusCheck::Response &resp) {
+  completeFlag = req.input;
+  return true;
+}
+
 void Base::imageCallback(const sensor_msgs::ImageConstPtr& msg) {
-  //cv::Mat newImage;
-  ROS_INFO("ImageCallback");
 	int disp;
   std_msgs::Int64 dispMsg;
   try
@@ -35,10 +41,6 @@ void Base::imageCallback(const sensor_msgs::ImageConstPtr& msg) {
       imgProcess.detectFlag = false;
       imgProcess.loadImage(cv_bridge::toCvShare(msg, "bgr8")->image);
       imgProcess.detection();
-
-      /*Flag detected*/
-
-      //ROS_INFO("FLAG:%d",imgProcess.detectFlag);
 
       if (imgProcess.detectFlag) {
         for (auto &i : imgProcess.circles) {

@@ -10,15 +10,16 @@
 #include "TurtleCtrl.hpp"
 #include "gazebo_msgs/DeleteModel.h"
 #include "final_package/ColorChange.h"
-#include <iostream>
+#include "final_package/StatusCheck.h"
 
 TurtleCtrl::TurtleCtrl() {
 	dispSub = nh.subscribe("base/disp",10, &TurtleCtrl::dispCallback, this);
 	velPub = nh.advertise<geometry_msgs::Twist>("/mobile_base/commands/velocity", 10);
 	rngSub = nh.subscribe("scan", 10, &TurtleCtrl::rangeCallback, this);
 	deleteClient = nh.serviceClient <gazebo_msgs::DeleteModel>("gazebo/delete_model");
-	nh2.setCallbackQueue(&color_queue);
-	colorChangeSrv_ = nh2.advertiseService("color_change",&TurtleCtrl::colorCallback,this);
+	statusCheckCli_ = nh.serviceClient<final_package::StatusCheck>("status_check");
+	//nh2.setCallbackQueue(&color_queue);
+	colorChangeSrv_ = nh.advertiseService("base_color_change",&TurtleCtrl::colorCallback,this);
 	kp = 0.001;
 	velMax = 0.3;
 	lMinimal = 10;
@@ -37,7 +38,7 @@ bool TurtleCtrl::colorCallback(final_package::ColorChange::Request &req,
 bool TurtleCtrl::cmdVel() {
 	bool deleteFlag = false;
 	geometry_msgs::Twist msg;
-	ROS_INFO("DISP:%d",disp);
+	ROS_INFO("DISP:%d\nColor:%d",disp,color);
 
 	msg.linear.x = 0.0;
     msg.linear.y = 0.0;
@@ -72,22 +73,29 @@ bool TurtleCtrl::cmdVel() {
 		else{
 			 //Calling rosmodel delete service 
 			gazebo_msgs::DeleteModel srv;
+			final_package::StatusCheck statusSrv;
 			switch(color) {
 			case 0:
 				ROS_ERROR("No color specified");
 			case 1:
 				srv.request.model_name = "RedBall";
-				deleteClient.call(srv);		
+				statusSrv.request.input = true;
+				deleteClient.call(srv);
+				statusCheckCli_.call(statusSrv);
 				deleteFlag = true;
 				break;
 			case 2:
 				srv.request.model_name = "GreenBall";
+				statusSrv.request.input = true;
 				deleteClient.call(srv);
+				statusCheckCli_.call(statusSrv);
 				deleteFlag = true;
 				break;
 			case 3:
 				srv.request.model_name = "BlueBall";
+				statusSrv.request.input = true;
 				deleteClient.call(srv);
+				statusCheckCli_.call(statusSrv);
 				deleteFlag = true;
 				break;
 			}
@@ -110,6 +118,5 @@ void TurtleCtrl::rangeCallback(const sensor_msgs::LaserScan::ConstPtr& msg) {
       minimal = i;
     }
   }
-  ROS_INFO("MINIMAL");
   lMinimal = minimal;
 }
