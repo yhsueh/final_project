@@ -15,32 +15,41 @@
 int main(int argc, char **argv)
 {
   ros::init(argc, argv, "base");
-  cv::namedWindow("view");
-  cv::startWindowThread();
+
   Base baseObj;
   final_package::ColorChange srv;
+  //Starting with red
+  baseObj.color = 1;
   srv.request.input = baseObj.color;
   bool colorChangeFlag = baseObj.colorChangeCli_.call(srv);
-  ROS_INFO("service request bool: %c", srv.request.input);
-  //ROS_INFO("Service reseponse: %c", srv.response.output);
+  int pickCount = 0; 
 
+  cv::namedWindow("view");
+  cv::startWindowThread();
+  
+  /*
+  if (baseObj.colorChangeCli_.call(srv)) {
+    ROS_INFO("Collecting <%d> Ball, where <1> is red, <2> green, <3> blue.",
+            baseObj.color);
+  }
+*/
   ros::Rate loop_rate(5); //5 Htz
-  ros::AsyncSpinner spinner(2,&baseObj.queue);
-  spinner.start();
 
   while(ros::ok()) {
-    colorChangeFlag = false;
-    srv.request.input = baseObj.color;
-
-    ROS_INFO("RESPONSEOUTPUT = %d", srv.response.output);
-    if (srv.response.output) {
+    if (baseObj.completeFlag) {
       baseObj.color += 1;
-      if (baseObj.color > 3) {
-        ROS_INFO("Nothing is left");
+      srv.request.input = baseObj.color;
+      if (baseObj.colorChangeCli_.call(srv)) {
+        ROS_INFO("New color is specified");
+      }
+      pickCount += 1;
+      baseObj.completeFlag = false;
+      if (pickCount == 3) {
+        ROS_INFO("All ball are being collected");
         ros::shutdown();
       }
-    }    
-  
+    }
+
   	ros::spinOnce();
   	loop_rate.sleep();
   }

@@ -15,15 +15,14 @@ class Base {
 		Base();
 		void imageCallback(const sensor_msgs::ImageConstPtr& msg);
 		ros::ServiceClient colorChangeCli_;
-		ros::CallbackQueue queue;
 		int color; //1:Red, 2:Green, 3:Blue
 	private:
 		ros::NodeHandle nh;
-		ros::NodeHandle nh2;
 		ros::Publisher cmdPub;
 		image_transport::Subscriber imageSub;
 		ImageProcess imgProcess;
 		float centerline;
 		int lDisp;
+		bool completeFlag;
 };
 

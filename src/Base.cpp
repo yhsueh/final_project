@@ -14,14 +14,14 @@
 #include "final_package/ColorChange.h"
 
 Base::Base() {
-  nh2.setCallbackQueue(&queue);
   image_transport::ImageTransport it(nh);
 	imageSub = it.subscribe("camera/rgb/image_raw", 10, &Base::imageCallback, this);  
   cmdPub = nh.advertise<std_msgs::Int64>("base/disp",10);  
-  colorChangeCli_ = nh2.serviceClient<final_package::ColorChange>("color_change");
+  colorChangeCli_ = nh.serviceClient<final_package::ColorChange>("base_color_change");
   centerline = 640/2;
   lDisp = 10000;
-  color = 1;
+  color = 0;
+  completeFlag = false;
 }
 
 void Base::imageCallback(const sensor_msgs::ImageConstPtr& msg) {
@@ -30,7 +30,8 @@ void Base::imageCallback(const sensor_msgs::ImageConstPtr& msg) {
 	int disp;
   std_msgs::Int64 dispMsg;
   try
-	{        
+	{
+      imgProcess.color = color;
       imgProcess.detectFlag = false;
       imgProcess.loadImage(cv_bridge::toCvShare(msg, "bgr8")->image);
       imgProcess.detection();

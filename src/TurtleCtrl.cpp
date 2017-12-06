@@ -31,10 +31,6 @@ bool TurtleCtrl::colorCallback(final_package::ColorChange::Request &req,
 				final_package::ColorChange::Response &resp) {
 	color = req.input;
 	ROS_INFO("Color input from Base:%d",color);
-	while(!completeFlag){
-		ROS_INFO("INHERE");
-	}
-	resp.output = completeFlag;
 	return true;	
 }
 
@@ -78,7 +74,7 @@ bool TurtleCtrl::cmdVel() {
 			gazebo_msgs::DeleteModel srv;
 			switch(color) {
 			case 0:
-				ROS_ERROR("Something wrong with the call service.");
+				ROS_ERROR("No color specified");
 			case 1:
 				srv.request.model_name = "RedBall";
 				deleteClient.call(srv);		
