@@ -22,10 +22,8 @@
  * POSSIBILITY OF SUCH DAMAGE.
  */
 
-/** @file base.cpp
- *	@brief This node takes and analyze the range data. Subsequently, pass the
- *	the decision made based on the data to the turtleCtrl node which 
- *	manipulates the turtlebot.
+/** @file TurtleCtrl.cpp
+ *	@brief This is the implementation file for the TurtleCtrl class.
  *	@author Yuyu Hsueh
  *  @Copyright 2017, Yuyu Hsueh
  */
@@ -44,6 +42,11 @@
 #include "final_package/ColorChange.h"
 #include "final_package/StatusCheck.h"
 
+/**
+* The constructor for the turtlectrl node class. Kp and Kd gains are initialized here
+* along with all other pubs/subs/servers/clients. The maixmum angular velocities are
+* 0.15.
+*/
 TurtleCtrl::TurtleCtrl() {
 	dispSub = nh.subscribe("base/disp",1, &TurtleCtrl::dispCallback, this);
 	velPub = nh.advertise<geometry_msgs::Twist>("/mobile_base/commands/velocity", 1);
@@ -61,6 +64,11 @@ TurtleCtrl::TurtleCtrl() {
 	ROS_INFO("INITIZLIATION");
 }
 
+/**
+* @brief This callback speicifies the color
+* @param ColorChange service request and response.
+* @return true.
+*/
 bool TurtleCtrl::colorCallback(final_package::ColorChange::Request &req,
 				final_package::ColorChange::Response &resp) {
 	color = req.input;
@@ -71,6 +79,12 @@ bool TurtleCtrl::colorCallback(final_package::ColorChange::Request &req,
 	return true;	
 }
 
+/**
+* @brief  This callback controls the actuator of the turtlebot. When 
+* nothing is detected, the disp is passed in as 10000.
+* @param  std_msgs::Int64.
+* @return none.
+*/
 void TurtleCtrl::dispCallback( const std_msgs::Int64& dispMsg) {	
 	disp = dispMsg.data;
 	bool deleteFlag = false;
@@ -86,7 +100,6 @@ void TurtleCtrl::dispCallback( const std_msgs::Int64& dispMsg) {
 
 	if (disp == 10000) {
 		msg.angular.z = 0.5;
-		// Add something to track the robot 
 	} 
 	else {
 		if (lMinimal > 0.6) {
@@ -104,8 +117,7 @@ void TurtleCtrl::dispCallback( const std_msgs::Int64& dispMsg) {
 			}
 		}
 		else{
-			 //Calling rosmodel delete service 
-			gazebo_msgs::DeleteModel srv;
+			gazebo_msgs::DeleteModel srv; /**< Calling model_delete srv */
 			final_package::StatusCheck statusSrv;
 			switch(color) {
 			case 0:

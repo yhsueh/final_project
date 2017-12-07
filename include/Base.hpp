@@ -22,7 +22,8 @@
  * POSSIBILITY OF SUCH DAMAGE.
  */
 
-/** @file Base.hpp
+/** 
+ *  @file Base.hpp
  *	@brief In this project, the nodes are being implemented as class objects.
  *  This is the header file for the base class.
  *	@author Yuyu Hsueh
@@ -43,17 +44,31 @@
 #include "final_package/StatusCheck.h"
 
 class Base {
-	/** The base class initializes all the necessary publishers, subscribers,
+	/** 
+	  * The base class initializes all the necessary publishers, subscribers,
 	  * servers and clients. It also takes cares of the callbacks for subscribers
-	  * and servers.
+	  * and servers. It's core function is to locate the ball objects and command
+	  * the turtlebot to reach it.
 	  */
 	public:
-		Base();
-		void imageCallback(const sensor_msgs::ImageConstPtr& msg); /** Receive camera images*/
+		Base(); /**< Constructor*/
+
+		/**
+		  * The camera images are obtained from the 3D sensor. These images are passed
+		  * to an imageprocess object for further image analysis. At the end, the centroid
+		  * of the detected circles are computed.
+		  */
+		void imageCallback(const sensor_msgs::ImageConstPtr& msg);
+
+
+		/** 
+		  * This function is the service callback from the turtleCtrller node. It
+		  * recieves a request when a model in Gazebo is removed.
+		  */
 		bool statusCallback(final_package::StatusCheck::Request& req,
 			final_package::StatusCheck::Response &resp); /**< Check ball removal */
 		bool completeFlag;
-		ros::ServiceClient colorChangeCli_;
+		ros::ServiceClient colorChangeCli_; /**< Tells the turtlebot which color ball to collect*/
 		int color; /**< 1:Red, 2:Green, 3:Blue */
 	private:
 		ros::NodeHandle nh;

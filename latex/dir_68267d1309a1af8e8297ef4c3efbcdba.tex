@@ -1,0 +1,23 @@
+\hypertarget{dir_68267d1309a1af8e8297ef4c3efbcdba}{}\section{src Directory Reference}
+\label{dir_68267d1309a1af8e8297ef4c3efbcdba}\index{src Directory Reference@{src Directory Reference}}
+Directory dependency graph for src\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=134pt]{dir_68267d1309a1af8e8297ef4c3efbcdba_dep}
+\end{center}
+\end{figure}
+\subsection*{Files}
+\begin{DoxyCompactItemize}
+\item 
+file \hyperlink{base_8cpp}{base.\+cpp}
+\begin{DoxyCompactList}\small\item\em This is a source file for the base node of this project. The base node is responsible of getting and converting the images from the asus-\/xtion\+\_\+pro 3D sensor. Then, it passes these images into an \hyperlink{classImageProcess}{Image\+Process} object, which processes these images and search for the balls\textquotesingle{} centroids. Finally, the displacment between the center of the ball and the center of the image is published to the turtle\+Ctrller node in charge of the turtlebot actuator. In every iteration, the processed image would be displayed in an view window for users to see what the turtlebot sees. There are two services called to make sure all colors of balls are being collected. All the callbacks in this node are running at the rate of 5\+Hz. \end{DoxyCompactList}\item 
+file \hyperlink{Base_8cpp}{Base.\+cpp}
+\begin{DoxyCompactList}\small\item\em \hyperlink{classBase}{Base} class implementation source file. \end{DoxyCompactList}\item 
+file \hyperlink{ImageProcess_8cpp}{Image\+Process.\+cpp}
+\begin{DoxyCompactList}\small\item\em This node takes and analyze the range data. Subsequently, pass the the decision made based on the data to the turtle\+Ctrl node which manipulates the turtlebot. \end{DoxyCompactList}\item 
+file \hyperlink{turtleCtrl_8cpp}{turtle\+Ctrl.\+cpp}
+\begin{DoxyCompactList}\small\item\em This is the source code for the turtle\+Ctrller node, which has a simple PD controller that takes the displacement value as input. The output is published to the turtlebot actuator in terms of linear and angular velocities. \end{DoxyCompactList}\item 
+file \hyperlink{TurtleCtrl_8cpp}{Turtle\+Ctrl.\+cpp}
+\begin{DoxyCompactList}\small\item\em This is the implementation file for the \hyperlink{classTurtleCtrl}{Turtle\+Ctrl} class. \end{DoxyCompactList}\end{DoxyCompactItemize}

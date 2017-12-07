@@ -1,0 +1,104 @@
+\hypertarget{classTurtleCtrl}{}\section{Turtle\+Ctrl Class Reference}
+\label{classTurtleCtrl}\index{Turtle\+Ctrl@{Turtle\+Ctrl}}
+
+
+{\ttfamily \#include $<$Turtle\+Ctrl.\+hpp$>$}
+
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{classTurtleCtrl_ad74e99396945d2234307c91467baab2b}{Turtle\+Ctrl} ()
+\item 
+void \hyperlink{classTurtleCtrl_aa5c2960884f7c171bee34ac1f0d867c6}{disp\+Callback} (const std\+\_\+msgs\+::\+Int64 \&disp\+Msg)
+\begin{DoxyCompactList}\small\item\em This callback controls the actuator of the turtlebot. When nothing is detected, the disp is passed in as 10000. \end{DoxyCompactList}\item 
+void \hyperlink{classTurtleCtrl_ae68f9b9b0f40ae07d68332625ac75440}{range\+Callback} (const sensor\+\_\+msgs\+::\+Laser\+Scan\+::\+Const\+Ptr \&msg)
+\item 
+bool \hyperlink{classTurtleCtrl_aa803104f5e820d420927df598e48f924}{color\+Callback} (final\+\_\+package\+::\+Color\+Change\+::\+Request \&req, final\+\_\+package\+::\+Color\+Change\+::\+Response \&resp)
+\begin{DoxyCompactList}\small\item\em This callback speicifies the color. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+ros\+::\+Service\+Client \hyperlink{classTurtleCtrl_aa9a72ccbacd4c55c356ba0305ba14a4a}{status\+Check\+Cli\+\_\+}
+\item 
+bool \hyperlink{classTurtleCtrl_a0022c4d538eef753a0d49d4dfbdd4549}{terminate}
+\end{DoxyCompactItemize}
+
+
+\subsection{Constructor \& Destructor Documentation}
+\index{Turtle\+Ctrl@{Turtle\+Ctrl}!Turtle\+Ctrl@{Turtle\+Ctrl}}
+\index{Turtle\+Ctrl@{Turtle\+Ctrl}!Turtle\+Ctrl@{Turtle\+Ctrl}}
+\subsubsection[{\texorpdfstring{Turtle\+Ctrl()}{TurtleCtrl()}}]{\setlength{\rightskip}{0pt plus 5cm}Turtle\+Ctrl\+::\+Turtle\+Ctrl (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\hypertarget{classTurtleCtrl_ad74e99396945d2234307c91467baab2b}{}\label{classTurtleCtrl_ad74e99396945d2234307c91467baab2b}
+Constrcutor that initialize pubs/subs/servers/clients
+
+The constructor for the turtlectrl node class. Kp and Kd gains are initialized here along with all other pubs/subs/servers/clients. The maixmum angular velocities are 0.\+15. 
+
+\subsection{Member Function Documentation}
+\index{Turtle\+Ctrl@{Turtle\+Ctrl}!color\+Callback@{color\+Callback}}
+\index{color\+Callback@{color\+Callback}!Turtle\+Ctrl@{Turtle\+Ctrl}}
+\subsubsection[{\texorpdfstring{color\+Callback(final\+\_\+package\+::\+Color\+Change\+::\+Request \&req, final\+\_\+package\+::\+Color\+Change\+::\+Response \&resp)}{colorCallback(final_package::ColorChange::Request &req, final_package::ColorChange::Response &resp)}}]{\setlength{\rightskip}{0pt plus 5cm}bool Turtle\+Ctrl\+::color\+Callback (
+\begin{DoxyParamCaption}
+\item[{final\+\_\+package\+::\+Color\+Change\+::\+Request \&}]{req, }
+\item[{final\+\_\+package\+::\+Color\+Change\+::\+Response \&}]{resp}
+\end{DoxyParamCaption}
+)}\hypertarget{classTurtleCtrl_aa803104f5e820d420927df598e48f924}{}\label{classTurtleCtrl_aa803104f5e820d420927df598e48f924}
+
+
+This callback speicifies the color. 
+
+This is a server callback of the color information. The specified color is necessary for the program to delete the correct object.
+
+
+\begin{DoxyParams}{Parameters}
+{\em Color\+Change} & service request and response. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+true. 
+\end{DoxyReturn}
+\index{Turtle\+Ctrl@{Turtle\+Ctrl}!disp\+Callback@{disp\+Callback}}
+\index{disp\+Callback@{disp\+Callback}!Turtle\+Ctrl@{Turtle\+Ctrl}}
+\subsubsection[{\texorpdfstring{disp\+Callback(const std\+\_\+msgs\+::\+Int64 \&disp\+Msg)}{dispCallback(const std_msgs::Int64 &dispMsg)}}]{\setlength{\rightskip}{0pt plus 5cm}void Turtle\+Ctrl\+::disp\+Callback (
+\begin{DoxyParamCaption}
+\item[{const std\+\_\+msgs\+::\+Int64 \&}]{disp\+Msg}
+\end{DoxyParamCaption}
+)}\hypertarget{classTurtleCtrl_aa5c2960884f7c171bee34ac1f0d867c6}{}\label{classTurtleCtrl_aa5c2960884f7c171bee34ac1f0d867c6}
+
+
+This callback controls the actuator of the turtlebot. When nothing is detected, the disp is passed in as 10000. 
+
+This is a subscriber callback of the displacment message used to find the turtlebot\textquotesingle{}s position in relation to the ball.
+
+
+\begin{DoxyParams}{Parameters}
+{\em std\+\_\+msgs\+::\+Int64.} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+none. 
+\end{DoxyReturn}
+$<$ Calling model\+\_\+delete srv \index{Turtle\+Ctrl@{Turtle\+Ctrl}!range\+Callback@{range\+Callback}}
+\index{range\+Callback@{range\+Callback}!Turtle\+Ctrl@{Turtle\+Ctrl}}
+\subsubsection[{\texorpdfstring{range\+Callback(const sensor\+\_\+msgs\+::\+Laser\+Scan\+::\+Const\+Ptr \&msg)}{rangeCallback(const sensor_msgs::LaserScan::ConstPtr &msg)}}]{\setlength{\rightskip}{0pt plus 5cm}void Turtle\+Ctrl\+::range\+Callback (
+\begin{DoxyParamCaption}
+\item[{const sensor\+\_\+msgs\+::\+Laser\+Scan\+::\+Const\+Ptr \&}]{msg}
+\end{DoxyParamCaption}
+)}\hypertarget{classTurtleCtrl_ae68f9b9b0f40ae07d68332625ac75440}{}\label{classTurtleCtrl_ae68f9b9b0f40ae07d68332625ac75440}
+This is a subscriber callback of the range measurement. This information is critical for determining whether the ball is within the turtlebot\textquotesingle{}s reach. 
+
+\subsection{Member Data Documentation}
+\index{Turtle\+Ctrl@{Turtle\+Ctrl}!status\+Check\+Cli\+\_\+@{status\+Check\+Cli\+\_\+}}
+\index{status\+Check\+Cli\+\_\+@{status\+Check\+Cli\+\_\+}!Turtle\+Ctrl@{Turtle\+Ctrl}}
+\subsubsection[{\texorpdfstring{status\+Check\+Cli\+\_\+}{statusCheckCli_}}]{\setlength{\rightskip}{0pt plus 5cm}ros\+::\+Service\+Client Turtle\+Ctrl\+::status\+Check\+Cli\+\_\+}\hypertarget{classTurtleCtrl_aa9a72ccbacd4c55c356ba0305ba14a4a}{}\label{classTurtleCtrl_aa9a72ccbacd4c55c356ba0305ba14a4a}
+\index{Turtle\+Ctrl@{Turtle\+Ctrl}!terminate@{terminate}}
+\index{terminate@{terminate}!Turtle\+Ctrl@{Turtle\+Ctrl}}
+\subsubsection[{\texorpdfstring{terminate}{terminate}}]{\setlength{\rightskip}{0pt plus 5cm}bool Turtle\+Ctrl\+::terminate}\hypertarget{classTurtleCtrl_a0022c4d538eef753a0d49d4dfbdd4549}{}\label{classTurtleCtrl_a0022c4d538eef753a0d49d4dfbdd4549}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+include/\hyperlink{TurtleCtrl_8hpp}{Turtle\+Ctrl.\+hpp}\item 
+src/\hyperlink{TurtleCtrl_8cpp}{Turtle\+Ctrl.\+cpp}\end{DoxyCompactItemize}

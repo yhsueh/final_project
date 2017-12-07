@@ -22,10 +22,10 @@
  * POSSIBILITY OF SUCH DAMAGE.
  */
 
-/** @file base.cpp
- *	@brief This node takes and analyze the range data. Subsequently, pass the
- *	the decision made based on the data to the turtleCtrl node which 
- *	manipulates the turtlebot.
+/** @file TurtleCtrl.hpp
+ *	@brief The turtlectrller node has been implemented as a class. It has 
+ *  multiple services and publisher/subscribers in order to drive the 
+ *  turtlebot toward the ball objects. 
  *	@author Yuyu Hsueh
  *  @Copyright 2017, Yuyu Hsueh
  */
@@ -42,13 +42,26 @@
 
 class TurtleCtrl {
 public:
-	TurtleCtrl();
+	TurtleCtrl(); /**< Constrcutor that initialize pubs/subs/servers/clients */
+
+	/**
+	* This is a subscriber callback of the displacment message used to find the 
+	* turtlebot's position in relation to the ball.
+	*/
 	void dispCallback(const std_msgs::Int64& dispMsg);
+
+	/**
+	* This is a subscriber callback of the range measurement. This information is
+	* critical for determining whether the ball is within the turtlebot's reach.
+	*/
 	void rangeCallback(const sensor_msgs::LaserScan::ConstPtr& msg);
-	void cmdVel();
+
+	/**
+	* This is a server callback of the color information. The specified color is 
+	* necessary for the program to delete the correct object.
+	*/
 	bool colorCallback(final_package::ColorChange::Request &req,
 				final_package::ColorChange::Response &resp);
-	//ros::CallbackQueue color_queue;
 	ros::ServiceClient statusCheckCli_;
 	bool terminate;
 private:

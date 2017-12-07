@@ -22,7 +22,8 @@
  * POSSIBILITY OF SUCH DAMAGE.
  */
 
-/** @file base.cpp
+/** 
+ *  @file ImageProcess.cpp
  *	@brief This node takes and analyze the range data. Subsequently, pass the
  *	the decision made based on the data to the turtleCtrl node which 
  *	manipulates the turtlebot.
@@ -41,6 +42,13 @@ void ImageProcess::loadImage (const cv::Mat& img) {
 	lastImage = img;
 }
 
+/**
+  * @brief Based on the color chosen in the range from 1 to 3, the corresponding filter
+  * will be applied in HSV color space. If no color is specified, it would do nothing and 
+  * await next callback.
+  * @param none;
+  * @return none;
+  */
 void ImageProcess::detection() {
 	cv::Mat structure = cv::getStructuringElement(1,cv::Size(7,7));
 	cv::cvtColor(lastImage, lastImage, CV_BGR2HSV);

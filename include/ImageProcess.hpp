@@ -22,10 +22,10 @@
  * POSSIBILITY OF SUCH DAMAGE.
  */
 
-/** @file base.cpp
- *	@brief This node takes and analyze the range data. Subsequently, pass the
- *	the decision made based on the data to the turtleCtrl node which 
- *	manipulates the turtlebot.
+/** 
+ *  @file ImageProcess.hpp
+ *	@brief This is a header file for ImageProcess class, processing the images
+ *  gotten from the 3D sensor.
  *	@author Yuyu Hsueh
  *  @Copyright 2017, Yuyu Hsueh
  */
@@ -36,6 +36,10 @@
 #include <opencv2/opencv.hpp>
 
 class ImageProcess {
+	/** 
+	  * The imageProcess class loads the image and detects the centroids of the 
+	  * detected circles.
+	  */
 public:
 	ImageProcess() : detectFlag(false), color(0) {}
 	void loadImage(const cv::Mat&);

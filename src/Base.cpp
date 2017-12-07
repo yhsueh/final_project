@@ -22,7 +22,8 @@
  * POSSIBILITY OF SUCH DAMAGE.
  */
 
-/** @file Base.cpp
+/** 
+ *  @file Base.cpp
  *	@brief Base class implementation source file.
  *	@author Yuyu Hsueh
  *  @Copyright 2017, Yuyu Hsueh
@@ -62,8 +63,7 @@ Base::Base() {
 }
 
 /**
-* @brief This is the service callback from the turtleCtrller node. It is triggered when a ball model
-* is removed.
+* @brief This is the service callback from the turtleCtrller node.
 * @param StatusCheck service request and respond.
 * @return true
 */
@@ -74,10 +74,12 @@ bool Base::statusCallback(final_package::StatusCheck::Request &req,
 }
 
 /**
-* @brief This subscriber callback obtains the camera image from the 3D sensor installed 
-*  on the turtlebot. Inside this function, the camera image is converted to OPENCV image.
-*  Subsequently, an imageprocess object is declared to process these RGB images.
-* @param Sensor_msgs::ImageConstPtr&msg
+* @brief In this callback, the displacement of the centeroids of the balls and 
+* the image center is computed and passed to the turtlectrller node. A simple
+* tracking check is added. If the displacment of an obect at one time is significantly
+* smaller or larger than the displacment at last timestep, then the object detected
+* is likely to be a different one.
+* @param sensor_msg::ImageConstPtr& msg
 * @return none;
 */
 

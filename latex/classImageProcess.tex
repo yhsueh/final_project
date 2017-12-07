@@ -1,0 +1,99 @@
+\hypertarget{classImageProcess}{}\section{Image\+Process Class Reference}
+\label{classImageProcess}\index{Image\+Process@{Image\+Process}}
+
+
+{\ttfamily \#include $<$Image\+Process.\+hpp$>$}
+
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{classImageProcess_a3dd8d2b73be1d21ccac33921defcf533}{Image\+Process} ()
+\item 
+void \hyperlink{classImageProcess_a4c08cfba39236fa09ec5f2d0e37452fb}{load\+Image} (const cv\+::\+Mat \&)
+\item 
+void \hyperlink{classImageProcess_a0a4d4d847095fa9632565ec68b746b4f}{detection} ()
+\begin{DoxyCompactList}\small\item\em Based on the color chosen in the range from 1 to 3, the corresponding filter will be applied in H\+SV color space. If no color is specified, it would do nothing and await next callback. \end{DoxyCompactList}\item 
+const cv\+::\+Mat \& \hyperlink{classImageProcess_abedcfaaa343e334b5bc09a45e69c92ba}{get\+Image} ()
+\item 
+int \hyperlink{classImageProcess_a98f98b789934e466c504977d3af3f031}{get\+Color} ()
+\end{DoxyCompactItemize}
+\subsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+std\+::vector$<$ cv\+::\+Vec3f $>$ \hyperlink{classImageProcess_aafcbd180aa8e8dd937f736a43685a6bc}{circles}
+\item 
+bool \hyperlink{classImageProcess_a265b78fb51ab67a89743dd9c3f85e69b}{detect\+Flag}
+\item 
+int \hyperlink{classImageProcess_ab96f8c1ee03f6bbf8e60ffa496fdaa0d}{color}
+\end{DoxyCompactItemize}
+
+
+\subsection{Constructor \& Destructor Documentation}
+\index{Image\+Process@{Image\+Process}!Image\+Process@{Image\+Process}}
+\index{Image\+Process@{Image\+Process}!Image\+Process@{Image\+Process}}
+\subsubsection[{\texorpdfstring{Image\+Process()}{ImageProcess()}}]{\setlength{\rightskip}{0pt plus 5cm}Image\+Process\+::\+Image\+Process (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}}\hypertarget{classImageProcess_a3dd8d2b73be1d21ccac33921defcf533}{}\label{classImageProcess_a3dd8d2b73be1d21ccac33921defcf533}
+The image\+Process class loads the image and detects the centroids of the detected circles. 
+
+\subsection{Member Function Documentation}
+\index{Image\+Process@{Image\+Process}!detection@{detection}}
+\index{detection@{detection}!Image\+Process@{Image\+Process}}
+\subsubsection[{\texorpdfstring{detection()}{detection()}}]{\setlength{\rightskip}{0pt plus 5cm}void Image\+Process\+::detection (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\hypertarget{classImageProcess_a0a4d4d847095fa9632565ec68b746b4f}{}\label{classImageProcess_a0a4d4d847095fa9632565ec68b746b4f}
+
+
+Based on the color chosen in the range from 1 to 3, the corresponding filter will be applied in H\+SV color space. If no color is specified, it would do nothing and await next callback. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em none;} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+none; 
+\end{DoxyReturn}
+\index{Image\+Process@{Image\+Process}!get\+Color@{get\+Color}}
+\index{get\+Color@{get\+Color}!Image\+Process@{Image\+Process}}
+\subsubsection[{\texorpdfstring{get\+Color()}{getColor()}}]{\setlength{\rightskip}{0pt plus 5cm}int Image\+Process\+::get\+Color (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}}\hypertarget{classImageProcess_a98f98b789934e466c504977d3af3f031}{}\label{classImageProcess_a98f98b789934e466c504977d3af3f031}
+\index{Image\+Process@{Image\+Process}!get\+Image@{get\+Image}}
+\index{get\+Image@{get\+Image}!Image\+Process@{Image\+Process}}
+\subsubsection[{\texorpdfstring{get\+Image()}{getImage()}}]{\setlength{\rightskip}{0pt plus 5cm}const cv\+::\+Mat\& Image\+Process\+::get\+Image (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}}\hypertarget{classImageProcess_abedcfaaa343e334b5bc09a45e69c92ba}{}\label{classImageProcess_abedcfaaa343e334b5bc09a45e69c92ba}
+\index{Image\+Process@{Image\+Process}!load\+Image@{load\+Image}}
+\index{load\+Image@{load\+Image}!Image\+Process@{Image\+Process}}
+\subsubsection[{\texorpdfstring{load\+Image(const cv\+::\+Mat \&)}{loadImage(const cv::Mat &)}}]{\setlength{\rightskip}{0pt plus 5cm}void Image\+Process\+::load\+Image (
+\begin{DoxyParamCaption}
+\item[{const cv\+::\+Mat \&}]{img}
+\end{DoxyParamCaption}
+)}\hypertarget{classImageProcess_a4c08cfba39236fa09ec5f2d0e37452fb}{}\label{classImageProcess_a4c08cfba39236fa09ec5f2d0e37452fb}
+
+
+\subsection{Member Data Documentation}
+\index{Image\+Process@{Image\+Process}!circles@{circles}}
+\index{circles@{circles}!Image\+Process@{Image\+Process}}
+\subsubsection[{\texorpdfstring{circles}{circles}}]{\setlength{\rightskip}{0pt plus 5cm}std\+::vector$<$cv\+::\+Vec3f$>$ Image\+Process\+::circles}\hypertarget{classImageProcess_aafcbd180aa8e8dd937f736a43685a6bc}{}\label{classImageProcess_aafcbd180aa8e8dd937f736a43685a6bc}
+\index{Image\+Process@{Image\+Process}!color@{color}}
+\index{color@{color}!Image\+Process@{Image\+Process}}
+\subsubsection[{\texorpdfstring{color}{color}}]{\setlength{\rightskip}{0pt plus 5cm}int Image\+Process\+::color}\hypertarget{classImageProcess_ab96f8c1ee03f6bbf8e60ffa496fdaa0d}{}\label{classImageProcess_ab96f8c1ee03f6bbf8e60ffa496fdaa0d}
+\index{Image\+Process@{Image\+Process}!detect\+Flag@{detect\+Flag}}
+\index{detect\+Flag@{detect\+Flag}!Image\+Process@{Image\+Process}}
+\subsubsection[{\texorpdfstring{detect\+Flag}{detectFlag}}]{\setlength{\rightskip}{0pt plus 5cm}bool Image\+Process\+::detect\+Flag}\hypertarget{classImageProcess_a265b78fb51ab67a89743dd9c3f85e69b}{}\label{classImageProcess_a265b78fb51ab67a89743dd9c3f85e69b}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+include/\hyperlink{ImageProcess_8hpp}{Image\+Process.\+hpp}\item 
+src/\hyperlink{ImageProcess_8cpp}{Image\+Process.\+cpp}\end{DoxyCompactItemize}

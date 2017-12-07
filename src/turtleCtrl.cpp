@@ -22,10 +22,11 @@
  * POSSIBILITY OF SUCH DAMAGE.
  */
 
-/** @file base.cpp
- *	@brief This node takes and analyze the range data. Subsequently, pass the
- *	the decision made based on the data to the turtleCtrl node which 
- *	manipulates the turtlebot.
+/** 
+ *  @file turtleCtrl.cpp
+ *	@brief This is the source code for the turtleCtrller node, which has a simple
+ *  PD controller that takes the displacement value as input. The output is 
+ *  published to the turtlebot actuator in terms of linear and angular velocities. 
  *	@author Yuyu Hsueh
  *  @Copyright 2017, Yuyu Hsueh
  */
@@ -39,8 +40,7 @@ int main(int argc, char **argv)
 {
   ros::init(argc, argv, "turtleCtrller");
   TurtleCtrl turtleCtrlObj;
-  //ros::AsyncSpinner async_spinner(2, &turtleCtrlObj.color_queue);
-  //async_spinner.start();
+
   ros::Rate loop_rate(5); //5 Htz
 
   while(ros::ok()) {

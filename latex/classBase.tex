@@ -1,0 +1,112 @@
+\hypertarget{classBase}{}\section{Base Class Reference}
+\label{classBase}\index{Base@{Base}}
+
+
+{\ttfamily \#include $<$Base.\+hpp$>$}
+
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{classBase_a5ffe0568374d8b9b4c4ec32953fd6453}{Base} ()
+\begin{DoxyCompactList}\small\item\em Initialize publishers/subscribers/servers/clients and some constants. \end{DoxyCompactList}\item 
+void \hyperlink{classBase_a07d8eb5e372ccab3c866c5abdce90d64}{image\+Callback} (const sensor\+\_\+msgs\+::\+Image\+Const\+Ptr \&msg)
+\begin{DoxyCompactList}\small\item\em In this callback, the displacement of the centeroids of the balls and the image center is computed and passed to the turtlectrller node. A simple tracking check is added. If the displacment of an obect at one time is significantly smaller or larger than the displacment at last timestep, then the object detected is likely to be a different one. \end{DoxyCompactList}\item 
+bool \hyperlink{classBase_a8b091924a7e8398ea11babdab370fd3f}{status\+Callback} (final\+\_\+package\+::\+Status\+Check\+::\+Request \&req, final\+\_\+package\+::\+Status\+Check\+::\+Response \&resp)
+\begin{DoxyCompactList}\small\item\em This is the service callback from the turtle\+Ctrller node. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+bool \hyperlink{classBase_a10b0afead866cc8cf2f5e2208a29d9f1}{complete\+Flag}
+\item 
+ros\+::\+Service\+Client \hyperlink{classBase_a874255744854a842b88ccab8674fca90}{color\+Change\+Cli\+\_\+}
+\item 
+int \hyperlink{classBase_af4c79a5d92200b5adf98634163333876}{color}
+\end{DoxyCompactItemize}
+
+
+\subsection{Constructor \& Destructor Documentation}
+\index{Base@{Base}!Base@{Base}}
+\index{Base@{Base}!Base@{Base}}
+\subsubsection[{\texorpdfstring{Base()}{Base()}}]{\setlength{\rightskip}{0pt plus 5cm}Base\+::\+Base (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\hypertarget{classBase_a5ffe0568374d8b9b4c4ec32953fd6453}{}\label{classBase_a5ffe0568374d8b9b4c4ec32953fd6453}
+
+
+Initialize publishers/subscribers/servers/clients and some constants. 
+
+The base class initializes all the necessary publishers, subscribers, servers and clients. It also takes cares of the callbacks for subscribers and servers. It\textquotesingle{}s core function is to locate the ball objects and command the turtlebot to reach it.\+Constructor
+
+
+\begin{DoxyParams}{Parameters}
+{\em none} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+none 
+\end{DoxyReturn}
+
+
+\subsection{Member Function Documentation}
+\index{Base@{Base}!image\+Callback@{image\+Callback}}
+\index{image\+Callback@{image\+Callback}!Base@{Base}}
+\subsubsection[{\texorpdfstring{image\+Callback(const sensor\+\_\+msgs\+::\+Image\+Const\+Ptr \&msg)}{imageCallback(const sensor_msgs::ImageConstPtr &msg)}}]{\setlength{\rightskip}{0pt plus 5cm}void Base\+::image\+Callback (
+\begin{DoxyParamCaption}
+\item[{const sensor\+\_\+msgs\+::\+Image\+Const\+Ptr \&}]{msg}
+\end{DoxyParamCaption}
+)}\hypertarget{classBase_a07d8eb5e372ccab3c866c5abdce90d64}{}\label{classBase_a07d8eb5e372ccab3c866c5abdce90d64}
+
+
+In this callback, the displacement of the centeroids of the balls and the image center is computed and passed to the turtlectrller node. A simple tracking check is added. If the displacment of an obect at one time is significantly smaller or larger than the displacment at last timestep, then the object detected is likely to be a different one. 
+
+The camera images are obtained from the 3D sensor. These images are passed to an imageprocess object for further image analysis. At the end, the centroid of the detected circles are computed.
+
+
+\begin{DoxyParams}{Parameters}
+{\em sensor\+\_\+msg\+::\+Image\+Const\+Ptr\&} & msg \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+none; 
+\end{DoxyReturn}
+\index{Base@{Base}!status\+Callback@{status\+Callback}}
+\index{status\+Callback@{status\+Callback}!Base@{Base}}
+\subsubsection[{\texorpdfstring{status\+Callback(final\+\_\+package\+::\+Status\+Check\+::\+Request \&req, final\+\_\+package\+::\+Status\+Check\+::\+Response \&resp)}{statusCallback(final_package::StatusCheck::Request &req, final_package::StatusCheck::Response &resp)}}]{\setlength{\rightskip}{0pt plus 5cm}bool Base\+::status\+Callback (
+\begin{DoxyParamCaption}
+\item[{final\+\_\+package\+::\+Status\+Check\+::\+Request \&}]{req, }
+\item[{final\+\_\+package\+::\+Status\+Check\+::\+Response \&}]{resp}
+\end{DoxyParamCaption}
+)}\hypertarget{classBase_a8b091924a7e8398ea11babdab370fd3f}{}\label{classBase_a8b091924a7e8398ea11babdab370fd3f}
+
+
+This is the service callback from the turtle\+Ctrller node. 
+
+This function is the service callback from the turtle\+Ctrller node. It recieves a request when a model in Gazebo is removed.\+Check ball removal
+
+
+\begin{DoxyParams}{Parameters}
+{\em Status\+Check} & service request and respond. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+true 
+\end{DoxyReturn}
+
+
+\subsection{Member Data Documentation}
+\index{Base@{Base}!color@{color}}
+\index{color@{color}!Base@{Base}}
+\subsubsection[{\texorpdfstring{color}{color}}]{\setlength{\rightskip}{0pt plus 5cm}int Base\+::color}\hypertarget{classBase_af4c79a5d92200b5adf98634163333876}{}\label{classBase_af4c79a5d92200b5adf98634163333876}
+1\+:Red, 2\+:Green, 3\+:Blue \index{Base@{Base}!color\+Change\+Cli\+\_\+@{color\+Change\+Cli\+\_\+}}
+\index{color\+Change\+Cli\+\_\+@{color\+Change\+Cli\+\_\+}!Base@{Base}}
+\subsubsection[{\texorpdfstring{color\+Change\+Cli\+\_\+}{colorChangeCli_}}]{\setlength{\rightskip}{0pt plus 5cm}ros\+::\+Service\+Client Base\+::color\+Change\+Cli\+\_\+}\hypertarget{classBase_a874255744854a842b88ccab8674fca90}{}\label{classBase_a874255744854a842b88ccab8674fca90}
+Tells the turtlebot which color ball to collect \index{Base@{Base}!complete\+Flag@{complete\+Flag}}
+\index{complete\+Flag@{complete\+Flag}!Base@{Base}}
+\subsubsection[{\texorpdfstring{complete\+Flag}{completeFlag}}]{\setlength{\rightskip}{0pt plus 5cm}bool Base\+::complete\+Flag}\hypertarget{classBase_a10b0afead866cc8cf2f5e2208a29d9f1}{}\label{classBase_a10b0afead866cc8cf2f5e2208a29d9f1}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+include/\hyperlink{Base_8hpp}{Base.\+hpp}\item 
+src/\hyperlink{Base_8cpp}{Base.\+cpp}\end{DoxyCompactItemize}

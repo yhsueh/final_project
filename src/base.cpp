@@ -26,8 +26,10 @@
  *	@brief This is a source file for the base node of this project. The base
  *  node is responsible of getting and converting the images from the 
  *  asus-xtion_pro 3D sensor. Then, it passes these images into an ImageProcess
- *  object, which process these images and search for circles and their centers.
- *  In each iteration, the processed image would be displayed in an view window
+ *  object, which processes these images and search for the balls' centroids.
+ *  Finally, the displacment between the center of the ball and the center of the
+ *  image is published to the turtleCtrller node in charge of the turtlebot actuator.
+ *  In every iteration, the processed image would be displayed in an view window
  *  for users to see what the turtlebot sees. There are two services called to
  *  make sure all colors of balls are being collected. All the callbacks in 
  *  this node are running at the rate of 5Hz.

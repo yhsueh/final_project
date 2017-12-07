@@ -1,0 +1,70 @@
+\hypertarget{base__test_8cpp}{}\section{test/base\+\_\+test.cpp File Reference}
+\label{base__test_8cpp}\index{test/base\+\_\+test.\+cpp@{test/base\+\_\+test.\+cpp}}
+{\ttfamily \#include $<$ros/ros.\+h$>$}\\*
+{\ttfamily \#include $<$gtest/gtest.\+h$>$}\\*
+{\ttfamily \#include \char`\"{}sensor\+\_\+msgs/\+Laser\+Scan.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}std\+\_\+msgs/\+Float32.\+h\char`\"{}}\\*
+{\ttfamily \#include $<$opencv2/highgui/highgui.\+hpp$>$}\\*
+{\ttfamily \#include $<$cv\+\_\+bridge/cv\+\_\+bridge.\+h$>$}\\*
+{\ttfamily \#include $<$opencv2/core/core.\+hpp$>$}\\*
+{\ttfamily \#include $<$opencv2/opencv.\+hpp$>$}\\*
+{\ttfamily \#include $<$iostream$>$}\\*
+Include dependency graph for base\+\_\+test.\+cpp\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{base__test_8cpp__incl}
+\end{center}
+\end{figure}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \hyperlink{base__test_8cpp_adeb905f276d222fa4eb1e4954e07ae03}{distance\+Callback} (const std\+\_\+msgs\+::\+Float32\+::\+Const\+Ptr \&msg)
+\item 
+\hyperlink{base__test_8cpp_ac4f819542112ad90f9f02dba76320e63}{T\+E\+ST} (integration\+Test, range\+\_\+call\+\_\+back)
+\item 
+int \hyperlink{base__test_8cpp_a3c04138a5bfe5d72780bb7e82a18e627}{main} (int argc, char $\ast$$\ast$argv)
+\end{DoxyCompactItemize}
+\subsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+std\+::shared\+\_\+ptr$<$ ros\+::\+Node\+Handle $>$ \hyperlink{base__test_8cpp_a7d6d3de9ddf4963eb3ea112920944a87}{nh}
+\item 
+float \hyperlink{base__test_8cpp_aa464047f090200f942a1e47c29fff783}{min\+\_\+dist}
+\end{DoxyCompactItemize}
+
+
+\subsection{Function Documentation}
+\index{base\+\_\+test.\+cpp@{base\+\_\+test.\+cpp}!distance\+Callback@{distance\+Callback}}
+\index{distance\+Callback@{distance\+Callback}!base\+\_\+test.\+cpp@{base\+\_\+test.\+cpp}}
+\subsubsection[{\texorpdfstring{distance\+Callback(const std\+\_\+msgs\+::\+Float32\+::\+Const\+Ptr \&msg)}{distanceCallback(const std_msgs::Float32::ConstPtr &msg)}}]{\setlength{\rightskip}{0pt plus 5cm}void distance\+Callback (
+\begin{DoxyParamCaption}
+\item[{const std\+\_\+msgs\+::\+Float32\+::\+Const\+Ptr \&}]{msg}
+\end{DoxyParamCaption}
+)}\hypertarget{base__test_8cpp_adeb905f276d222fa4eb1e4954e07ae03}{}\label{base__test_8cpp_adeb905f276d222fa4eb1e4954e07ae03}
+Testing case confirming that the messages passed between service and client are same. \index{base\+\_\+test.\+cpp@{base\+\_\+test.\+cpp}!main@{main}}
+\index{main@{main}!base\+\_\+test.\+cpp@{base\+\_\+test.\+cpp}}
+\subsubsection[{\texorpdfstring{main(int argc, char $\ast$$\ast$argv)}{main(int argc, char **argv)}}]{\setlength{\rightskip}{0pt plus 5cm}int main (
+\begin{DoxyParamCaption}
+\item[{int}]{argc, }
+\item[{char $\ast$$\ast$}]{argv}
+\end{DoxyParamCaption}
+)}\hypertarget{base__test_8cpp_a3c04138a5bfe5d72780bb7e82a18e627}{}\label{base__test_8cpp_a3c04138a5bfe5d72780bb7e82a18e627}
+\index{base\+\_\+test.\+cpp@{base\+\_\+test.\+cpp}!T\+E\+ST@{T\+E\+ST}}
+\index{T\+E\+ST@{T\+E\+ST}!base\+\_\+test.\+cpp@{base\+\_\+test.\+cpp}}
+\subsubsection[{\texorpdfstring{T\+E\+S\+T(integration\+Test, range\+\_\+call\+\_\+back)}{TEST(integrationTest, range_call_back)}}]{\setlength{\rightskip}{0pt plus 5cm}T\+E\+ST (
+\begin{DoxyParamCaption}
+\item[{integration\+Test}]{, }
+\item[{range\+\_\+call\+\_\+back}]{}
+\end{DoxyParamCaption}
+)}\hypertarget{base__test_8cpp_ac4f819542112ad90f9f02dba76320e63}{}\label{base__test_8cpp_ac4f819542112ad90f9f02dba76320e63}
+Sending fake laserscan measurment and subscribe to the base node and see if the result is expected. 
+
+\subsection{Variable Documentation}
+\index{base\+\_\+test.\+cpp@{base\+\_\+test.\+cpp}!min\+\_\+dist@{min\+\_\+dist}}
+\index{min\+\_\+dist@{min\+\_\+dist}!base\+\_\+test.\+cpp@{base\+\_\+test.\+cpp}}
+\subsubsection[{\texorpdfstring{min\+\_\+dist}{min_dist}}]{\setlength{\rightskip}{0pt plus 5cm}float min\+\_\+dist}\hypertarget{base__test_8cpp_aa464047f090200f942a1e47c29fff783}{}\label{base__test_8cpp_aa464047f090200f942a1e47c29fff783}
+\index{base\+\_\+test.\+cpp@{base\+\_\+test.\+cpp}!nh@{nh}}
+\index{nh@{nh}!base\+\_\+test.\+cpp@{base\+\_\+test.\+cpp}}
+\subsubsection[{\texorpdfstring{nh}{nh}}]{\setlength{\rightskip}{0pt plus 5cm}std\+::shared\+\_\+ptr$<$ros\+::\+Node\+Handle$>$ nh}\hypertarget{base__test_8cpp_a7d6d3de9ddf4963eb3ea112920944a87}{}\label{base__test_8cpp_a7d6d3de9ddf4963eb3ea112920944a87}
