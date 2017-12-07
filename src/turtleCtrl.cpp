@@ -22,11 +22,13 @@
  * POSSIBILITY OF SUCH DAMAGE.
  */
 
-/** @file turtleCtrl.cpp
- *  @brief The velocity commanding node. It takes the decision made from the 
- *  laserReading node and pass the velocities message to the turtlebot.
+/** @file base.cpp
+ *	@brief This node takes and analyze the range data. Subsequently, pass the
+ *	the decision made based on the data to the turtleCtrl node which 
+ *	manipulates the turtlebot.
+ *	@author Yuyu Hsueh
+ *  @Copyright 2017, Yuyu Hsueh
  */
-
 #include "ros/ros.h"
 #include <ros/spinner.h>
 #include <ros/callback_queue.h>

@@ -22,9 +22,14 @@
  * POSSIBILITY OF SUCH DAMAGE.
  */
 
-/** @file talker_test.cpp
- *	@brief Integration test on service/client nodes.
+/** @file base.cpp
+ *	@brief This node takes and analyze the range data. Subsequently, pass the
+ *	the decision made based on the data to the turtleCtrl node which 
+ *	manipulates the turtlebot.
+ *	@author Yuyu Hsueh
+ *  @Copyright 2017, Yuyu Hsueh
  */
+
 #include <ros/ros.h>
 #include <gtest/gtest.h>
 #include "sensor_msgs/LaserScan.h"

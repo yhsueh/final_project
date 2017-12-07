@@ -59,7 +59,7 @@ add_service_files(
   StatusCheck.srv
 )
 
-generate_messages(DEPENDENCIES std_msgs)
+generate_messages(DEPENDENCIES std_msgs sensor_msgs geometry_msgs)
 
 
 ###################################
@@ -100,7 +100,7 @@ include_directories(
 ## Add cmake target dependencies of the library
 ## as an example, code may need to be generated before libraries
 ## either from message generation or dynamic reconfigure
-# add_dependencies(${PROJECT_NAME} ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
+ ##add_dependencies(${PROJECT_NAME} ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
 
 ## Declare a C++ executable
 ## With catkin_make all packages are built within a single CMake context
@@ -115,7 +115,7 @@ include_directories(
 
 ## Add cmake target dependencies of the executable
 ## same as for the library above
-# add_dependencies(${PROJECT_NAME}_node ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
+## add_dependencies(${PROJECT_NAME}_node ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
 
 ## Specify libraries to link a library or executable target against
 # target_link_libraries(${PROJECT_NAME}_node
@@ -179,4 +179,4 @@ add_dependencies(base ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARG
 
 add_executable(turtleCtrller src/turtleCtrl.cpp src/TurtleCtrl.cpp)
 target_link_libraries(turtleCtrller ${catkin_LIBRARIES} ${OpenCV_LIBRARIES} ${GAZEBO_LIBRARIES})
-add_dependencies(base ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
+add_dependencies(turtleCtrller ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})

@@ -1,3 +1,32 @@
+/*
+ * Copyright (C) 2017, Yuyu Hsueh.
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions are met:
+ *   * Redistributions of source code must retain the above copyright notice,
+ *     this list of conditions and the following disclaimer.
+ *   * Redistributions in binary form must reproduce the above copyright
+ *     notice, this list of conditions and the following disclaimer in the
+ *     documentation and/or other materials provided with the distribution.
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+ * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+ * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+ * ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE
+ * LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
+ * CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
+ * SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
+ * INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
+ * CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
+ * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
+ * POSSIBILITY OF SUCH DAMAGE.
+ */
+
+/** @file Base.cpp
+ *	@brief Base class implementation source file.
+ *	@author Yuyu Hsueh
+ *  @Copyright 2017, Yuyu Hsueh
+ */
 #include <stdlib.h>
 #include <ros/ros.h>
 #include <ros/advertise_service_options.h>
@@ -14,6 +43,12 @@
 #include "Base.hpp"
 #include "ImageProcess.hpp"
 
+
+  /**
+   * @brief Initialize publishers/subscribers/servers/clients and some constants.
+   * @param none
+   * @return none
+   */
 Base::Base() {
   image_transport::ImageTransport it(nh);
 	imageSub = it.subscribe("camera/rgb/image_raw", 1, &Base::imageCallback, this);  
@@ -26,11 +61,25 @@ Base::Base() {
   completeFlag = false;
 }
 
+/**
+* @brief This is the service callback from the turtleCtrller node. It is triggered when a ball model
+* is removed.
+* @param StatusCheck service request and respond.
+* @return true
+*/
 bool Base::statusCallback(final_package::StatusCheck::Request &req,
 				final_package::StatusCheck::Response &resp) {
   completeFlag = req.input;
   return true;
 }
+
+/**
+* @brief This subscriber callback obtains the camera image from the 3D sensor installed 
+*  on the turtlebot. Inside this function, the camera image is converted to OPENCV image.
+*  Subsequently, an imageprocess object is declared to process these RGB images.
+* @param Sensor_msgs::ImageConstPtr&msg
+* @return none;
+*/
 
 void Base::imageCallback(const sensor_msgs::ImageConstPtr& msg) {
 	int disp;
