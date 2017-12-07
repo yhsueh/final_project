@@ -50,24 +50,22 @@
 #include "sensor_msgs/LaserScan.h"
 #include "final_package/ColorChange.h"
 
-
-int main(int argc, char **argv)
-{  
+int main(int argc, char **argv) {
   ros::init(argc, argv, "base");
-  Base baseObj; 
+  Base baseObj;
   final_package::ColorChange srv;
- 
+
   baseObj.color = 1;
   srv.request.input = baseObj.color;
   bool colorChangeFlag = baseObj.colorChangeCli_.call(srv);
-  int pickCount = 0; 
+  int pickCount = 0;
 
   cv::namedWindow("view");
   cv::startWindowThread();
 
   ros::Rate loop_rate(5);
 
-  while(ros::ok()) {
+  while (ros::ok()) {
     if (baseObj.completeFlag) {
       baseObj.color += 1;
       srv.request.input = baseObj.color;
@@ -81,8 +79,8 @@ int main(int argc, char **argv)
         break;
       }
     }
-  	ros::spinOnce();
-  	loop_rate.sleep();
+    ros::spinOnce();
+    loop_rate.sleep();
   }
   srv.request.input = -1;
   baseObj.colorChangeCli_.call(srv);

@@ -43,42 +43,40 @@
 #include "ImageProcess.hpp"
 #include "final_package/StatusCheck.h"
 
-
 /** 
-* The base class initializes all the necessary publishers, subscribers,
-* servers and clients. It also takes cares of the callbacks for subscribers
-* and servers. It's core function is to locate the ball objects and command
-* the turtlebot to reach it.
-*/
+ * The base class initializes all the necessary publishers, subscribers,
+ * servers and clients. It also takes cares of the callbacks for subscribers
+ * and servers. It's core function is to locate the ball objects and command
+ * the turtlebot to reach it.
+ */
 class Base {
-	public:
-		Base();
+ public:
+  Base();
 
-		/**
-		  * The camera images are obtained from the 3D sensor. These images are passed
-		  * to an imageprocess object for further image analysis. At the end, the centroid
-		  * of the detected circles are computed.
-		  */
-		void imageCallback(const sensor_msgs::ImageConstPtr& msg);
+  /**
+   * The camera images are obtained from the 3D sensor. These images are passed
+   * to an imageprocess object for further image analysis. At the end, the centroid
+   * of the detected circles are computed.
+   */
+  void imageCallback(const sensor_msgs::ImageConstPtr& msg);
 
+  /** 
+   * This function is the service callback from the turtleCtrller node. It
+   * recieves a request when a model in Gazebo is removed.
+   */
+  bool statusCallback(final_package::StatusCheck::Request& req,
+                      final_package::StatusCheck::Response &resp);
+  bool completeFlag;
+  ros::ServiceClient colorChangeCli_; /**< Tells the turtlebot which color ball to collect*/
+  int color; /**< 1:Red, 2:Green, 3:Blue */
+ private:
+  ros::NodeHandle nh;
+  ros::Publisher cmdPub;
+  ros::ServiceServer statusSrv_;
+  image_transport::Subscriber imageSub;
+  ImageProcess imgProcess;
+  float centerline;
+  int lDisp;
 
-		/** 
-		  * This function is the service callback from the turtleCtrller node. It
-		  * recieves a request when a model in Gazebo is removed.
-		  */
-		bool statusCallback(final_package::StatusCheck::Request& req,
-			final_package::StatusCheck::Response &resp);
-		bool completeFlag;
-		ros::ServiceClient colorChangeCli_; /**< Tells the turtlebot which color ball to collect*/
-		int color; /**< 1:Red, 2:Green, 3:Blue */
-	private:
-		ros::NodeHandle nh;
-		ros::Publisher cmdPub;
-		ros::ServiceServer statusSrv_;
-		image_transport::Subscriber imageSub;
-		ImageProcess imgProcess;
-		float centerline;
-		int lDisp;
-		
 };
 

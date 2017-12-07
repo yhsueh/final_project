@@ -44,82 +44,79 @@
 #include "Base.hpp"
 #include "ImageProcess.hpp"
 
-
-  /**
-   * @brief Initialize publishers/subscribers/servers/clients and some constants.
-   * @param none
-   * @return none
-   */
+/**
+ * @brief Initialize publishers/subscribers/servers/clients and some constants.
+ * @param none
+ * @return none
+ */
 Base::Base() {
   image_transport::ImageTransport it(nh);
-	imageSub = it.subscribe("camera/rgb/image_raw", 1, &Base::imageCallback, this);  
-  cmdPub = nh.advertise<std_msgs::Int64>("base/disp",1);  
-  colorChangeCli_ = nh.serviceClient<final_package::ColorChange>("base_color_change");
-  statusSrv_ = nh.advertiseService("status_check",&Base::statusCallback,this);
-  centerline = 640/2;
+  imageSub = it.subscribe("camera/rgb/image_raw", 1, &Base::imageCallback,
+                          this);
+  cmdPub = nh.advertise < std_msgs::Int64 > ("base/disp", 1);
+  colorChangeCli_ = nh.serviceClient < final_package::ColorChange
+      > ("base_color_change");
+  statusSrv_ = nh.advertiseService("status_check", &Base::statusCallback, this);
+  centerline = 640 / 2;
   lDisp = 10000;
   color = 0;
   completeFlag = false;
 }
 
 /**
-* @brief This is the service callback from the turtleCtrller node.
-* @param StatusCheck service request and respond.
-* @return true
-*/
+ * @brief This is the service callback from the turtleCtrller node.
+ * @param StatusCheck service request and respond.
+ * @return true
+ */
 bool Base::statusCallback(final_package::StatusCheck::Request &req,
-				final_package::StatusCheck::Response &resp) {
+                          final_package::StatusCheck::Response &resp) {
   completeFlag = req.input;
   return true;
 }
 
 /**
-* @brief In this callback, the displacement of the centeroids of the balls and 
-* the image center is computed and passed to the turtlectrller node. A simple
-* tracking check is added. If the displacment of an obect at one time is significantly
-* smaller or larger than the displacment at last timestep, then the object detected
-* is likely to be a different one.
-* @param sensor_msg::ImageConstPtr& msg
-* @return none
-*/
+ * @brief In this callback, the displacement of the centeroids of the balls and 
+ * the image center is computed and passed to the turtlectrller node. A simple
+ * tracking check is added. If the displacment of an obect at one time is significantly
+ * smaller or larger than the displacment at last timestep, then the object detected
+ * is likely to be a different one.
+ * @param sensor_msg::ImageConstPtr& msg
+ * @return none
+ */
 
 void Base::imageCallback(const sensor_msgs::ImageConstPtr& msg) {
-	int disp;
+  int disp;
   std_msgs::Int64 dispMsg;
-  try
-	{
-      imgProcess.color = color;
-      imgProcess.detectFlag = false;
-      imgProcess.loadImage(cv_bridge::toCvShare(msg, "bgr8")->image);
-      imgProcess.detection();
+  try {
+    imgProcess.color = color;
+    imgProcess.detectFlag = false;
+    imgProcess.loadImage(cv_bridge::toCvShare(msg, "bgr8")->image);
+    imgProcess.detection();
 
-      if (imgProcess.detectFlag) {
-        for (auto &i : imgProcess.circles) {
-          disp = cvRound(i[0]) - centerline;
-          
-          if (std::abs(disp-lDisp) < 50 || lDisp == 10000) { 
-            break;
-          }
+    if (imgProcess.detectFlag) {
+      for (auto &i : imgProcess.circles) {
+        disp = cvRound(i[0]) - centerline;
+
+        if (std::abs(disp - lDisp) < 50 || lDisp == 10000) {
+          break;
         }
-
-        if (std::abs(disp-lDisp) > 50)
-          ROS_INFO("Tracked object is missing, tracking new object");
-        
-        lDisp = disp;
-      }
-      else {
-        disp = 10000;
       }
 
-      dispMsg.data = disp;
-      cmdPub.publish(dispMsg);
+      if (std::abs(disp - lDisp) > 50)
+        ROS_INFO("Tracked object is missing, tracking new object");
 
-      cv::imshow("view", imgProcess.getImage());
-    	cv::waitKey(1);
-  	}
-  	catch (cv_bridge::Exception& e)
-  	{
-    	ROS_ERROR("Could not convert from '%s' to 'bgr8'.", msg->encoding.c_str());
-  	}
+      lDisp = disp;
+    } else {
+      disp = 10000;
+    }
+
+    dispMsg.data = disp;
+    cmdPub.publish(dispMsg);
+
+    cv::imshow("view", imgProcess.getImage());
+    cv::waitKey(1);
+  } catch (cv_bridge::Exception& e) {
+    ROS_ERROR("Could not convert from '%s' to 'bgr8'.", msg->encoding.c_str());
+  }
 }
 

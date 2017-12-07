@@ -41,45 +41,43 @@
 #include "final_package/ColorChange.h"
 
 class TurtleCtrl {
-public:
-	TurtleCtrl(); /**< Constrcutor that initialize pubs/subs/servers/clients */
+ public:
+  TurtleCtrl(); /**< Constrcutor that initialize pubs/subs/servers/clients */
 
-	/**
-	* This is a subscriber callback of the displacment message used to find the 
-	* turtlebot's position in relation to the ball.
-	*/
-	void dispCallback(const std_msgs::Int64& dispMsg);
+  /**
+   * This is a subscriber callback of the displacment message used to find the 
+   * turtlebot's position in relation to the ball.
+   */
+  void dispCallback(const std_msgs::Int64& dispMsg);
 
-	/**
-	* This is a subscriber callback of the range measurement. This information is
-	* critical for determining whether the ball is within the turtlebot's reach.
-	*/
-	void rangeCallback(const sensor_msgs::LaserScan::ConstPtr& msg);
+  /**
+   * This is a subscriber callback of the range measurement. This information is
+   * critical for determining whether the ball is within the turtlebot's reach.
+   */
+  void rangeCallback(const sensor_msgs::LaserScan::ConstPtr& msg);
 
-	/**
-	* This is a server callback of the color information. The specified color is 
-	* necessary for the program to delete the correct object.
-	*/
-	bool colorCallback(final_package::ColorChange::Request &req,
-				final_package::ColorChange::Response &resp);
-	ros::ServiceClient statusCheckCli_;
-	bool terminate;
-private:
-	ros::NodeHandle nh;
-	ros::NodeHandle nh2;
-	ros::Subscriber rngSub;
-	ros::Publisher velPub;
-	ros::Subscriber dispSub;
-	ros::ServiceClient deleteClient;
-	ros::ServiceServer colorChangeSrv_;
-	float velMax;
-	float kp;
-	float kd;
-	float lMinimal;
-	int color;
-	int disp;
-	int lDisp; //for derivative control term
+  /**
+   * This is a server callback of the color information. The specified color is 
+   * necessary for the program to delete the correct object.
+   */
+  bool colorCallback(final_package::ColorChange::Request &req,
+                     final_package::ColorChange::Response &resp);
+  ros::ServiceClient statusCheckCli_;
+  bool terminate;
+ private:
+  ros::NodeHandle nh;
+  ros::NodeHandle nh2;
+  ros::Subscriber rngSub;
+  ros::Publisher velPub;
+  ros::Subscriber dispSub;
+  ros::ServiceClient deleteClient;
+  ros::ServiceServer colorChangeSrv_;
+  float velMax;
+  float kp;
+  float kd;
+  float lMinimal;
+  int color;
+  int disp;
+  int lDisp;  //for derivative control term
 };
-
-
 

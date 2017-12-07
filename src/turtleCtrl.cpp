@@ -35,19 +35,17 @@
 #include <ros/callback_queue.h>
 #include "TurtleCtrl.hpp"
 
-
-int main(int argc, char **argv)
-{
+int main(int argc, char **argv) {
   ros::init(argc, argv, "turtleCtrller");
   TurtleCtrl turtleCtrlObj;
 
-  ros::Rate loop_rate(5); //5 Htz
+  ros::Rate loop_rate(5);  //5 Htz
 
-  while(ros::ok()) {
+  while (ros::ok()) {
     ros::spinOnce();
     loop_rate.sleep();
     if (turtleCtrlObj.terminate)
-    	break;
+      break;
   }
   ROS_INFO("Shutting down");
   ros::shutdown();

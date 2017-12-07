@@ -43,111 +43,111 @@
 #include "final_package/StatusCheck.h"
 
 /**
-* The constructor for the turtlectrl node class. Kp and Kd gains are initialized here
-* along with all other pubs/subs/servers/clients. The maixmum angular velocities are
-* 0.15.
-*/
+ * The constructor for the turtlectrl node class. Kp and Kd gains are initialized here
+ * along with all other pubs/subs/servers/clients. The maixmum angular velocities are
+ * 0.15.
+ */
 TurtleCtrl::TurtleCtrl() {
-	dispSub = nh.subscribe("base/disp",1, &TurtleCtrl::dispCallback, this);
-	velPub = nh.advertise<geometry_msgs::Twist>("/mobile_base/commands/velocity", 1);
-	rngSub = nh.subscribe("scan", 1, &TurtleCtrl::rangeCallback, this);
-	deleteClient = nh.serviceClient <gazebo_msgs::DeleteModel>("gazebo/delete_model");
-	statusCheckCli_ = nh.serviceClient<final_package::StatusCheck>("status_check");
-	//nh2.setCallbackQueue(&color_queue);
-	colorChangeSrv_ = nh.advertiseService("base_color_change",&TurtleCtrl::colorCallback,this);
-	kp = 0.001;
-	kd = 0.0001;
-	velMax = 0.15;
-	lMinimal = 10;
-	color = 0;
-	terminate = false;
-	ROS_INFO("INITIZLIATION");
+  dispSub = nh.subscribe("base/disp", 1, &TurtleCtrl::dispCallback, this);
+  velPub = nh.advertise < geometry_msgs::Twist
+      > ("/mobile_base/commands/velocity", 1);
+  rngSub = nh.subscribe("scan", 1, &TurtleCtrl::rangeCallback, this);
+  deleteClient = nh.serviceClient < gazebo_msgs::DeleteModel
+      > ("gazebo/delete_model");
+  statusCheckCli_ = nh.serviceClient < final_package::StatusCheck
+      > ("status_check");
+  //nh2.setCallbackQueue(&color_queue);
+  colorChangeSrv_ = nh.advertiseService("base_color_change",
+                                        &TurtleCtrl::colorCallback, this);
+  kp = 0.001;
+  kd = 0.0001;
+  velMax = 0.15;
+  lMinimal = 10;
+  color = 0;
+  terminate = false;
+  ROS_INFO("INITIZLIATION");
 }
 
 /**
-* @brief This callback speicifies the color
-* @param ColorChange service request and response.
-* @return true.
-*/
+ * @brief This callback speicifies the color
+ * @param ColorChange service request and response.
+ * @return true.
+ */
 bool TurtleCtrl::colorCallback(final_package::ColorChange::Request &req,
-				final_package::ColorChange::Response &resp) {
-	color = req.input;
-	if (color == -1){
-		terminate = true;
-	}
-	ROS_INFO("Color input from Base:%d",color);
-	return true;	
+                               final_package::ColorChange::Response &resp) {
+  color = req.input;
+  if (color == -1) {
+    terminate = true;
+  }
+  ROS_INFO("Color input from Base:%d", color);
+  return true;
 }
 
 /**
-* @brief  This callback controls the actuator of the turtlebot. When 
-* nothing is detected, the disp is passed in as 10000.
-* @param  std_msgs::Int64.
-* @return none.
-*/
-void TurtleCtrl::dispCallback( const std_msgs::Int64& dispMsg) {	
-	disp = dispMsg.data;
-	bool deleteFlag = false;
-	geometry_msgs::Twist msg;
+ * @brief  This callback controls the actuator of the turtlebot. When 
+ * nothing is detected, the disp is passed in as 10000.
+ * @param  std_msgs::Int64.
+ * @return none.
+ */
+void TurtleCtrl::dispCallback(const std_msgs::Int64& dispMsg) {
+  disp = dispMsg.data;
+  bool deleteFlag = false;
+  geometry_msgs::Twist msg;
 
-	msg.linear.x = 0.0;
-    msg.linear.y = 0.0;
-    msg.linear.z = 0.0;
+  msg.linear.x = 0.0;
+  msg.linear.y = 0.0;
+  msg.linear.z = 0.0;
 
-    msg.angular.x = 0.0;
-    msg.angular.y = 0.0;
-    msg.angular.z = 0.0;
+  msg.angular.x = 0.0;
+  msg.angular.y = 0.0;
+  msg.angular.z = 0.0;
 
-	if (disp == 10000) {
-		msg.angular.z = 0.5;
-	} 
-	else {
-		if (lMinimal > 0.6) {
-			if (abs(disp) < 35) {
-				msg.linear.x = 0.2;
-			}
-			else{
-				msg.angular.z = -(kp*disp+kd*(disp-lDisp));
-				if (msg.angular.z > velMax) {
-					msg.angular.z = velMax;
-				}
-				else if (msg.angular.z < -velMax) {
-					msg.angular.z = -velMax;
-				}
-			}
-		}
-		else{
-			gazebo_msgs::DeleteModel srv;
-			final_package::StatusCheck statusSrv;
-			switch(color) {
-			case 0:
-				ROS_ERROR("No color specified");
-			case 1:
-				srv.request.model_name = "RedBall";
-				statusSrv.request.input = true;
-				deleteClient.call(srv);
-				statusCheckCli_.call(statusSrv);
-				deleteFlag = true;
-				break;
-			case 2:
-				srv.request.model_name = "GreenBall";
-				statusSrv.request.input = true;
-				deleteClient.call(srv);
-				statusCheckCli_.call(statusSrv);
-				deleteFlag = true;
-				break;
-			case 3:
-				srv.request.model_name = "BlueBall";
-				statusSrv.request.input = true;
-				deleteClient.call(srv);
-				statusCheckCli_.call(statusSrv);
-				deleteFlag = true;
-				break;
-			}
-		}
-	}
-	velPub.publish(msg);
-	lDisp = disp;
+  if (disp == 10000) {
+    msg.angular.z = 0.5;
+  } else {
+    if (lMinimal > 0.6) {
+      if (abs(disp) < 35) {
+        msg.linear.x = 0.2;
+      } else {
+        msg.angular.z = -(kp * disp + kd * (disp - lDisp));
+        if (msg.angular.z > velMax) {
+          msg.angular.z = velMax;
+        } else if (msg.angular.z < -velMax) {
+          msg.angular.z = -velMax;
+        }
+      }
+    } else {
+      gazebo_msgs::DeleteModel srv;
+      final_package::StatusCheck statusSrv;
+      switch (color) {
+        case 0:
+          ROS_ERROR("No color specified");
+        case 1:
+          srv.request.model_name = "RedBall";
+          statusSrv.request.input = true;
+          deleteClient.call(srv);
+          statusCheckCli_.call(statusSrv);
+          deleteFlag = true;
+          break;
+        case 2:
+          srv.request.model_name = "GreenBall";
+          statusSrv.request.input = true;
+          deleteClient.call(srv);
+          statusCheckCli_.call(statusSrv);
+          deleteFlag = true;
+          break;
+        case 3:
+          srv.request.model_name = "BlueBall";
+          statusSrv.request.input = true;
+          deleteClient.call(srv);
+          statusCheckCli_.call(statusSrv);
+          deleteFlag = true;
+          break;
+      }
+    }
+  }
+  velPub.publish(msg);
+  lDisp = disp;
 }
 
 void TurtleCtrl::rangeCallback(const sensor_msgs::LaserScan::ConstPtr& msg) {
