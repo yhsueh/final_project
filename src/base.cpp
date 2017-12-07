@@ -53,11 +53,11 @@
 
 int main(int argc, char **argv)
 {  
-  ros::init(argc, argv, "base"); /**< Node declaration */  
-  Base baseObj;  /**< Node is being implemented as a class object.*/
+  ros::init(argc, argv, "base");
+  Base baseObj; 
   final_package::ColorChange srv;
  
-  baseObj.color = 1;  /**< Begin the program with the red ball. */
+  baseObj.color = 1;
   srv.request.input = baseObj.color;
   bool colorChangeFlag = baseObj.colorChangeCli_.call(srv);
   int pickCount = 0; 

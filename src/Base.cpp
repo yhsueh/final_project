@@ -80,7 +80,7 @@ bool Base::statusCallback(final_package::StatusCheck::Request &req,
 * smaller or larger than the displacment at last timestep, then the object detected
 * is likely to be a different one.
 * @param sensor_msg::ImageConstPtr& msg
-* @return none;
+* @return none
 */
 
 void Base::imageCallback(const sensor_msgs::ImageConstPtr& msg) {
@@ -97,13 +97,10 @@ void Base::imageCallback(const sensor_msgs::ImageConstPtr& msg) {
         for (auto &i : imgProcess.circles) {
           disp = cvRound(i[0]) - centerline;
           
-          /*Tracking*/
           if (std::abs(disp-lDisp) < 50 || lDisp == 10000) { 
             break;
           }
         }
-
-        //ROS_INFO("Displacment is:%d LDisp is :%d", disp, lDisp);
 
         if (std::abs(disp-lDisp) > 50)
           ROS_INFO("Tracked object is missing, tracking new object");

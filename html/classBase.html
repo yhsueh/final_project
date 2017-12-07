@@ -114,7 +114,9 @@ Public Attributes</h2></td></tr>
 <tr class="memitem:af4c79a5d92200b5adf98634163333876"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classBase.html#af4c79a5d92200b5adf98634163333876">color</a></td></tr>
 <tr class="separator:af4c79a5d92200b5adf98634163333876"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>The base class initializes all the necessary publishers, subscribers, servers and clients. It also takes cares of the callbacks for subscribers and servers. It's core function is to locate the ball objects and command the turtlebot to reach it. </p>
+</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a class="anchor" id="a5ffe0568374d8b9b4c4ec32953fd6453"></a>
 <div class="memitem">
 <div class="memproto">
@@ -129,7 +131,6 @@ Public Attributes</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Initialize publishers/subscribers/servers/clients and some constants. </p>
-<p>The base class initializes all the necessary publishers, subscribers, servers and clients. It also takes cares of the callbacks for subscribers and servers. It's core function is to locate the ball objects and command the turtlebot to reach it.Constructor</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">none</td><td></td></tr>
@@ -163,7 +164,7 @@ Public Attributes</h2></td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>none; </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>none </dd></dl>
 
 </div>
 </div>
@@ -192,7 +193,7 @@ Public Attributes</h2></td></tr>
 </div><div class="memdoc">
 
 <p>This is the service callback from the turtleCtrller node. </p>
-<p>This function is the service callback from the turtleCtrller node. It recieves a request when a model in Gazebo is removed.Check ball removal</p>
+<p>This function is the service callback from the turtleCtrller node. It recieves a request when a model in Gazebo is removed.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">StatusCheck</td><td>service request and respond. </td></tr>

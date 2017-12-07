@@ -6,6 +6,5 @@ var searchData=
   ['colorcallback',['colorCallback',['../classTurtleCtrl.html#aa803104f5e820d420927df598e48f924',1,'TurtleCtrl']]],
   ['colorchangecli_5f',['colorChangeCli_',['../classBase.html#a874255744854a842b88ccab8674fca90',1,'Base']]],
   ['completeflag',['completeFlag',['../classBase.html#a10b0afead866cc8cf2f5e2208a29d9f1',1,'Base']]],
-  ['contract',['CONTRACT',['../license_8txt.html#ad1b3910f726d03f8987a2ad1665d309c',1,'license.txt']]],
-  ['c_2b_2b_20boilerplate',['C++ Boilerplate',['../md_readme.html',1,'']]]
+  ['contract',['CONTRACT',['../license_8txt.html#ad1b3910f726d03f8987a2ad1665d309c',1,'license.txt']]]
 ];

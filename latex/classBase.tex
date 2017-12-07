@@ -24,6 +24,9 @@ int \hyperlink{classBase_af4c79a5d92200b5adf98634163333876}{color}
 \end{DoxyCompactItemize}
 
 
+\subsection{Detailed Description}
+The base class initializes all the necessary publishers, subscribers, servers and clients. It also takes cares of the callbacks for subscribers and servers. It\textquotesingle{}s core function is to locate the ball objects and command the turtlebot to reach it. 
+
 \subsection{Constructor \& Destructor Documentation}
 \index{Base@{Base}!Base@{Base}}
 \index{Base@{Base}!Base@{Base}}
@@ -35,8 +38,6 @@ int \hyperlink{classBase_af4c79a5d92200b5adf98634163333876}{color}
 
 
 Initialize publishers/subscribers/servers/clients and some constants. 
-
-The base class initializes all the necessary publishers, subscribers, servers and clients. It also takes cares of the callbacks for subscribers and servers. It\textquotesingle{}s core function is to locate the ball objects and command the turtlebot to reach it.\+Constructor
 
 
 \begin{DoxyParams}{Parameters}
@@ -68,7 +69,7 @@ The camera images are obtained from the 3D sensor. These images are passed to an
 \hline
 \end{DoxyParams}
 \begin{DoxyReturn}{Returns}
-none; 
+none 
 \end{DoxyReturn}
 \index{Base@{Base}!status\+Callback@{status\+Callback}}
 \index{status\+Callback@{status\+Callback}!Base@{Base}}
@@ -82,7 +83,7 @@ none;
 
 This is the service callback from the turtle\+Ctrller node. 
 
-This function is the service callback from the turtle\+Ctrller node. It recieves a request when a model in Gazebo is removed.\+Check ball removal
+This function is the service callback from the turtle\+Ctrller node. It recieves a request when a model in Gazebo is removed.
 
 
 \begin{DoxyParams}{Parameters}

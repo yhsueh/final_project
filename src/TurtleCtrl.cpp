@@ -117,7 +117,7 @@ void TurtleCtrl::dispCallback( const std_msgs::Int64& dispMsg) {
 			}
 		}
 		else{
-			gazebo_msgs::DeleteModel srv; /**< Calling model_delete srv */
+			gazebo_msgs::DeleteModel srv;
 			final_package::StatusCheck statusSrv;
 			switch(color) {
 			case 0:

@@ -35,11 +35,11 @@
 #include <opencv2/core/core.hpp>
 #include <opencv2/opencv.hpp>
 
+/** 
+ * The imageProcess class loads the image and detects the centroids of the 
+ * detected circles.
+ */
 class ImageProcess {
-	/** 
-	  * The imageProcess class loads the image and detects the centroids of the 
-	  * detected circles.
-	  */
 public:
 	ImageProcess() : detectFlag(false), color(0) {}
 	void loadImage(const cv::Mat&);

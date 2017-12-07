@@ -43,15 +43,16 @@
 #include "ImageProcess.hpp"
 #include "final_package/StatusCheck.h"
 
+
+/** 
+* The base class initializes all the necessary publishers, subscribers,
+* servers and clients. It also takes cares of the callbacks for subscribers
+* and servers. It's core function is to locate the ball objects and command
+* the turtlebot to reach it.
+*/
 class Base {
-	/** 
-	  * The base class initializes all the necessary publishers, subscribers,
-	  * servers and clients. It also takes cares of the callbacks for subscribers
-	  * and servers. It's core function is to locate the ball objects and command
-	  * the turtlebot to reach it.
-	  */
 	public:
-		Base(); /**< Constructor*/
+		Base();
 
 		/**
 		  * The camera images are obtained from the 3D sensor. These images are passed
@@ -66,7 +67,7 @@ class Base {
 		  * recieves a request when a model in Gazebo is removed.
 		  */
 		bool statusCallback(final_package::StatusCheck::Request& req,
-			final_package::StatusCheck::Response &resp); /**< Check ball removal */
+			final_package::StatusCheck::Response &resp);
 		bool completeFlag;
 		ros::ServiceClient colorChangeCli_; /**< Tells the turtlebot which color ball to collect*/
 		int color; /**< 1:Red, 2:Green, 3:Blue */

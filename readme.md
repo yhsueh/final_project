@@ -1,4 +1,4 @@
-# C++ Boilerplate
+# Final Project
 [![Build Status](https://travis-ci.org/yhsueh/final_project.svg?branch=master)](https://travis-ci.org/yhsueh/final_project)
 
 ## Project Descriptioin
