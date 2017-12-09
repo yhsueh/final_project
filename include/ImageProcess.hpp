@@ -47,13 +47,8 @@ class ImageProcess {
   }
   void loadImage(const cv::Mat&);
   void detection();
-  const cv::Mat& getImage() {
-    return lastImage;
-  }
   std::vector<cv::Vec3f> circles;
-  int getColor() {
-    return color;
-  }
+  cv::Mat& getImage();
   bool detectFlag;
   int color;
 

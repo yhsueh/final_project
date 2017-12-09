@@ -28,11 +28,11 @@
  *	@author Yuyu Hsueh
  *  @Copyright 2017, Yuyu Hsueh
  */
-#include <stdlib.h>
 #include <ros/ros.h>
 #include <ros/advertise_service_options.h>
 #include <ros/spinner.h>
 #include <ros/callback_queue.h>
+#include <stdlib.h>
 #include <image_transport/image_transport.h>
 #include <cv_bridge/cv_bridge.h>
 #include <sensor_msgs/image_encodings.h>
@@ -85,9 +85,9 @@ bool Base::statusCallback(final_package::StatusCheck::Request &req,
  */
 
 void Base::imageCallback(const sensor_msgs::ImageConstPtr& msg) {
-  int disp;
   std_msgs::Int64 dispMsg;
   try {
+  	int disp;
     imgProcess.color = color;
     imgProcess.detectFlag = false;
     imgProcess.loadImage(cv_bridge::toCvShare(msg, "bgr8")->image);

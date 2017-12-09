@@ -28,11 +28,12 @@
  *  @Copyright 2017, Yuyu Hsueh
  */
 
-#include <stdlib.h>
+
 #include <ros/ros.h>
 #include <ros/advertise_service_options.h>
 #include <ros/spinner.h>
 #include <ros/callback_queue.h>
+#include <stdlib.h>
 #include "std_msgs/Int64.h"
 #include "std_msgs/Float32.h"
 #include "sensor_msgs/LaserScan.h"
@@ -56,7 +57,6 @@ TurtleCtrl::TurtleCtrl() {
       > ("gazebo/delete_model");
   statusCheckCli_ = nh.serviceClient < final_package::StatusCheck
       > ("status_check");
-  //nh2.setCallbackQueue(&color_queue);
   colorChangeSrv_ = nh.advertiseService("base_color_change",
                                         &TurtleCtrl::colorCallback, this);
   kp = 0.001;
@@ -91,7 +91,6 @@ bool TurtleCtrl::colorCallback(final_package::ColorChange::Request &req,
  */
 void TurtleCtrl::dispCallback(const std_msgs::Int64& dispMsg) {
   disp = dispMsg.data;
-  bool deleteFlag = false;
   geometry_msgs::Twist msg;
 
   msg.linear.x = 0.0;
@@ -127,21 +126,18 @@ void TurtleCtrl::dispCallback(const std_msgs::Int64& dispMsg) {
           statusSrv.request.input = true;
           deleteClient.call(srv);
           statusCheckCli_.call(statusSrv);
-          deleteFlag = true;
           break;
         case 2:
           srv.request.model_name = "GreenBall";
           statusSrv.request.input = true;
           deleteClient.call(srv);
           statusCheckCli_.call(statusSrv);
-          deleteFlag = true;
           break;
         case 3:
           srv.request.model_name = "BlueBall";
           statusSrv.request.input = true;
           deleteClient.call(srv);
           statusCheckCli_.call(statusSrv);
-          deleteFlag = true;
           break;
       }
     }

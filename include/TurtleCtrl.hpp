@@ -64,7 +64,8 @@ class TurtleCtrl {
                      final_package::ColorChange::Response &resp);
   ros::ServiceClient statusCheckCli_;
   bool terminate;
- private:
+
+private:
   ros::NodeHandle nh;
   ros::NodeHandle nh2;
   ros::Subscriber rngSub;
@@ -78,6 +79,6 @@ class TurtleCtrl {
   float lMinimal;
   int color;
   int disp;
-  int lDisp;  //for derivative control term
+  int lDisp;  // for derivative control term
 };
 

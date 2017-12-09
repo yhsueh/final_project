@@ -49,6 +49,11 @@ void ImageProcess::loadImage(const cv::Mat& img) {
  * @param none;
  * @return none;
  */
+
+cv::Mat& ImageProcess::getImage() {
+  return lastImage;
+}
+
 void ImageProcess::detection() {
   cv::Mat structure = cv::getStructuringElement(1, cv::Size(7, 7));
   cv::cvtColor(lastImage, lastImage, CV_BGR2HSV);
@@ -60,15 +65,15 @@ void ImageProcess::detection() {
       break;
     case 1:
       cv::inRange(lastImage, cv::Scalar(0, 70, 0), cv::Scalar(0, 255, 255),
-                  lastImage);  //R
+                  lastImage);  // Red
       break;
     case 2:
       cv::inRange(lastImage, cv::Scalar(50, 90, 0), cv::Scalar(70, 255, 255),
-                  lastImage);  //G
+                  lastImage);  // Green
       break;
     case 3:
       cv::inRange(lastImage, cv::Scalar(120, 50, 0), cv::Scalar(120, 255, 255),
-                  lastImage);  //B
+                  lastImage);  // Blue
       break;
   }
 

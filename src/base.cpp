@@ -37,7 +37,6 @@
  *  @Copyright 2017, Yuyu Hsueh
  */
 
-#include "Base.hpp"
 #include <ros/ros.h>
 #include <ros/advertise_service_options.h>
 #include <ros/spinner.h>
@@ -49,6 +48,7 @@
 #include <opencv2/highgui/highgui.hpp>
 #include "sensor_msgs/LaserScan.h"
 #include "final_package/ColorChange.h"
+#include "Base.hpp"
 
 int main(int argc, char **argv) {
   ros::init(argc, argv, "base");
@@ -58,6 +58,11 @@ int main(int argc, char **argv) {
   baseObj.color = 1;
   srv.request.input = baseObj.color;
   bool colorChangeFlag = baseObj.colorChangeCli_.call(srv);
+
+  if (colorChangeFlag) {
+    ROS_INFO("Color balls search begin. Starting with red, green, then blue.");
+  }
+
   int pickCount = 0;
 
   cv::namedWindow("view");

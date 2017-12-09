@@ -30,7 +30,7 @@
  *	@author Yuyu Hsueh
  *  @Copyright 2017, Yuyu Hsueh
  */
-#include "ros/ros.h"
+#include <ros/ros.h>
 #include <ros/spinner.h>
 #include <ros/callback_queue.h>
 #include "TurtleCtrl.hpp"
@@ -39,7 +39,7 @@ int main(int argc, char **argv) {
   ros::init(argc, argv, "turtleCtrller");
   TurtleCtrl turtleCtrlObj;
 
-  ros::Rate loop_rate(5);  //5 Htz
+  ros::Rate loop_rate(5);  // 5 Htz
 
   while (ros::ok()) {
     ros::spinOnce();
