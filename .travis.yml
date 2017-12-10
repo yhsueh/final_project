@@ -25,7 +25,9 @@ env:
     - used_modules: check_cache,software_tests
     - remote_shell_script: 'https://raw.githubusercontent.com/shadow-robot/sr-build-tools/$toolset_branch/bin/sr-run-ci-build.sh'
 
-
+before_install:
+  - pip install --user cpp-coveralls
+  
 install:
   - sudo apt-get install -y -qq lcov
   #OpenCV Dependencies
@@ -64,6 +66,7 @@ install:
 
 script:
   - curl -s "$( echo "$remote_shell_script" | sed 's/#/%23/g' )" | bash -x /dev/stdin "$toolset_branch" $server_type $used_modules
+  - ./configure --enable-gcov && make && make check
 
-
-
+after_success:
+  - coveralls --exclude lib --exclude tests --gcov-options '\-lp'
