@@ -10,13 +10,9 @@ set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} ${PROJECT_SOURCE_DIR}/cmake)
 # We probably don't want this to run on every build.
 option(COVERALLS "Generate coveralls data" OFF)
 
-if (COVERALLS)
-    include(Coveralls)
-    coveralls_turn_on_coverage()
-    set(COVERAGE_SRCS base.cpp Base.cpp ImageProces.cpp turtleCtrl.cpp TurtleCtrl.cpp)
-    coveralls_setup(
-        "${COVERAGE_SRCS}" # The source files.
-        )
+if(CATKIN_ENABLE_TESTING)
+  find_package(rostest REQUIRED)
+  set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -g -O0 --coverage")
 endif()
 
 ## Find catkin macros and libraries
