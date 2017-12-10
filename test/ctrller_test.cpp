@@ -32,10 +32,12 @@
 
 #include <ros/ros.h>
 #include <gtest/gtest.h>
+#include <string>
 #include "sensor_msgs/LaserScan.h"
 #include "std_msgs/Int64.h"
 #include "geometry_msgs/Twist.h"
 #include "final_package/ColorChange.h"
+#include "gazebo_msgs/DeleteModel.h"
 /*
 #include "ImageProcess.hpp"
 #include <image_transport/image_transport.h>
@@ -47,6 +49,8 @@
 
 std::shared_ptr<ros::NodeHandle> nh;
 float angularZ, linearX;
+bool deleteFlag = false;
+std::string deleteColor;
 
 /** 
  * Testing case confirming that the messages passed between service and 
@@ -58,6 +62,13 @@ float angularZ, linearX;
 void velCallback(const geometry_msgs::Twist &msg ) {
 	linearX = msg.linear.x;
 	angularZ = msg.angular.z;
+}
+
+bool deleteCallback(gazebo_msgs::DeleteModel::Request& req,
+					gazebo_msgs::DeleteModel::Response& res) {
+	deleteColor = req.model_name;
+	deleteFlag = true;
+	return true;
 }
 
 TEST(integrationTest, TskT1_advance) {
@@ -118,24 +129,31 @@ TEST(integrationTest, TskT1_turn) {
   	EXPECT_EQ(0.5, angularZ);
   	EXPECT_EQ(0, linearX);
 }
-/*
-TEST(integrationTest, TskT3) {
+
+TEST(integrationTest, TskT3_color_removal) {
 	sensor_msgs::LaserScan laserMsg;
 	std_msgs::Int64 dispMsg;
-	
+	final_package::ColorChange srv;
+    int count = 0;
 	ros::Publisher rngPub = nh->advertise<sensor_msgs::LaserScan>("scan",10);
 	ros::Publisher dispPub = nh->advertise<std_msgs::Int64>("base/disp",10);
 	ros::Subscriber velSub = nh->subscribe("/mobile_base/commands/velocity",1,velCallback);
-	
-	ros::Rate loop_rate(10);
+	ros::ServiceClient colorChangeClient = nh->serviceClient<final_package::ColorChange>("base_color_change");
+	ros::ServiceServer deleteServer = nh->advertiseService("/gazebo/delete_model",deleteCallback);
 
-	int count = 0;
+	srv.request.input = 2;
+	colorChangeClient.call(srv);
+	ros::Rate loop_rate(10);
 	while (count < 20) {
+		if(deleteFlag) {
+			break;
+		}		
+
 	    laserMsg.ranges.resize(1);
-	    laserMsg.ranges[0] = 0.0;
+	    laserMsg.ranges[0] = 0.1;
 	    rngPub.publish(laserMsg);
 
-	    dispMsg.data = 10000;
+	    dispMsg.data = 10;
 	    dispPub.publish(dispMsg); 
 
 		ros::spinOnce();
@@ -144,10 +162,9 @@ TEST(integrationTest, TskT3) {
 	    ++count;
   	}
 
-  	EXPECT_EQ(0.5, angularZ);
-  	EXPECT_EQ(0, linearX);
+  	EXPECT_EQ("GreenBall", deleteColor);
 }
-*/
+
 
 /*
 TEST(integrationTest, control_test_delete_model) {
