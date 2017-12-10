@@ -70,6 +70,7 @@ void velCallback(const geometry_msgs::Twist &msg ) {
 TEST(integrationTest, control_test_advance) {
 	sensor_msgs::LaserScan laserMsg;
 	std_msgs::Int64 dispMsg;
+	float expX = 0.2;
 	
 	ros::Publisher rngPub = nh->advertise<sensor_msgs::LaserScan>("scan",10);
 	ros::Publisher dispPub = nh->advertise<std_msgs::Int64 >("base/disp",10);
@@ -92,7 +93,7 @@ TEST(integrationTest, control_test_advance) {
 	    ++count;
   	}
   	EXPECT_EQ(0, angularZ);
-  	EXPECT_NEAR(0.2, linearX);
+  	EXPECT_EQ(expX, linearX);
 }
 
 
