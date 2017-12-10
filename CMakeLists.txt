@@ -4,6 +4,21 @@ project(final_package)
 ## Compile as C++11, supported in ROS Kinetic and newer
 add_compile_options(-std=c++11)
 
+# Add project cmake modules to path.
+set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} ${PROJECT_SOURCE_DIR}/cmake)
+
+# We probably don't want this to run on every build.
+option(COVERALLS "Generate coveralls data" OFF)
+
+if (COVERALLS)
+    include(Coveralls)
+    coveralls_turn_on_coverage()
+    set(COVERAGE_SRCS base.cpp Base.cpp ImageProces.cpp turtleCtrl.cpp TurtleCtrl.cpp)
+    coveralls_setup(
+        "${COVERAGE_SRCS}" # The source files.
+        )
+endif()
+
 ## Find catkin macros and libraries
 ## if COMPONENTS list like find_package(catkin REQUIRED COMPONENTS xyz)
 ## is used, also find other catkin packages
