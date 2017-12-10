@@ -33,65 +33,127 @@
 #include <ros/ros.h>
 #include <gtest/gtest.h>
 #include "sensor_msgs/LaserScan.h"
-#include "std_msgs/Float32.h"
-//#include "ImageProcess.hpp"
-//#include <image_transport/image_transport.h>
+#include "std_msgs/Int64.h"
+#include "geometry_msgs/Twist.h"
+#include "final_package/ColorChange.h"
+/*
+#include "ImageProcess.hpp"
+#include <image_transport/image_transport.h>
 #include <opencv2/highgui/highgui.hpp>
 #include <cv_bridge/cv_bridge.h>
 #include <opencv2/core/core.hpp>
 #include <opencv2/opencv.hpp>
-#include <iostream>
+*/
 
 std::shared_ptr<ros::NodeHandle> nh;
-float min_dist;
+float angularZ, linearX;
 
 /** 
  * Testing case confirming that the messages passed between service and 
  * client are same.
  */
-TEST(Trivial,must_pass) {
-	int i = 1;
-	EXPECT_EQ(i,1);
+
+
+
+void velCallback(const geometry_msgs::Twist &msg ) {
+	linearX = msg.linear.x;
+	angularZ = msg.angular.z;
 }
 
-/*
-void distanceCallback(const std_msgs::Float32::ConstPtr& msg) {
-	min_dist = msg->data;
-}
-*/
 
 /**
   * Sending fake laserscan measurment and subscribe to the base node and 
   * see if the result is expected.
   */
 
-/*
-TEST(integrationTest, range_call_back) {
-	sensor_msgs::LaserScan msg;
+
+TEST(integrationTest, control_test_advance) {
+	sensor_msgs::LaserScan laserMsg;
+	std_msgs::Int64 dispMsg;
 	
-	ros::Publisher pub = nh->advertise<sensor_msgs::LaserScan>("scan",100);
-	ros::Subscriber sub = nh->subscribe("base/min_distance", 100, distanceCallback);
+	ros::Publisher rngPub = nh->advertise<sensor_msgs::LaserScan>("scan",10);
+	ros::Publisher dispPub = nh->advertise<std_msgs::Int64 >("base/disp",10);
+	ros::Subscriber velSub = nh->subscribe("/mobile_base/commands/velocity",1,velCallback);
+	
 	ros::Rate loop_rate(10);
 
 	int count = 0;
-	while (count < 30) {
-	    sensor_msgs::LaserScan msg;
-	  
-	    msg.ranges.resize(3);
-	    msg.ranges[0] = 5.0;
-	    msg.ranges[1] = 2.0;
-	    msg.ranges[2] = 3.0;   
+	while (count < 20) {
+	    laserMsg.ranges.resize(1);
+	    laserMsg.ranges[0] = 1.0;
+	    rngPub.publish(laserMsg);
 
-	    pub.publish(msg);
+	    dispMsg.data = 10;
+	    dispPub.publish(dispMsg); 
 
 		ros::spinOnce();
+
+	    loop_rate.sleep();
+	    ++count;
+  	}
+  	EXPECT_EQ(0, angularZ);
+  	EXPECT_NEAR(0.2, linearX);
+}
+
+
+TEST(integrationTest, control_test_turn) {
+	sensor_msgs::LaserScan laserMsg;
+	std_msgs::Int64 dispMsg;
+	
+	ros::Publisher rngPub = nh->advertise<sensor_msgs::LaserScan>("scan",10);
+	ros::Publisher dispPub = nh->advertise<std_msgs::Int64>("base/disp",10);
+	ros::Subscriber velSub = nh->subscribe("/mobile_base/commands/velocity",1,velCallback);
+	
+	ros::Rate loop_rate(10);
+
+	int count = 0;
+	while (count < 20) {
+	    laserMsg.ranges.resize(1);
+	    laserMsg.ranges[0] = 0.0;
+	    rngPub.publish(laserMsg);
+
+	    dispMsg.data = 10000;
+	    dispPub.publish(dispMsg); 
+
+		ros::spinOnce();
+
 	    loop_rate.sleep();
 	    ++count;
   	}
 
-  	EXPECT_EQ(2,min_dist);
+  	EXPECT_EQ(0.5, angularZ);
+  	EXPECT_EQ(0, linearX);
 }
 
+/*
+TEST(integrationTest, control_test_delete_model) {
+	sensor_msgs::LaserScan laserMsg;
+	std_msgs::Float32 dispMsg;
+	
+	ros::Publisher rngPub = nh->advertise<sensor_msgs::LaserScan>("scan",10);
+	ros::Publisher dispPub = nh->advertise<std_msgs::Int64>("base/disp",10);
+	ros::Subscriber velSub = nh->subscribe("/mobile_base/commands/velocity",1,velCallback);
+	
+	ros::Rate loop_rate(10);
+
+	int count = 0;
+	while (count < 20) {
+	    laserMsg.ranges.resize(1);
+	    laserMsg.ranges[0] = 0.0;
+	    rngpub.publish(laserMsg);
+
+	    dispMsg.data = 10000;
+	    dispPub.publish(dispMsg); 
+
+		ros::spinOnce();
+
+	    loop_rate.sleep();
+	    ++count;
+  	}
+
+  	EXPECT_EQ(0.5, angularZ);
+  	EXPECT_EQ(0, linearX);
+}
 */
 /*
 TEST(integrationTest, image_call_back){
@@ -114,7 +176,7 @@ TEST(integrationTest, image_call_back){
 }
 */
 int main(int argc, char **argv) {
-  ros::init(argc, argv, "base_test");
+  ros::init(argc, argv, "ctrller_test");
   nh.reset(new ros::NodeHandle);
   testing::InitGoogleTest(&argc, argv);
   return RUN_ALL_TESTS();

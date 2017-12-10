@@ -169,6 +169,12 @@ add_rostest_gtest(base_test
 )
 target_link_libraries(base_test ${catkin_LIBRARIES})
 
+add_rostest_gtest(ctrller_test
+  test/ctrller_test.test
+  test/ctrller_test.cpp
+)
+target_link_libraries(ctrller_test ${catkin_LIBRARIES})
+
 #catkin_add_gtest(base_test test/base_test)
 
 add_executable(base src/base.cpp src/Base.cpp src/ImageProcess.cpp)
