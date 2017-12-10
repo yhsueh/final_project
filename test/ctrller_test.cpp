@@ -60,14 +60,7 @@ void velCallback(const geometry_msgs::Twist &msg ) {
 	angularZ = msg.angular.z;
 }
 
-
-/**
-  * Sending fake laserscan measurment and subscribe to the base node and 
-  * see if the result is expected.
-  */
-
-
-TEST(integrationTest, control_test_advance) {
+TEST(integrationTest, TskT1_advance) {
 	sensor_msgs::LaserScan laserMsg;
 	std_msgs::Int64 dispMsg;
 	float expX = 0.2;
@@ -97,7 +90,7 @@ TEST(integrationTest, control_test_advance) {
 }
 
 
-TEST(integrationTest, control_test_turn) {
+TEST(integrationTest, TskT1_turn) {
 	sensor_msgs::LaserScan laserMsg;
 	std_msgs::Int64 dispMsg;
 	
