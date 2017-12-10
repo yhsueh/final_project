@@ -57,8 +57,6 @@ std::string deleteColor;
  * client are same.
  */
 
-
-
 void velCallback(const geometry_msgs::Twist &msg ) {
 	linearX = msg.linear.x;
 	angularZ = msg.angular.z;
