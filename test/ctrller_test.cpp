@@ -118,6 +118,36 @@ TEST(integrationTest, TskT1_turn) {
   	EXPECT_EQ(0.5, angularZ);
   	EXPECT_EQ(0, linearX);
 }
+/*
+TEST(integrationTest, TskT3) {
+	sensor_msgs::LaserScan laserMsg;
+	std_msgs::Int64 dispMsg;
+	
+	ros::Publisher rngPub = nh->advertise<sensor_msgs::LaserScan>("scan",10);
+	ros::Publisher dispPub = nh->advertise<std_msgs::Int64>("base/disp",10);
+	ros::Subscriber velSub = nh->subscribe("/mobile_base/commands/velocity",1,velCallback);
+	
+	ros::Rate loop_rate(10);
+
+	int count = 0;
+	while (count < 20) {
+	    laserMsg.ranges.resize(1);
+	    laserMsg.ranges[0] = 0.0;
+	    rngPub.publish(laserMsg);
+
+	    dispMsg.data = 10000;
+	    dispPub.publish(dispMsg); 
+
+		ros::spinOnce();
+
+	    loop_rate.sleep();
+	    ++count;
+  	}
+
+  	EXPECT_EQ(0.5, angularZ);
+  	EXPECT_EQ(0, linearX);
+}
+*/
 
 /*
 TEST(integrationTest, control_test_delete_model) {
