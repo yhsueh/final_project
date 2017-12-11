@@ -27,6 +27,8 @@ before_install:
 # Commands to install dependencies
 # --------------------------------
 install:
+    # Install Coveralls-lcov
+    - gem install coveralls-lcov
     # Install ROS
     - sudo sh -c 'echo "deb http://packages.ros.org/ros/ubuntu `lsb_release -sc` main" > /etc/apt/sources.list.d/ros-latest.list'
     - wget http://packages.ros.org/ros.key -O - | sudo apt-key add -
@@ -48,9 +50,15 @@ install:
     - rosdep install --from-paths src --ignore-src --rosdistro=${ROS_DISTRO} -y
     # Build
     - catkin_make
+    # Extracking and filtering coverage information
+
 
 # Command to run tests
 # --------------------
 script:
     - catkin_make run_tests # Run tests using catkin
-    - pep8 src/*.py test/*.py # Linter
+    - cd ~/catkin_ws/build
+    - lcov --directory . --capture --output-file coverage.info
+    - lcov --remove coverage.info '/opt/*' '/usr/*' '*/devel/*' '*test_*' '*_test*' --output-file coverage.info
+    - lcov --list coverage.info
+    - coveralls-lcov coverage.info

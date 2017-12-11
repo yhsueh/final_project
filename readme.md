@@ -1,5 +1,6 @@
 # Final Project
 [![Build Status](https://travis-ci.org/yhsueh/final_project.svg?branch=master)](https://travis-ci.org/yhsueh/final_project)
+[![Coverage Status](https://coveralls.io/repos/github/yhsueh/final_project/badge.svg?branch=master)](https://coveralls.io/github/yhsueh/final_project?branch=master)
 
 ## Project Descriptioin
 The project focus on a portion of the application of the ball collector robot. In a closed environment like cafe, the robot would detect the balls and move toward them based on the camera images. Once the robot gets to the object, the object would be removed. The final task is to remove all the objects present in the cafe.
