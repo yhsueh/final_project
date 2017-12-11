@@ -40,7 +40,7 @@ install:
     - rosdep update
     # Create workspace.
     - mkdir -p ~/catkin_ws/src
-    - cd ../mv final_package ~/catkin_ws/src
+    - mv ../final_package ~/catkin_ws/src
     - cd ~/catkin_ws/src
     - catkin_init_workspace
     # Install dependencies
