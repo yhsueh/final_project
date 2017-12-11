@@ -32,10 +32,6 @@ TEST(UnitTesting, color_test_blue_green) {
 
 	EXPECT_EQ(imgObj2.color,3);
 }
-	
-
-
-
 
 int main(int argc, char **argv){
   testing::InitGoogleTest(&argc, argv);
