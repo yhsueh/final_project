@@ -187,7 +187,8 @@ add_rostest_gtest(ctrller_test
 )
 target_link_libraries(ctrller_test ${catkin_LIBRARIES})
 
-#catkin_add_gtest(base_test test/base_test)
+catkin_add_gtest(imageProcess_test test/imageProcess_test.cpp src/ImageProcess.cpp WORKING_DIRECTORY ${PROJECT_SOURCE_DIR}/test)
+target_link_libraries(imageProcess_test ${OpenCV_LIBRARIES} ${catkin_LIBRARIES})
 
 add_executable(base src/base.cpp src/Base.cpp src/ImageProcess.cpp)
 target_link_libraries(base ${catkin_LIBRARIES} ${OpenCV_LIBRARIES})

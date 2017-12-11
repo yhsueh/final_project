@@ -49,6 +49,7 @@
   <!--   <doc_depend>doxygen</doc_depend> -->
   <buildtool_depend>catkin</buildtool_depend>
   <buildtool_depend>genmsg</buildtool_depend>
+  <test_depend>rosunit</test_depend>
 
   <build_depend>message_generation</build_depend>
   <build_depend>roscpp</build_depend>
