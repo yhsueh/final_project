@@ -39,7 +39,8 @@
 #include "ImageProcess.hpp"
 
 void ImageProcess::loadImage(const cv::Mat& img) {
-  lastImage = img;
+  cv::GaussianBlur(img,lastImage,cv::Size(9,9),0,0);
+  //lastImage = img;
 }
 
 /**
@@ -68,11 +69,11 @@ void ImageProcess::detection() {
                   lastImage);  // Red
       break;
     case 2:
-      cv::inRange(lastImage, cv::Scalar(50, 90, 0), cv::Scalar(70, 255, 255),
+      cv::inRange(lastImage, cv::Scalar(25, 90, 0), cv::Scalar(70, 255, 255),
                   lastImage);  // Green
       break;
     case 3:
-      cv::inRange(lastImage, cv::Scalar(120, 50, 0), cv::Scalar(120, 255, 255),
+      cv::inRange(lastImage, cv::Scalar(100, 50, 0), cv::Scalar(140, 255, 255),
                   lastImage);  // Blue
       break;
   }

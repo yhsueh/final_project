@@ -4,52 +4,36 @@
 #include "ImageProcess.hpp"
 
 TEST(UnitTesting, color_test_blue_green) {
-	//ImageProcess imgObj;
-	//ImageProcess imgObj2;
+	ImageProcess imgObj, imgObj2;
 
-	cv::Mat image = cv::imread("../Blueball.jpg",CV_LOAD_IMAGE_COLOR);
-	//image2 = cv::imread("~/catkin_ws/src/final_package/Greenball.jpg", CV_LOAD_IMAGE_UNCHANGED);
-	//imgObj.loadImage(image);
-	int row = image.rows;
-
-	EXPECT_EQ(row,1);
-
-
-	//cv::cvtColor(image,image2,CV_BGR2HSV);
-	//imgObj.detection();
-	//imgObj2.loadImage(image2);
-
-	/*int color = 1;
-	int color2 = 1;
-	while(1) {
-		imgObj.color = color;
+	while(imgObj.color < 4) {		
+		imgObj.loadImage(cv::imread("./Greenball.jpg",CV_LOAD_IMAGE_COLOR));
 		imgObj.detection();
 
 		if (imgObj.circles.size() > 0) {
 			break;
 		}
 
-		color+=1;
-		break;
+		imgObj.color+=1;
 	}
-*/
-	//EXPECT_EQ(color,3);
 
-/*
-	while(1) {
-		imgObj2.color = color2;
+	EXPECT_EQ(imgObj.color,2);
+
+	while(imgObj2.color < 4) {		
+		imgObj2.loadImage(cv::imread("./Blueball.jpg",CV_LOAD_IMAGE_COLOR));
 		imgObj2.detection();
 
 		if (imgObj2.circles.size() > 0) {
 			break;
 		}
 
-		color2 += 1;
+		imgObj2.color+=1;
 	}
 
-	EXPECT_EQ(color,2);
-	*/
+	EXPECT_EQ(imgObj2.color,3);
 }
+	
+
 
 
 
