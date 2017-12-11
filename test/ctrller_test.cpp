@@ -163,57 +163,6 @@ TEST(integrationTest, TskT3_color_removal) {
   	EXPECT_EQ("GreenBall", deleteColor);
 }
 
-
-/*
-TEST(integrationTest, control_test_delete_model) {
-	sensor_msgs::LaserScan laserMsg;
-	std_msgs::Float32 dispMsg;
-	
-	ros::Publisher rngPub = nh->advertise<sensor_msgs::LaserScan>("scan",10);
-	ros::Publisher dispPub = nh->advertise<std_msgs::Int64>("base/disp",10);
-	ros::Subscriber velSub = nh->subscribe("/mobile_base/commands/velocity",1,velCallback);
-	
-	ros::Rate loop_rate(10);
-
-	int count = 0;
-	while (count < 20) {
-	    laserMsg.ranges.resize(1);
-	    laserMsg.ranges[0] = 0.0;
-	    rngpub.publish(laserMsg);
-
-	    dispMsg.data = 10000;
-	    dispPub.publish(dispMsg); 
-
-		ros::spinOnce();
-
-	    loop_rate.sleep();
-	    ++count;
-  	}
-
-  	EXPECT_EQ(0.5, angularZ);
-  	EXPECT_EQ(0, linearX);
-}
-*/
-/*
-TEST(integrationTest, image_call_back){
-	image_transport::ImageTransport it(nh);
-	image_transport::Publisher pub = it.advertise("camera/rgb/image_raw",1);
-	cv:: Mat image = cv::imread("/home/yuyuhsueh/catkin_ws/src/final_package",
-		CV_LOAD_IMAGE_COLOR);
-	cv::waitKey(0.1);
-	sensor_msgs::ImagePtr msg = cv_bridge::CvImage(std_msgs::Header(), "bgr8", image).toImageMsg();
-   
-     ros::Rate loop_rate(5);
-     int count = 0;
-     while (count < 20) {
-       pub.publish(msg);
-       ros::spinOnce();
-       loop_rate.sleep();
-       ++count;
-    }
-
-}
-*/
 int main(int argc, char **argv) {
   ros::init(argc, argv, "ctrller_test");
   nh.reset(new ros::NodeHandle);
