@@ -1,5 +1,7 @@
 # General setup
 # -------------
+dist: trusty
+sudo: required
 language: python
 python:
     - "2.7"
