@@ -61,6 +61,7 @@ Base::Base() {
   lDisp = 10000;
   color = 0;
   completeFlag = false;
+  viewFlag = false;
 }
 
 /**
@@ -112,9 +113,10 @@ void Base::imageCallback(const sensor_msgs::ImageConstPtr& msg) {
 
     dispMsg.data = disp;
     cmdPub.publish(dispMsg);
-
-    cv::imshow("view", imgProcess.getImage());
-    cv::waitKey(1);
+    if (viewFlag) {
+      cv::imshow("view", imgProcess.getImage());
+      cv::waitKey(1);
+    }
   } catch (cv_bridge::Exception& e) {
     ROS_ERROR("Could not convert from '%s' to 'bgr8'.", msg->encoding.c_str());
   }

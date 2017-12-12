@@ -67,6 +67,7 @@ class Base {
   bool statusCallback(final_package::StatusCheck::Request& req,
                       final_package::StatusCheck::Response &resp);
   bool completeFlag;
+  bool viewFlag;
   ros::ServiceClient colorChangeCli_; /**< Tells the turtlebot which color ball to collect*/
   int color; /**< 1:Red, 2:Green, 3:Blue */
  private:

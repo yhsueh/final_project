@@ -51,11 +51,16 @@
 #include "Base.hpp"
 
 int main(int argc, char **argv) {
-  ros::init(argc, argv, "base");
+  ros::init(argc, argv, "base");  
   Base baseObj;
-  final_package::ColorChange srv;
-
   baseObj.color = 1;
+  bool viewFlag = false;
+  ROS_INFO("ARGC:%d",argc);
+  if (argc > 1) {
+    viewFlag = true;
+    baseObj.viewFlag = true;
+  }
+  final_package::ColorChange srv;
   srv.request.input = baseObj.color;
   bool colorChangeFlag = baseObj.colorChangeCli_.call(srv);
 
@@ -65,13 +70,14 @@ int main(int argc, char **argv) {
 
   int pickCount = 0;
 
-  cv::namedWindow("view");
-  cv::startWindowThread();
+  if (viewFlag) {
+    cv::namedWindow("view");
+    cv::startWindowThread(); 
+  }
 
   ros::Rate loop_rate(5);
 
   while (ros::ok()) {
-    ROS_INFO("CompleteFlag",baseObj.completeFlag);
     if (baseObj.completeFlag) {
       baseObj.color += 1;
       srv.request.input = baseObj.color;
@@ -90,6 +96,9 @@ int main(int argc, char **argv) {
   }
   srv.request.input = -1;
   baseObj.colorChangeCli_.call(srv);
-  cv::destroyWindow("view");
+
+  if (viewFlag){
+    cv::destroyWindow("view");
+  }
   ros::shutdown();
 }

@@ -38,22 +38,16 @@
 #include <opencv2/core/core.hpp>
 #include <opencv2/opencv.hpp>
 #include <iostream>
-#include <boost/filesystem.hpp>
 #include "final_package/StatusCheck.h"
 #include "final_package/ColorChange.h"
 #include "std_msgs/Int64.h"
 #include "ImageProcess.hpp"
 
-namespace fs = boost::filesystem;
 
 //std::shared_ptr<ros::NodeHandle> nh;
 float min_dist;
 int displacement, color;
 
-/** 
- * Testing case confirming that the messages passed between service and 
- * client are same.
- */
 
 void dispCallback(const std_msgs::Int64 &msg) {
   displacement = msg.data;
@@ -71,7 +65,6 @@ TEST(IntegrationTest, TskT7_velocity_command_red) {
   ros::NodeHandle nh2;
   std::string test_dir,imgDir;
   nh.getParam("test_dir", test_dir);
-  ASSERT_TRUE(fs::exists(test_dir));
   
   ros::Subscriber dispSub = nh2.subscribe("base/disp",1, dispCallback);
   ros::ServiceClient status = nh2.serviceClient<final_package::StatusCheck>("status_check");
@@ -94,12 +87,40 @@ TEST(IntegrationTest, TskT7_velocity_command_red) {
   loop_rate.sleep();
   ++count;
   }
-  EXPECT_GT(displacement,0);
+  EXPECT_NE(displacement,0);
 }
- 
 
+TEST(IntegrationTest, TskT7_velocity_command_void) {
+  color = 100;
+  ros::NodeHandle nh("~");
+  ros::NodeHandle nh2;
+  std::string test_dir,imgDir;
+  nh.getParam("test_dir", test_dir);
+  //ASSERT_TRUE(fs::exists(test_dir));
+  
+  ros::Subscriber dispSub = nh2.subscribe("base/disp",1, dispCallback);
+  ros::ServiceClient status = nh2.serviceClient<final_package::StatusCheck>("status_check");
+  ros::ServiceServer colorServ = nh2.advertiseService("base_color_change",colorCallback);
+  image_transport::ImageTransport it(nh2);
+  image_transport::Publisher imgPub = it.advertise("camera/rgb/image_raw", 10);
+  
+  imgDir = test_dir + "/void.png";
+  cv::Mat lImage = cv::imread(imgDir);
+  
+  final_package::StatusCheck srv;
+  int count = 0;
+  ros::Rate loop_rate(5);
+  while(count < 20) {
+    sensor_msgs::ImagePtr imMsg = cv_bridge::CvImage(std_msgs::Header(), "bgr8", lImage).toImageMsg();
+    imgPub.publish(imMsg);
 
+    ros::spinOnce();
 
+    loop_rate.sleep();
+    ++count;
+  }
+  EXPECT_EQ(displacement,10000);
+}
 
 int main(int argc, char **argv) {
   ros::init(argc, argv, "base_test");
