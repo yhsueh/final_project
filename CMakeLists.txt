@@ -178,6 +178,7 @@ include_directories(
 add_rostest_gtest(base_test
   test/base_test.test
   test/base_test.cpp
+  src/ImageProcess.cpp
 )
 target_link_libraries(base_test ${catkin_LIBRARIES})
 

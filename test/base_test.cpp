@@ -32,90 +32,78 @@
 
 #include <ros/ros.h>
 #include <gtest/gtest.h>
-#include "sensor_msgs/LaserScan.h"
-#include "std_msgs/Float32.h"
-//#include "ImageProcess.hpp"
-//#include <image_transport/image_transport.h>
+#include <image_transport/image_transport.h>
 #include <opencv2/highgui/highgui.hpp>
 #include <cv_bridge/cv_bridge.h>
 #include <opencv2/core/core.hpp>
 #include <opencv2/opencv.hpp>
 #include <iostream>
+#include <boost/filesystem.hpp>
+#include "final_package/StatusCheck.h"
+#include "final_package/ColorChange.h"
+#include "std_msgs/Int64.h"
+#include "ImageProcess.hpp"
 
-std::shared_ptr<ros::NodeHandle> nh;
+namespace fs = boost::filesystem;
+
+//std::shared_ptr<ros::NodeHandle> nh;
 float min_dist;
+int displacement, color;
 
 /** 
  * Testing case confirming that the messages passed between service and 
  * client are same.
  */
-TEST(Trivial,must_pass) {
-	int i = 1;
-	EXPECT_EQ(i,1);
+
+void dispCallback(const std_msgs::Int64 &msg) {
+  displacement = msg.data;
 }
 
-/*
-void distanceCallback(const std_msgs::Float32::ConstPtr& msg) {
-	min_dist = msg->data;
-}
-*/
-
-/**
-  * Sending fake laserscan measurment and subscribe to the base node and 
-  * see if the result is expected.
-  */
-
-/*
-TEST(integrationTest, range_call_back) {
-	sensor_msgs::LaserScan msg;
-	
-	ros::Publisher pub = nh->advertise<sensor_msgs::LaserScan>("scan",100);
-	ros::Subscriber sub = nh->subscribe("base/min_distance", 100, distanceCallback);
-	ros::Rate loop_rate(10);
-
-	int count = 0;
-	while (count < 30) {
-	    sensor_msgs::LaserScan msg;
-	  
-	    msg.ranges.resize(3);
-	    msg.ranges[0] = 5.0;
-	    msg.ranges[1] = 2.0;
-	    msg.ranges[2] = 3.0;   
-
-	    pub.publish(msg);
-
-		ros::spinOnce();
-	    loop_rate.sleep();
-	    ++count;
-  	}
-
-  	EXPECT_EQ(2,min_dist);
+bool colorCallback(final_package::ColorChange::Request &req,
+                               final_package::ColorChange::Response &resp) {
+  color = req.input;
+  return true;
 }
 
-*/
-/*
-TEST(integrationTest, image_call_back){
-	image_transport::ImageTransport it(nh);
-	image_transport::Publisher pub = it.advertise("camera/rgb/image_raw",1);
-	cv:: Mat image = cv::imread("/home/yuyuhsueh/catkin_ws/src/final_package",
-		CV_LOAD_IMAGE_COLOR);
-	cv::waitKey(0.1);
-	sensor_msgs::ImagePtr msg = cv_bridge::CvImage(std_msgs::Header(), "bgr8", image).toImageMsg();
-   
-     ros::Rate loop_rate(5);
-     int count = 0;
-     while (count < 20) {
-       pub.publish(msg);
-       ros::spinOnce();
-       loop_rate.sleep();
-       ++count;
-    }
+TEST(IntegrationTest, TskT7_velocity_command_red) {
+  color = 100;
+  ros::NodeHandle nh("~");
+  ros::NodeHandle nh2;
+  std::string test_dir,imgDir;
+  nh.getParam("test_dir", test_dir);
+  ASSERT_TRUE(fs::exists(test_dir));
+  
+  ros::Subscriber dispSub = nh2.subscribe("base/disp",1, dispCallback);
+  ros::ServiceClient status = nh2.serviceClient<final_package::StatusCheck>("status_check");
+  ros::ServiceServer colorServ = nh2.advertiseService("base_color_change",colorCallback);
+  image_transport::ImageTransport it(nh2);
+  image_transport::Publisher imgPub = it.advertise("camera/rgb/image_raw", 10);
+  
+  imgDir = test_dir + "/Redball.jpg";
+  cv::Mat lImage = cv::imread(imgDir);
+  
+  final_package::StatusCheck srv;
+  int count = 0;
+  ros::Rate loop_rate(5);
+  while(count < 20) {
+    sensor_msgs::ImagePtr imMsg = cv_bridge::CvImage(std_msgs::Header(), "bgr8", lImage).toImageMsg();
+    imgPub.publish(imMsg);
 
+  ros::spinOnce();
+
+  loop_rate.sleep();
+  ++count;
+  }
+  EXPECT_GT(displacement,0);
 }
-*/
+ 
+
+
+
+
 int main(int argc, char **argv) {
   ros::init(argc, argv, "base_test");
-  nh.reset(new ros::NodeHandle);
+  //nh.reset(new ros::NodeHandle);
   testing::InitGoogleTest(&argc, argv);
   return RUN_ALL_TESTS();
 }

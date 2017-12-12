@@ -57,6 +57,7 @@ cv::Mat& ImageProcess::getImage() {
 
 void ImageProcess::detection() {
   cv::Mat structure = cv::getStructuringElement(1, cv::Size(7, 7));
+  cv::Mat structure2 = cv::getStructuringElement(1, cv::Size(9, 9));
   cv::cvtColor(lastImage, lastImage, CV_BGR2HSV);
   bool noColor = false;
   switch (color) {
@@ -65,7 +66,7 @@ void ImageProcess::detection() {
       noColor = true;
       break;
     case 1:
-      cv::inRange(lastImage, cv::Scalar(0, 70, 0), cv::Scalar(0, 255, 255),
+      cv::inRange(lastImage, cv::Scalar(0, 200, 70), cv::Scalar(5, 255, 255),
                   lastImage);  // Red
       break;
     case 2:
@@ -80,8 +81,9 @@ void ImageProcess::detection() {
 
   if (!noColor) {
     cv::erode(lastImage, lastImage, structure);
+    cv::dilate(lastImage, lastImage, structure2);
     cv::HoughCircles(lastImage, circles, CV_HOUGH_GRADIENT, 2,
-                     lastImage.rows / 16, 100, 30, 1, 500);
+                     lastImage.rows / 16, 100, 30, 0, 500);
 
     if (circles.size() > 0) {
       detectFlag = true;

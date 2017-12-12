@@ -71,6 +71,7 @@ int main(int argc, char **argv) {
   ros::Rate loop_rate(5);
 
   while (ros::ok()) {
+    ROS_INFO("CompleteFlag",baseObj.completeFlag);
     if (baseObj.completeFlag) {
       baseObj.color += 1;
       srv.request.input = baseObj.color;
