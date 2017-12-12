@@ -60,22 +60,17 @@ bool colorCallback(final_package::ColorChange::Request &req,
 }
 
 TEST(IntegrationTest, TskT7_velocity_command_red) {
-  color = 100;
   ros::NodeHandle nh("~");
   ros::NodeHandle nh2;
   std::string test_dir,imgDir;
   nh.getParam("test_dir", test_dir);
   
   ros::Subscriber dispSub = nh2.subscribe("base/disp",1, dispCallback);
-  ros::ServiceClient status = nh2.serviceClient<final_package::StatusCheck>("status_check");
-  ros::ServiceServer colorServ = nh2.advertiseService("base_color_change",colorCallback);
   image_transport::ImageTransport it(nh2);
   image_transport::Publisher imgPub = it.advertise("camera/rgb/image_raw", 10);
   
   imgDir = test_dir + "/Redball.jpg";
   cv::Mat lImage = cv::imread(imgDir);
-  
-  final_package::StatusCheck srv;
   int count = 0;
   ros::Rate loop_rate(5);
   while(count < 20) {
@@ -91,7 +86,6 @@ TEST(IntegrationTest, TskT7_velocity_command_red) {
 }
 
 TEST(IntegrationTest, TskT7_velocity_command_void) {
-  color = 100;
   ros::NodeHandle nh("~");
   ros::NodeHandle nh2;
   std::string test_dir,imgDir;
@@ -99,15 +93,11 @@ TEST(IntegrationTest, TskT7_velocity_command_void) {
   //ASSERT_TRUE(fs::exists(test_dir));
   
   ros::Subscriber dispSub = nh2.subscribe("base/disp",1, dispCallback);
-  ros::ServiceClient status = nh2.serviceClient<final_package::StatusCheck>("status_check");
-  ros::ServiceServer colorServ = nh2.advertiseService("base_color_change",colorCallback);
   image_transport::ImageTransport it(nh2);
   image_transport::Publisher imgPub = it.advertise("camera/rgb/image_raw", 10);
   
   imgDir = test_dir + "/void.png";
   cv::Mat lImage = cv::imread(imgDir);
-  
-  final_package::StatusCheck srv;
   int count = 0;
   ros::Rate loop_rate(5);
   while(count < 20) {
@@ -120,6 +110,26 @@ TEST(IntegrationTest, TskT7_velocity_command_void) {
     ++count;
   }
   EXPECT_EQ(displacement,10000);
+}
+
+TEST(IntegrationTest, TskT6_change_color) {
+  ros::NodeHandle nh2;
+  ros::Subscriber dispSub = nh2.subscribe("base/disp",1, dispCallback);
+  ros::ServiceClient status = nh2.serviceClient<final_package::StatusCheck>("status_check");
+  ros::ServiceServer colorServ = nh2.advertiseService("base_color_change",colorCallback);
+
+  final_package::StatusCheck srv;
+  srv.request.input = true;
+  status.call(srv);
+
+  int count = 0;
+  ros::Rate loop_rate(5);
+  while(count < 20) {
+    ros::spinOnce();
+    loop_rate.sleep();
+    ++count;
+  }
+  EXPECT_EQ(color,2);
 }
 
 int main(int argc, char **argv) {
