@@ -23,7 +23,7 @@
  */
 
 /** @file ctrller_test.cpp
- *	@brief This is the testing file for ctrller node.
+ *	@brief This is the testing file for TurtleCtrl node.
  *	@author Yuyu Hsueh
  *  @Copyright 2017, Yuyu Hsueh
  */
@@ -46,7 +46,7 @@ void velCallback(const geometry_msgs::Twist &msg) {
   angularZ = msg.angular.z;
 }
 
-/**@brief A method for integration test on ctrller node.
+/**@brief A method for integration test on TurtleCtrl node.
   *@test Publish fake laserscan and displacement messages and verify the 
   * velocity commands. The velocity command generated from the ctrller node
   * is expected to be advancing forward.
@@ -80,7 +80,7 @@ TEST(integrationTest, TskT1_advance) {
   EXPECT_EQ(expX, linearX);
 }
 
-/**@brief A method for integration test on ctrller node.
+/**@brief A method for integration test on TurtleCtrl node.
   *@test Publish fake laserscan and displacement messages and verify the 
   * velocity commands. The velocity command generated from the ctrller node
   * is expected to be rotating.
@@ -114,7 +114,7 @@ TEST(integrationTest, TskT1_turn) {
   EXPECT_EQ(0, linearX);
 }
 
-/**@brief A method for integration test on ctrller node.
+/**@brief A method for integration test on TurtleCtrl node.
   *@test Publish fake model delete message to inform ctrller node to use
   * a different color filter.
   */

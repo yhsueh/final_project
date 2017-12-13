@@ -67,7 +67,7 @@ class TurtleCtrl {
 
 private:
   ros::NodeHandle nh;
-  ros::NodeHandle nh2;
+  //ros::NodeHandle nh2;
   ros::Subscriber rngSub;
   ros::Publisher velPub;
   ros::Subscriber dispSub;
