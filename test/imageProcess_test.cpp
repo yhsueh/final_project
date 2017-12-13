@@ -22,10 +22,9 @@
  * POSSIBILITY OF SUCH DAMAGE.
  */
 
-/** @file imageProcess_test.cpp
- *	@brief This node takes and analyze the range data. Subsequently, pass the
- *	the decision made based on the data to the turtleCtrl node which 
- *	manipulates the turtlebot.
+/** 
+ *  @file imageProcess_test.cpp
+ *	@brief This is the testing file for imageProcess class. 
  *	@author Yuyu Hsueh
  *  @Copyright 2017, Yuyu Hsueh
  */
@@ -34,6 +33,15 @@
 #include <opencv2/core/core.hpp>
 #include <opencv2/highgui/highgui.hpp>
 #include "ImageProcess.hpp"
+
+
+/** @brief A method for testing imageProcess's capability to detect the
+  * correct color given two images balls obtained from internet.
+  * @test Detect the selected image and see if the circle vector returned
+  * by cv::houghTransformCircle is greater than one. When the size of the
+  * circle is greater than one, then the color of the ball is equivalent 
+  * to the color of the filter.
+  */
 
 TEST(UnitTesting, color_test_blue_green) {
   ImageProcess imgObj, imgObj2;

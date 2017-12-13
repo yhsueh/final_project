@@ -92,52 +92,100 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="title">base_test.cpp File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><code>#include &lt;ros/ros.h&gt;</code><br />
+
+<p>This is the testing file for the base node.  
+<a href="#details">More...</a></p>
+<div class="textblock"><code>#include &lt;cv_bridge/cv_bridge.h&gt;</code><br />
+<code>#include &lt;image_transport/image_transport.h&gt;</code><br />
+<code>#include &lt;ros/ros.h&gt;</code><br />
 <code>#include &lt;gtest/gtest.h&gt;</code><br />
-<code>#include &quot;sensor_msgs/LaserScan.h&quot;</code><br />
-<code>#include &quot;std_msgs/Float32.h&quot;</code><br />
+<code>#include &lt;iostream&gt;</code><br />
 <code>#include &lt;opencv2/highgui/highgui.hpp&gt;</code><br />
-<code>#include &lt;cv_bridge/cv_bridge.h&gt;</code><br />
 <code>#include &lt;opencv2/core/core.hpp&gt;</code><br />
 <code>#include &lt;opencv2/opencv.hpp&gt;</code><br />
-<code>#include &lt;iostream&gt;</code><br />
+<code>#include &quot;final_package/StatusCheck.h&quot;</code><br />
+<code>#include &quot;final_package/ColorChange.h&quot;</code><br />
+<code>#include &quot;std_msgs/Int64.h&quot;</code><br />
+<code>#include &quot;<a class="el" href="ImageProcess_8hpp_source.html">ImageProcess.hpp</a>&quot;</code><br />
 </div><div class="textblock"><div class="dynheader">
 Include dependency graph for base_test.cpp:</div>
 <div class="dyncontent">
 <div class="center"><img src="base__test_8cpp__incl.png" border="0" usemap="#test_2base__test_8cpp" alt=""/></div>
+<map name="test_2base__test_8cpp" id="test_2base__test_8cpp">
+<area shape="rect" id="node13" href="ImageProcess_8hpp.html" title="This is a header file for ImageProcess class, processing the images gotten from the 3D sensor..." alt="" coords="932,87,1063,114"/>
+</map>
 </div>
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:adeb905f276d222fa4eb1e4954e07ae03"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="base__test_8cpp.html#adeb905f276d222fa4eb1e4954e07ae03">distanceCallback</a> (const std_msgs::Float32::ConstPtr &amp;msg)</td></tr>
-<tr class="separator:adeb905f276d222fa4eb1e4954e07ae03"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac4f819542112ad90f9f02dba76320e63"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="base__test_8cpp.html#ac4f819542112ad90f9f02dba76320e63">TEST</a> (integrationTest, range_call_back)</td></tr>
-<tr class="separator:ac4f819542112ad90f9f02dba76320e63"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a41b969883dff31adc3d44d5b88ffee35"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="base__test_8cpp.html#a41b969883dff31adc3d44d5b88ffee35">dispCallback</a> (const std_msgs::Int64 &amp;msg)</td></tr>
+<tr class="separator:a41b969883dff31adc3d44d5b88ffee35"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aec0fd9631525980f76d0ab99343bef30"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="base__test_8cpp.html#aec0fd9631525980f76d0ab99343bef30">colorCallback</a> (final_package::ColorChange::Request &amp;req, final_package::ColorChange::Response &amp;resp)</td></tr>
+<tr class="separator:aec0fd9631525980f76d0ab99343bef30"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a349859c03dcbb00f53a4811ba16e656d"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="base__test_8cpp.html#a349859c03dcbb00f53a4811ba16e656d">TEST</a> (IntegrationTest, TskT7_velocity_command_red)</td></tr>
+<tr class="memdesc:a349859c03dcbb00f53a4811ba16e656d"><td class="mdescLeft">&#160;</td><td class="mdescRight">A method of integration test on base node.  <a href="#a349859c03dcbb00f53a4811ba16e656d">More...</a><br /></td></tr>
+<tr class="separator:a349859c03dcbb00f53a4811ba16e656d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a54beffadef3e147e50f9a1c1981e6b97"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="base__test_8cpp.html#a54beffadef3e147e50f9a1c1981e6b97">TEST</a> (IntegrationTest, TskT7_velocity_command_void)</td></tr>
+<tr class="memdesc:a54beffadef3e147e50f9a1c1981e6b97"><td class="mdescLeft">&#160;</td><td class="mdescRight">A method of integration test on base node.  <a href="#a54beffadef3e147e50f9a1c1981e6b97">More...</a><br /></td></tr>
+<tr class="separator:a54beffadef3e147e50f9a1c1981e6b97"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a56a3a7485a41709f6a65d4fb445829cc"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="base__test_8cpp.html#a56a3a7485a41709f6a65d4fb445829cc">TEST</a> (IntegrationTest, TskT6_change_color)</td></tr>
+<tr class="memdesc:a56a3a7485a41709f6a65d4fb445829cc"><td class="mdescLeft">&#160;</td><td class="mdescRight">A method of integration test on base node.  <a href="#a56a3a7485a41709f6a65d4fb445829cc">More...</a><br /></td></tr>
+<tr class="separator:a56a3a7485a41709f6a65d4fb445829cc"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a3c04138a5bfe5d72780bb7e82a18e627"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="base__test_8cpp.html#a3c04138a5bfe5d72780bb7e82a18e627">main</a> (int argc, char **argv)</td></tr>
 <tr class="separator:a3c04138a5bfe5d72780bb7e82a18e627"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="var-members"></a>
 Variables</h2></td></tr>
-<tr class="memitem:a7d6d3de9ddf4963eb3ea112920944a87"><td class="memItemLeft" align="right" valign="top">std::shared_ptr&lt; ros::NodeHandle &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="base__test_8cpp.html#a7d6d3de9ddf4963eb3ea112920944a87">nh</a></td></tr>
-<tr class="separator:a7d6d3de9ddf4963eb3ea112920944a87"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa464047f090200f942a1e47c29fff783"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="base__test_8cpp.html#aa464047f090200f942a1e47c29fff783">min_dist</a></td></tr>
 <tr class="separator:aa464047f090200f942a1e47c29fff783"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad634d75c72cbf35206f6b88b75730c85"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="base__test_8cpp.html#ad634d75c72cbf35206f6b88b75730c85">displacement</a></td></tr>
+<tr class="separator:ad634d75c72cbf35206f6b88b75730c85"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0fd02fb9277ffcb35a75066ffe95e8c7"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="base__test_8cpp.html#a0fd02fb9277ffcb35a75066ffe95e8c7">color</a></td></tr>
+<tr class="separator:a0fd02fb9277ffcb35a75066ffe95e8c7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<h2 class="groupheader">Function Documentation</h2>
-<a class="anchor" id="adeb905f276d222fa4eb1e4954e07ae03"></a>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>This is the testing file for the base node. </p>
+<dl class="section author"><dt>Author</dt><dd>Yuyu Hsueh  2017, Yuyu Hsueh </dd></dl>
+</div><h2 class="groupheader">Function Documentation</h2>
+<a class="anchor" id="aec0fd9631525980f76d0ab99343bef30"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void distanceCallback </td>
+          <td class="memname">bool colorCallback </td>
           <td>(</td>
-          <td class="paramtype">const std_msgs::Float32::ConstPtr &amp;&#160;</td>
+          <td class="paramtype">final_package::ColorChange::Request &amp;&#160;</td>
+          <td class="paramname"><em>req</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">final_package::ColorChange::Response &amp;&#160;</td>
+          <td class="paramname"><em>resp</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="a41b969883dff31adc3d44d5b88ffee35"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void dispCallback </td>
+          <td>(</td>
+          <td class="paramtype">const std_msgs::Int64 &amp;&#160;</td>
           <td class="paramname"><em>msg</em></td><td>)</td>
           <td></td>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Testing case confirming that the messages passed between service and client are same. </p>
 
 </div>
 </div>
@@ -167,20 +215,20 @@ Variables</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="ac4f819542112ad90f9f02dba76320e63"></a>
+<a class="anchor" id="a349859c03dcbb00f53a4811ba16e656d"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
           <td class="memname">TEST </td>
           <td>(</td>
-          <td class="paramtype">integrationTest&#160;</td>
+          <td class="paramtype">IntegrationTest&#160;</td>
           <td class="paramname">, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">range_call_back&#160;</td>
+          <td class="paramtype">TskT7_velocity_command_red&#160;</td>
           <td class="paramname">&#160;</td>
         </tr>
         <tr>
@@ -190,29 +238,101 @@ Variables</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Sending fake laserscan measurment and subscribe to the base node and see if the result is expected. </p>
+
+<p>A method of integration test on base node. </p>
+<dl class="test"><dt><b><a class="el" href="test.html#_test000001">Test:</a></b></dt><dd>Generate fake image data and examine the published displacment message from the base. The result shall be non-zero as the image provided contains an object. </dd></dl>
 
 </div>
 </div>
-<h2 class="groupheader">Variable Documentation</h2>
-<a class="anchor" id="aa464047f090200f942a1e47c29fff783"></a>
+<a class="anchor" id="a54beffadef3e147e50f9a1c1981e6b97"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">float min_dist</td>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">IntegrationTest&#160;</td>
+          <td class="paramname">, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">TskT7_velocity_command_void&#160;</td>
+          <td class="paramname">&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>A method of integration test on base node. </p>
+<dl class="test"><dt><b><a class="el" href="test.html#_test000002">Test:</a></b></dt><dd>Generate fake image data and examine the published displacment message from the base. The result shall be non-zero as the image provided is pure black. </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="a56a3a7485a41709f6a65d4fb445829cc"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">IntegrationTest&#160;</td>
+          <td class="paramname">, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">TskT6_change_color&#160;</td>
+          <td class="paramname">&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>A method of integration test on base node. </p>
+<dl class="test"><dt><b><a class="el" href="test.html#_test000003">Test:</a></b></dt><dd>Generate fake message for model deletion to test whether the color filter is updated. </dd></dl>
+
+</div>
+</div>
+<h2 class="groupheader">Variable Documentation</h2>
+<a class="anchor" id="a0fd02fb9277ffcb35a75066ffe95e8c7"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int color</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
 </div>
 </div>
-<a class="anchor" id="a7d6d3de9ddf4963eb3ea112920944a87"></a>
+<a class="anchor" id="ad634d75c72cbf35206f6b88b75730c85"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">std::shared_ptr&lt;ros::NodeHandle&gt; nh</td>
+          <td class="memname">int displacement</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="aa464047f090200f942a1e47c29fff783"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">float min_dist</td>
         </tr>
       </table>
 </div><div class="memdoc">

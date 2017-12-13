@@ -23,9 +23,7 @@
  */
 
 /** @file base_test.cpp
- *	@brief This node takes and analyze the range data. Subsequently, pass the
- *	the decision made based on the data to the turtleCtrl node which 
- *	manipulates the turtlebot.
+ *	@brief This is the testing file for the base node.
  *	@author Yuyu Hsueh
  *  @Copyright 2017, Yuyu Hsueh
  */
@@ -56,6 +54,11 @@ bool colorCallback(final_package::ColorChange::Request &req,
   return true;
 }
 
+/** @brief A method of integration test on base node.
+  * @test Generate fake image data and examine the published displacment message
+  * from the base. The result shall be non-zero as the image provided contains
+  * an object.
+  */
 TEST(IntegrationTest, TskT7_velocity_command_red) {
   ros::NodeHandle nh("~");
   ros::NodeHandle nh2;
@@ -82,6 +85,10 @@ TEST(IntegrationTest, TskT7_velocity_command_red) {
   EXPECT_NE(displacement,0);
 }
 
+/** @brief A method of integration test on base node.
+  * @test Generate fake image data and examine the published displacment message
+  * from the base. The result shall be non-zero as the image provided is pure black.
+  */
 TEST(IntegrationTest, TskT7_velocity_command_void) {
   ros::NodeHandle nh("~");
   ros::NodeHandle nh2;
@@ -107,6 +114,10 @@ TEST(IntegrationTest, TskT7_velocity_command_void) {
   EXPECT_EQ(displacement,10000);
 }
 
+/** @brief A method of integration test on base node.
+  * @test Generate fake message for model deletion to test whether the color filter
+  * is updated.
+  */
 TEST(IntegrationTest, TskT6_change_color) {
   ros::NodeHandle nh2;
   ros::Subscriber dispSub = nh2.subscribe("base/disp",1, dispCallback);

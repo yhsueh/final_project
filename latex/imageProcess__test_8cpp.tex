@@ -1,0 +1,59 @@
+\hypertarget{imageProcess__test_8cpp}{}\section{test/image\+Process\+\_\+test.cpp File Reference}
+\label{imageProcess__test_8cpp}\index{test/image\+Process\+\_\+test.\+cpp@{test/image\+Process\+\_\+test.\+cpp}}
+
+
+This is the testing file for image\+Process class.  
+
+
+{\ttfamily \#include $<$gtest/gtest.\+h$>$}\\*
+{\ttfamily \#include $<$opencv2/core/core.\+hpp$>$}\\*
+{\ttfamily \#include $<$opencv2/highgui/highgui.\+hpp$>$}\\*
+{\ttfamily \#include \char`\"{}Image\+Process.\+hpp\char`\"{}}\\*
+Include dependency graph for image\+Process\+\_\+test.\+cpp\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{imageProcess__test_8cpp__incl}
+\end{center}
+\end{figure}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{imageProcess__test_8cpp_ae46f88af81d5d238b8122322cfc9bb2c}{T\+E\+ST} (Unit\+Testing, color\+\_\+test\+\_\+blue\+\_\+green)
+\begin{DoxyCompactList}\small\item\em A method for testing image\+Process\textquotesingle{}s capability to detect the correct color given two images balls obtained from internet. \end{DoxyCompactList}\item 
+int \hyperlink{imageProcess__test_8cpp_a3c04138a5bfe5d72780bb7e82a18e627}{main} (int argc, char $\ast$$\ast$argv)
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+This is the testing file for image\+Process class. 
+
+\begin{DoxyAuthor}{Author}
+Yuyu Hsueh  2017, Yuyu Hsueh 
+\end{DoxyAuthor}
+
+
+\subsection{Function Documentation}
+\index{image\+Process\+\_\+test.\+cpp@{image\+Process\+\_\+test.\+cpp}!main@{main}}
+\index{main@{main}!image\+Process\+\_\+test.\+cpp@{image\+Process\+\_\+test.\+cpp}}
+\subsubsection[{\texorpdfstring{main(int argc, char $\ast$$\ast$argv)}{main(int argc, char **argv)}}]{\setlength{\rightskip}{0pt plus 5cm}int main (
+\begin{DoxyParamCaption}
+\item[{int}]{argc, }
+\item[{char $\ast$$\ast$}]{argv}
+\end{DoxyParamCaption}
+)}\hypertarget{imageProcess__test_8cpp_a3c04138a5bfe5d72780bb7e82a18e627}{}\label{imageProcess__test_8cpp_a3c04138a5bfe5d72780bb7e82a18e627}
+\index{image\+Process\+\_\+test.\+cpp@{image\+Process\+\_\+test.\+cpp}!T\+E\+ST@{T\+E\+ST}}
+\index{T\+E\+ST@{T\+E\+ST}!image\+Process\+\_\+test.\+cpp@{image\+Process\+\_\+test.\+cpp}}
+\subsubsection[{\texorpdfstring{T\+E\+S\+T(\+Unit\+Testing, color\+\_\+test\+\_\+blue\+\_\+green)}{TEST(UnitTesting, color_test_blue_green)}}]{\setlength{\rightskip}{0pt plus 5cm}T\+E\+ST (
+\begin{DoxyParamCaption}
+\item[{Unit\+Testing}]{, }
+\item[{color\+\_\+test\+\_\+blue\+\_\+green}]{}
+\end{DoxyParamCaption}
+)}\hypertarget{imageProcess__test_8cpp_ae46f88af81d5d238b8122322cfc9bb2c}{}\label{imageProcess__test_8cpp_ae46f88af81d5d238b8122322cfc9bb2c}
+
+
+A method for testing image\+Process\textquotesingle{}s capability to detect the correct color given two images balls obtained from internet. 
+
+\begin{DoxyRefDesc}{Test}
+\item[\hyperlink{test__test000007}{Test}]Detect the selected image and see if the circle vector returned by cv\+::hough\+Transform\+Circle is greater than one. When the size of the circle is greater than one, then the color of the ball is equivalent to the color of the filter. \end{DoxyRefDesc}

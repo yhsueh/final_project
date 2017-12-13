@@ -1,0 +1,126 @@
+\hypertarget{ctrller__test_8cpp}{}\section{test/ctrller\+\_\+test.cpp File Reference}
+\label{ctrller__test_8cpp}\index{test/ctrller\+\_\+test.\+cpp@{test/ctrller\+\_\+test.\+cpp}}
+
+
+This is the testing file for ctrller node.  
+
+
+{\ttfamily \#include $<$ros/ros.\+h$>$}\\*
+{\ttfamily \#include $<$gtest/gtest.\+h$>$}\\*
+{\ttfamily \#include $<$string$>$}\\*
+{\ttfamily \#include \char`\"{}sensor\+\_\+msgs/\+Laser\+Scan.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}std\+\_\+msgs/\+Int64.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}geometry\+\_\+msgs/\+Twist.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}final\+\_\+package/\+Color\+Change.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}gazebo\+\_\+msgs/\+Delete\+Model.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}Ctrller\+Test.\+hpp\char`\"{}}\\*
+Include dependency graph for ctrller\+\_\+test.\+cpp\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{ctrller__test_8cpp__incl}
+\end{center}
+\end{figure}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \hyperlink{ctrller__test_8cpp_a31162eef90c6fd56b0e2690c72a1d2c3}{vel\+Callback} (const geometry\+\_\+msgs\+::\+Twist \&msg)
+\item 
+\hyperlink{ctrller__test_8cpp_ae36b06d26d7d597b70255a8058ab86ec}{T\+E\+ST} (integration\+Test, Tsk\+T1\+\_\+advance)
+\begin{DoxyCompactList}\small\item\em A method for integration test on ctrller node. \end{DoxyCompactList}\item 
+\hyperlink{ctrller__test_8cpp_a4ef4671d1ede6401e0a79775a595a390}{T\+E\+ST} (integration\+Test, Tsk\+T1\+\_\+turn)
+\begin{DoxyCompactList}\small\item\em A method for integration test on ctrller node. \end{DoxyCompactList}\item 
+\hyperlink{ctrller__test_8cpp_a79421247807ffa48d400b071414f5bb9}{T\+E\+ST} (integration\+Test, Tsk\+T3\+\_\+color\+\_\+removal)
+\begin{DoxyCompactList}\small\item\em A method for integration test on ctrller node. \end{DoxyCompactList}\item 
+int \hyperlink{ctrller__test_8cpp_a3c04138a5bfe5d72780bb7e82a18e627}{main} (int argc, char $\ast$$\ast$argv)
+\end{DoxyCompactItemize}
+\subsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+std\+::shared\+\_\+ptr$<$ ros\+::\+Node\+Handle $>$ \hyperlink{ctrller__test_8cpp_a7d6d3de9ddf4963eb3ea112920944a87}{nh}
+\item 
+float \hyperlink{ctrller__test_8cpp_af3bc17d21fd9fa6566307be314443a59}{angularZ}
+\item 
+float \hyperlink{ctrller__test_8cpp_a973988e51cc955081ec7c3b4062784ed}{linearX}
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+This is the testing file for ctrller node. 
+
+\begin{DoxyAuthor}{Author}
+Yuyu Hsueh  2017, Yuyu Hsueh 
+\end{DoxyAuthor}
+
+
+\subsection{Function Documentation}
+\index{ctrller\+\_\+test.\+cpp@{ctrller\+\_\+test.\+cpp}!main@{main}}
+\index{main@{main}!ctrller\+\_\+test.\+cpp@{ctrller\+\_\+test.\+cpp}}
+\subsubsection[{\texorpdfstring{main(int argc, char $\ast$$\ast$argv)}{main(int argc, char **argv)}}]{\setlength{\rightskip}{0pt plus 5cm}int main (
+\begin{DoxyParamCaption}
+\item[{int}]{argc, }
+\item[{char $\ast$$\ast$}]{argv}
+\end{DoxyParamCaption}
+)}\hypertarget{ctrller__test_8cpp_a3c04138a5bfe5d72780bb7e82a18e627}{}\label{ctrller__test_8cpp_a3c04138a5bfe5d72780bb7e82a18e627}
+\index{ctrller\+\_\+test.\+cpp@{ctrller\+\_\+test.\+cpp}!T\+E\+ST@{T\+E\+ST}}
+\index{T\+E\+ST@{T\+E\+ST}!ctrller\+\_\+test.\+cpp@{ctrller\+\_\+test.\+cpp}}
+\subsubsection[{\texorpdfstring{T\+E\+S\+T(integration\+Test, Tsk\+T1\+\_\+advance)}{TEST(integrationTest, TskT1_advance)}}]{\setlength{\rightskip}{0pt plus 5cm}T\+E\+ST (
+\begin{DoxyParamCaption}
+\item[{integration\+Test}]{, }
+\item[{Tsk\+T1\+\_\+advance}]{}
+\end{DoxyParamCaption}
+)}\hypertarget{ctrller__test_8cpp_ae36b06d26d7d597b70255a8058ab86ec}{}\label{ctrller__test_8cpp_ae36b06d26d7d597b70255a8058ab86ec}
+
+
+A method for integration test on ctrller node. 
+
+\begin{DoxyRefDesc}{Test}
+\item[\hyperlink{test__test000004}{Test}]Publish fake laserscan and displacement messages and verify the velocity commands. The velocity command generated from the ctrller node is expected to be advancing forward. \end{DoxyRefDesc}
+\index{ctrller\+\_\+test.\+cpp@{ctrller\+\_\+test.\+cpp}!T\+E\+ST@{T\+E\+ST}}
+\index{T\+E\+ST@{T\+E\+ST}!ctrller\+\_\+test.\+cpp@{ctrller\+\_\+test.\+cpp}}
+\subsubsection[{\texorpdfstring{T\+E\+S\+T(integration\+Test, Tsk\+T1\+\_\+turn)}{TEST(integrationTest, TskT1_turn)}}]{\setlength{\rightskip}{0pt plus 5cm}T\+E\+ST (
+\begin{DoxyParamCaption}
+\item[{integration\+Test}]{, }
+\item[{Tsk\+T1\+\_\+turn}]{}
+\end{DoxyParamCaption}
+)}\hypertarget{ctrller__test_8cpp_a4ef4671d1ede6401e0a79775a595a390}{}\label{ctrller__test_8cpp_a4ef4671d1ede6401e0a79775a595a390}
+
+
+A method for integration test on ctrller node. 
+
+\begin{DoxyRefDesc}{Test}
+\item[\hyperlink{test__test000005}{Test}]Publish fake laserscan and displacement messages and verify the velocity commands. The velocity command generated from the ctrller node is expected to be rotating. \end{DoxyRefDesc}
+\index{ctrller\+\_\+test.\+cpp@{ctrller\+\_\+test.\+cpp}!T\+E\+ST@{T\+E\+ST}}
+\index{T\+E\+ST@{T\+E\+ST}!ctrller\+\_\+test.\+cpp@{ctrller\+\_\+test.\+cpp}}
+\subsubsection[{\texorpdfstring{T\+E\+S\+T(integration\+Test, Tsk\+T3\+\_\+color\+\_\+removal)}{TEST(integrationTest, TskT3_color_removal)}}]{\setlength{\rightskip}{0pt plus 5cm}T\+E\+ST (
+\begin{DoxyParamCaption}
+\item[{integration\+Test}]{, }
+\item[{Tsk\+T3\+\_\+color\+\_\+removal}]{}
+\end{DoxyParamCaption}
+)}\hypertarget{ctrller__test_8cpp_a79421247807ffa48d400b071414f5bb9}{}\label{ctrller__test_8cpp_a79421247807ffa48d400b071414f5bb9}
+
+
+A method for integration test on ctrller node. 
+
+\begin{DoxyRefDesc}{Test}
+\item[\hyperlink{test__test000006}{Test}]Publish fake model delete message to inform ctrller node to use a different color filter. \end{DoxyRefDesc}
+\index{ctrller\+\_\+test.\+cpp@{ctrller\+\_\+test.\+cpp}!vel\+Callback@{vel\+Callback}}
+\index{vel\+Callback@{vel\+Callback}!ctrller\+\_\+test.\+cpp@{ctrller\+\_\+test.\+cpp}}
+\subsubsection[{\texorpdfstring{vel\+Callback(const geometry\+\_\+msgs\+::\+Twist \&msg)}{velCallback(const geometry_msgs::Twist &msg)}}]{\setlength{\rightskip}{0pt plus 5cm}void vel\+Callback (
+\begin{DoxyParamCaption}
+\item[{const geometry\+\_\+msgs\+::\+Twist \&}]{msg}
+\end{DoxyParamCaption}
+)}\hypertarget{ctrller__test_8cpp_a31162eef90c6fd56b0e2690c72a1d2c3}{}\label{ctrller__test_8cpp_a31162eef90c6fd56b0e2690c72a1d2c3}
+
+
+\subsection{Variable Documentation}
+\index{ctrller\+\_\+test.\+cpp@{ctrller\+\_\+test.\+cpp}!angularZ@{angularZ}}
+\index{angularZ@{angularZ}!ctrller\+\_\+test.\+cpp@{ctrller\+\_\+test.\+cpp}}
+\subsubsection[{\texorpdfstring{angularZ}{angularZ}}]{\setlength{\rightskip}{0pt plus 5cm}float angularZ}\hypertarget{ctrller__test_8cpp_af3bc17d21fd9fa6566307be314443a59}{}\label{ctrller__test_8cpp_af3bc17d21fd9fa6566307be314443a59}
+\index{ctrller\+\_\+test.\+cpp@{ctrller\+\_\+test.\+cpp}!linearX@{linearX}}
+\index{linearX@{linearX}!ctrller\+\_\+test.\+cpp@{ctrller\+\_\+test.\+cpp}}
+\subsubsection[{\texorpdfstring{linearX}{linearX}}]{\setlength{\rightskip}{0pt plus 5cm}float linearX}\hypertarget{ctrller__test_8cpp_a973988e51cc955081ec7c3b4062784ed}{}\label{ctrller__test_8cpp_a973988e51cc955081ec7c3b4062784ed}
+\index{ctrller\+\_\+test.\+cpp@{ctrller\+\_\+test.\+cpp}!nh@{nh}}
+\index{nh@{nh}!ctrller\+\_\+test.\+cpp@{ctrller\+\_\+test.\+cpp}}
+\subsubsection[{\texorpdfstring{nh}{nh}}]{\setlength{\rightskip}{0pt plus 5cm}std\+::shared\+\_\+ptr$<$ros\+::\+Node\+Handle$>$ nh}\hypertarget{ctrller__test_8cpp_a7d6d3de9ddf4963eb3ea112920944a87}{}\label{ctrller__test_8cpp_a7d6d3de9ddf4963eb3ea112920944a87}

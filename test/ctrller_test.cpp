@@ -23,9 +23,7 @@
  */
 
 /** @file ctrller_test.cpp
- *	@brief This node takes and analyze the range data. Subsequently, pass the
- *	the decision made based on the data to the turtleCtrl node which 
- *	manipulates the turtlebot.
+ *	@brief This is the testing file for ctrller node.
  *	@author Yuyu Hsueh
  *  @Copyright 2017, Yuyu Hsueh
  */
@@ -48,6 +46,11 @@ void velCallback(const geometry_msgs::Twist &msg) {
   angularZ = msg.angular.z;
 }
 
+/**@brief A method for integration test on ctrller node.
+  *@test Publish fake laserscan and displacement messages and verify the 
+  * velocity commands. The velocity command generated from the ctrller node
+  * is expected to be advancing forward.
+  */
 TEST(integrationTest, TskT1_advance) {
   sensor_msgs::LaserScan laserMsg;
   std_msgs::Int64 dispMsg;
@@ -77,6 +80,11 @@ TEST(integrationTest, TskT1_advance) {
   EXPECT_EQ(expX, linearX);
 }
 
+/**@brief A method for integration test on ctrller node.
+  *@test Publish fake laserscan and displacement messages and verify the 
+  * velocity commands. The velocity command generated from the ctrller node
+  * is expected to be rotating.
+  */
 TEST(integrationTest, TskT1_turn) {
   sensor_msgs::LaserScan laserMsg;
   std_msgs::Int64 dispMsg;
@@ -106,6 +114,10 @@ TEST(integrationTest, TskT1_turn) {
   EXPECT_EQ(0, linearX);
 }
 
+/**@brief A method for integration test on ctrller node.
+  *@test Publish fake model delete message to inform ctrller node to use
+  * a different color filter.
+  */
 TEST(integrationTest, TskT3_color_removal) {
   CtrllerTest ctrllerObj;
   sensor_msgs::LaserScan laserMsg;

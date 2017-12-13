@@ -5,7 +5,6 @@
 This is a source file for the base node of this project. The base node is responsible of getting and converting the images from the asus-\/xtion\+\_\+pro 3D sensor. Then, it passes these images into an \hyperlink{classImageProcess}{Image\+Process} object, which processes these images and search for the balls\textquotesingle{} centroids. Finally, the displacment between the center of the ball and the center of the image is published to the turtle\+Ctrller node in charge of the turtlebot actuator. In every iteration, the processed image would be displayed in an view window for users to see what the turtlebot sees. There are two services called to make sure all colors of balls are being collected. All the callbacks in this node are running at the rate of 5\+Hz.  
 
 
-{\ttfamily \#include \char`\"{}Base.\+hpp\char`\"{}}\\*
 {\ttfamily \#include $<$ros/ros.\+h$>$}\\*
 {\ttfamily \#include $<$ros/advertise\+\_\+service\+\_\+options.\+h$>$}\\*
 {\ttfamily \#include $<$ros/spinner.\+h$>$}\\*
@@ -17,7 +16,9 @@ This is a source file for the base node of this project. The base node is respon
 {\ttfamily \#include $<$opencv2/highgui/highgui.\+hpp$>$}\\*
 {\ttfamily \#include \char`\"{}sensor\+\_\+msgs/\+Laser\+Scan.\+h\char`\"{}}\\*
 {\ttfamily \#include \char`\"{}final\+\_\+package/\+Color\+Change.\+h\char`\"{}}\\*
-Include dependency graph for base.\+cpp\+:\nopagebreak
+{\ttfamily \#include \char`\"{}Base.\+hpp\char`\"{}}\\*
+Include dependency graph for base.\+cpp\+:
+\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
@@ -33,8 +34,6 @@ int \hyperlink{base_8cpp_a3c04138a5bfe5d72780bb7e82a18e627}{main} (int argc, cha
 
 \subsection{Detailed Description}
 This is a source file for the base node of this project. The base node is responsible of getting and converting the images from the asus-\/xtion\+\_\+pro 3D sensor. Then, it passes these images into an \hyperlink{classImageProcess}{Image\+Process} object, which processes these images and search for the balls\textquotesingle{} centroids. Finally, the displacment between the center of the ball and the center of the image is published to the turtle\+Ctrller node in charge of the turtlebot actuator. In every iteration, the processed image would be displayed in an view window for users to see what the turtlebot sees. There are two services called to make sure all colors of balls are being collected. All the callbacks in this node are running at the rate of 5\+Hz. 
-
-This node takes and analyze the range data. Subsequently, pass the the decision made based on the data to the turtle\+Ctrl node which manipulates the turtlebot.
 
 \begin{DoxyAuthor}{Author}
 Yuyu Hsueh  2017, Yuyu Hsueh 

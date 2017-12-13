@@ -1,15 +1,24 @@
 \hypertarget{base__test_8cpp}{}\section{test/base\+\_\+test.cpp File Reference}
 \label{base__test_8cpp}\index{test/base\+\_\+test.\+cpp@{test/base\+\_\+test.\+cpp}}
+
+
+This is the testing file for the base node.  
+
+
+{\ttfamily \#include $<$cv\+\_\+bridge/cv\+\_\+bridge.\+h$>$}\\*
+{\ttfamily \#include $<$image\+\_\+transport/image\+\_\+transport.\+h$>$}\\*
 {\ttfamily \#include $<$ros/ros.\+h$>$}\\*
 {\ttfamily \#include $<$gtest/gtest.\+h$>$}\\*
-{\ttfamily \#include \char`\"{}sensor\+\_\+msgs/\+Laser\+Scan.\+h\char`\"{}}\\*
-{\ttfamily \#include \char`\"{}std\+\_\+msgs/\+Float32.\+h\char`\"{}}\\*
+{\ttfamily \#include $<$iostream$>$}\\*
 {\ttfamily \#include $<$opencv2/highgui/highgui.\+hpp$>$}\\*
-{\ttfamily \#include $<$cv\+\_\+bridge/cv\+\_\+bridge.\+h$>$}\\*
 {\ttfamily \#include $<$opencv2/core/core.\+hpp$>$}\\*
 {\ttfamily \#include $<$opencv2/opencv.\+hpp$>$}\\*
-{\ttfamily \#include $<$iostream$>$}\\*
-Include dependency graph for base\+\_\+test.\+cpp\+:\nopagebreak
+{\ttfamily \#include \char`\"{}final\+\_\+package/\+Status\+Check.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}final\+\_\+package/\+Color\+Change.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}std\+\_\+msgs/\+Int64.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}Image\+Process.\+hpp\char`\"{}}\\*
+Include dependency graph for base\+\_\+test.\+cpp\+:
+\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
@@ -19,30 +28,54 @@ Include dependency graph for base\+\_\+test.\+cpp\+:\nopagebreak
 \subsection*{Functions}
 \begin{DoxyCompactItemize}
 \item 
-void \hyperlink{base__test_8cpp_adeb905f276d222fa4eb1e4954e07ae03}{distance\+Callback} (const std\+\_\+msgs\+::\+Float32\+::\+Const\+Ptr \&msg)
+void \hyperlink{base__test_8cpp_a41b969883dff31adc3d44d5b88ffee35}{disp\+Callback} (const std\+\_\+msgs\+::\+Int64 \&msg)
 \item 
-\hyperlink{base__test_8cpp_ac4f819542112ad90f9f02dba76320e63}{T\+E\+ST} (integration\+Test, range\+\_\+call\+\_\+back)
+bool \hyperlink{base__test_8cpp_aec0fd9631525980f76d0ab99343bef30}{color\+Callback} (final\+\_\+package\+::\+Color\+Change\+::\+Request \&req, final\+\_\+package\+::\+Color\+Change\+::\+Response \&resp)
 \item 
+\hyperlink{base__test_8cpp_a349859c03dcbb00f53a4811ba16e656d}{T\+E\+ST} (Integration\+Test, Tsk\+T7\+\_\+velocity\+\_\+command\+\_\+red)
+\begin{DoxyCompactList}\small\item\em A method of integration test on base node. \end{DoxyCompactList}\item 
+\hyperlink{base__test_8cpp_a54beffadef3e147e50f9a1c1981e6b97}{T\+E\+ST} (Integration\+Test, Tsk\+T7\+\_\+velocity\+\_\+command\+\_\+void)
+\begin{DoxyCompactList}\small\item\em A method of integration test on base node. \end{DoxyCompactList}\item 
+\hyperlink{base__test_8cpp_a56a3a7485a41709f6a65d4fb445829cc}{T\+E\+ST} (Integration\+Test, Tsk\+T6\+\_\+change\+\_\+color)
+\begin{DoxyCompactList}\small\item\em A method of integration test on base node. \end{DoxyCompactList}\item 
 int \hyperlink{base__test_8cpp_a3c04138a5bfe5d72780bb7e82a18e627}{main} (int argc, char $\ast$$\ast$argv)
 \end{DoxyCompactItemize}
 \subsection*{Variables}
 \begin{DoxyCompactItemize}
 \item 
-std\+::shared\+\_\+ptr$<$ ros\+::\+Node\+Handle $>$ \hyperlink{base__test_8cpp_a7d6d3de9ddf4963eb3ea112920944a87}{nh}
-\item 
 float \hyperlink{base__test_8cpp_aa464047f090200f942a1e47c29fff783}{min\+\_\+dist}
+\item 
+int \hyperlink{base__test_8cpp_ad634d75c72cbf35206f6b88b75730c85}{displacement}
+\item 
+int \hyperlink{base__test_8cpp_a0fd02fb9277ffcb35a75066ffe95e8c7}{color}
 \end{DoxyCompactItemize}
 
 
+\subsection{Detailed Description}
+This is the testing file for the base node. 
+
+\begin{DoxyAuthor}{Author}
+Yuyu Hsueh  2017, Yuyu Hsueh 
+\end{DoxyAuthor}
+
+
 \subsection{Function Documentation}
-\index{base\+\_\+test.\+cpp@{base\+\_\+test.\+cpp}!distance\+Callback@{distance\+Callback}}
-\index{distance\+Callback@{distance\+Callback}!base\+\_\+test.\+cpp@{base\+\_\+test.\+cpp}}
-\subsubsection[{\texorpdfstring{distance\+Callback(const std\+\_\+msgs\+::\+Float32\+::\+Const\+Ptr \&msg)}{distanceCallback(const std_msgs::Float32::ConstPtr &msg)}}]{\setlength{\rightskip}{0pt plus 5cm}void distance\+Callback (
+\index{base\+\_\+test.\+cpp@{base\+\_\+test.\+cpp}!color\+Callback@{color\+Callback}}
+\index{color\+Callback@{color\+Callback}!base\+\_\+test.\+cpp@{base\+\_\+test.\+cpp}}
+\subsubsection[{\texorpdfstring{color\+Callback(final\+\_\+package\+::\+Color\+Change\+::\+Request \&req, final\+\_\+package\+::\+Color\+Change\+::\+Response \&resp)}{colorCallback(final_package::ColorChange::Request &req, final_package::ColorChange::Response &resp)}}]{\setlength{\rightskip}{0pt plus 5cm}bool color\+Callback (
 \begin{DoxyParamCaption}
-\item[{const std\+\_\+msgs\+::\+Float32\+::\+Const\+Ptr \&}]{msg}
+\item[{final\+\_\+package\+::\+Color\+Change\+::\+Request \&}]{req, }
+\item[{final\+\_\+package\+::\+Color\+Change\+::\+Response \&}]{resp}
 \end{DoxyParamCaption}
-)}\hypertarget{base__test_8cpp_adeb905f276d222fa4eb1e4954e07ae03}{}\label{base__test_8cpp_adeb905f276d222fa4eb1e4954e07ae03}
-Testing case confirming that the messages passed between service and client are same. \index{base\+\_\+test.\+cpp@{base\+\_\+test.\+cpp}!main@{main}}
+)}\hypertarget{base__test_8cpp_aec0fd9631525980f76d0ab99343bef30}{}\label{base__test_8cpp_aec0fd9631525980f76d0ab99343bef30}
+\index{base\+\_\+test.\+cpp@{base\+\_\+test.\+cpp}!disp\+Callback@{disp\+Callback}}
+\index{disp\+Callback@{disp\+Callback}!base\+\_\+test.\+cpp@{base\+\_\+test.\+cpp}}
+\subsubsection[{\texorpdfstring{disp\+Callback(const std\+\_\+msgs\+::\+Int64 \&msg)}{dispCallback(const std_msgs::Int64 &msg)}}]{\setlength{\rightskip}{0pt plus 5cm}void disp\+Callback (
+\begin{DoxyParamCaption}
+\item[{const std\+\_\+msgs\+::\+Int64 \&}]{msg}
+\end{DoxyParamCaption}
+)}\hypertarget{base__test_8cpp_a41b969883dff31adc3d44d5b88ffee35}{}\label{base__test_8cpp_a41b969883dff31adc3d44d5b88ffee35}
+\index{base\+\_\+test.\+cpp@{base\+\_\+test.\+cpp}!main@{main}}
 \index{main@{main}!base\+\_\+test.\+cpp@{base\+\_\+test.\+cpp}}
 \subsubsection[{\texorpdfstring{main(int argc, char $\ast$$\ast$argv)}{main(int argc, char **argv)}}]{\setlength{\rightskip}{0pt plus 5cm}int main (
 \begin{DoxyParamCaption}
@@ -52,18 +85,55 @@ Testing case confirming that the messages passed between service and client are 
 )}\hypertarget{base__test_8cpp_a3c04138a5bfe5d72780bb7e82a18e627}{}\label{base__test_8cpp_a3c04138a5bfe5d72780bb7e82a18e627}
 \index{base\+\_\+test.\+cpp@{base\+\_\+test.\+cpp}!T\+E\+ST@{T\+E\+ST}}
 \index{T\+E\+ST@{T\+E\+ST}!base\+\_\+test.\+cpp@{base\+\_\+test.\+cpp}}
-\subsubsection[{\texorpdfstring{T\+E\+S\+T(integration\+Test, range\+\_\+call\+\_\+back)}{TEST(integrationTest, range_call_back)}}]{\setlength{\rightskip}{0pt plus 5cm}T\+E\+ST (
+\subsubsection[{\texorpdfstring{T\+E\+S\+T(\+Integration\+Test, Tsk\+T7\+\_\+velocity\+\_\+command\+\_\+red)}{TEST(IntegrationTest, TskT7_velocity_command_red)}}]{\setlength{\rightskip}{0pt plus 5cm}T\+E\+ST (
 \begin{DoxyParamCaption}
-\item[{integration\+Test}]{, }
-\item[{range\+\_\+call\+\_\+back}]{}
+\item[{Integration\+Test}]{, }
+\item[{Tsk\+T7\+\_\+velocity\+\_\+command\+\_\+red}]{}
 \end{DoxyParamCaption}
-)}\hypertarget{base__test_8cpp_ac4f819542112ad90f9f02dba76320e63}{}\label{base__test_8cpp_ac4f819542112ad90f9f02dba76320e63}
-Sending fake laserscan measurment and subscribe to the base node and see if the result is expected. 
+)}\hypertarget{base__test_8cpp_a349859c03dcbb00f53a4811ba16e656d}{}\label{base__test_8cpp_a349859c03dcbb00f53a4811ba16e656d}
+
+
+A method of integration test on base node. 
+
+\begin{DoxyRefDesc}{Test}
+\item[\hyperlink{test__test000001}{Test}]Generate fake image data and examine the published displacment message from the base. The result shall be non-\/zero as the image provided contains an object. \end{DoxyRefDesc}
+\index{base\+\_\+test.\+cpp@{base\+\_\+test.\+cpp}!T\+E\+ST@{T\+E\+ST}}
+\index{T\+E\+ST@{T\+E\+ST}!base\+\_\+test.\+cpp@{base\+\_\+test.\+cpp}}
+\subsubsection[{\texorpdfstring{T\+E\+S\+T(\+Integration\+Test, Tsk\+T7\+\_\+velocity\+\_\+command\+\_\+void)}{TEST(IntegrationTest, TskT7_velocity_command_void)}}]{\setlength{\rightskip}{0pt plus 5cm}T\+E\+ST (
+\begin{DoxyParamCaption}
+\item[{Integration\+Test}]{, }
+\item[{Tsk\+T7\+\_\+velocity\+\_\+command\+\_\+void}]{}
+\end{DoxyParamCaption}
+)}\hypertarget{base__test_8cpp_a54beffadef3e147e50f9a1c1981e6b97}{}\label{base__test_8cpp_a54beffadef3e147e50f9a1c1981e6b97}
+
+
+A method of integration test on base node. 
+
+\begin{DoxyRefDesc}{Test}
+\item[\hyperlink{test__test000002}{Test}]Generate fake image data and examine the published displacment message from the base. The result shall be non-\/zero as the image provided is pure black. \end{DoxyRefDesc}
+\index{base\+\_\+test.\+cpp@{base\+\_\+test.\+cpp}!T\+E\+ST@{T\+E\+ST}}
+\index{T\+E\+ST@{T\+E\+ST}!base\+\_\+test.\+cpp@{base\+\_\+test.\+cpp}}
+\subsubsection[{\texorpdfstring{T\+E\+S\+T(\+Integration\+Test, Tsk\+T6\+\_\+change\+\_\+color)}{TEST(IntegrationTest, TskT6_change_color)}}]{\setlength{\rightskip}{0pt plus 5cm}T\+E\+ST (
+\begin{DoxyParamCaption}
+\item[{Integration\+Test}]{, }
+\item[{Tsk\+T6\+\_\+change\+\_\+color}]{}
+\end{DoxyParamCaption}
+)}\hypertarget{base__test_8cpp_a56a3a7485a41709f6a65d4fb445829cc}{}\label{base__test_8cpp_a56a3a7485a41709f6a65d4fb445829cc}
+
+
+A method of integration test on base node. 
+
+\begin{DoxyRefDesc}{Test}
+\item[\hyperlink{test__test000003}{Test}]Generate fake message for model deletion to test whether the color filter is updated. \end{DoxyRefDesc}
+
 
 \subsection{Variable Documentation}
+\index{base\+\_\+test.\+cpp@{base\+\_\+test.\+cpp}!color@{color}}
+\index{color@{color}!base\+\_\+test.\+cpp@{base\+\_\+test.\+cpp}}
+\subsubsection[{\texorpdfstring{color}{color}}]{\setlength{\rightskip}{0pt plus 5cm}int color}\hypertarget{base__test_8cpp_a0fd02fb9277ffcb35a75066ffe95e8c7}{}\label{base__test_8cpp_a0fd02fb9277ffcb35a75066ffe95e8c7}
+\index{base\+\_\+test.\+cpp@{base\+\_\+test.\+cpp}!displacement@{displacement}}
+\index{displacement@{displacement}!base\+\_\+test.\+cpp@{base\+\_\+test.\+cpp}}
+\subsubsection[{\texorpdfstring{displacement}{displacement}}]{\setlength{\rightskip}{0pt plus 5cm}int displacement}\hypertarget{base__test_8cpp_ad634d75c72cbf35206f6b88b75730c85}{}\label{base__test_8cpp_ad634d75c72cbf35206f6b88b75730c85}
 \index{base\+\_\+test.\+cpp@{base\+\_\+test.\+cpp}!min\+\_\+dist@{min\+\_\+dist}}
 \index{min\+\_\+dist@{min\+\_\+dist}!base\+\_\+test.\+cpp@{base\+\_\+test.\+cpp}}
 \subsubsection[{\texorpdfstring{min\+\_\+dist}{min_dist}}]{\setlength{\rightskip}{0pt plus 5cm}float min\+\_\+dist}\hypertarget{base__test_8cpp_aa464047f090200f942a1e47c29fff783}{}\label{base__test_8cpp_aa464047f090200f942a1e47c29fff783}
-\index{base\+\_\+test.\+cpp@{base\+\_\+test.\+cpp}!nh@{nh}}
-\index{nh@{nh}!base\+\_\+test.\+cpp@{base\+\_\+test.\+cpp}}
-\subsubsection[{\texorpdfstring{nh}{nh}}]{\setlength{\rightskip}{0pt plus 5cm}std\+::shared\+\_\+ptr$<$ros\+::\+Node\+Handle$>$ nh}\hypertarget{base__test_8cpp_a7d6d3de9ddf4963eb3ea112920944a87}{}\label{base__test_8cpp_a7d6d3de9ddf4963eb3ea112920944a87}

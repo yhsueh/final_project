@@ -12,11 +12,9 @@
 void \hyperlink{classImageProcess_a4c08cfba39236fa09ec5f2d0e37452fb}{load\+Image} (const cv\+::\+Mat \&)
 \item 
 void \hyperlink{classImageProcess_a0a4d4d847095fa9632565ec68b746b4f}{detection} ()
-\begin{DoxyCompactList}\small\item\em Based on the color chosen in the range from 1 to 3, the corresponding filter will be applied in H\+SV color space. If no color is specified, it would do nothing and await next callback. \end{DoxyCompactList}\item 
-const cv\+::\+Mat \& \hyperlink{classImageProcess_abedcfaaa343e334b5bc09a45e69c92ba}{get\+Image} ()
 \item 
-int \hyperlink{classImageProcess_a98f98b789934e466c504977d3af3f031}{get\+Color} ()
-\end{DoxyCompactItemize}
+cv\+::\+Mat \& \hyperlink{classImageProcess_a440fe5754a991d833ff63c28e6888efe}{get\+Image} ()
+\begin{DoxyCompactList}\small\item\em Based on the color chosen in the range from 1 to 3, the corresponding filter will be applied in H\+SV color space. If no color is specified, it would do nothing and await next callback. \end{DoxyCompactList}\end{DoxyCompactItemize}
 \subsection*{Public Attributes}
 \begin{DoxyCompactItemize}
 \item 
@@ -49,6 +47,13 @@ The image\+Process class loads the image and detects the centroids of the detect
 {}
 \end{DoxyParamCaption}
 )}\hypertarget{classImageProcess_a0a4d4d847095fa9632565ec68b746b4f}{}\label{classImageProcess_a0a4d4d847095fa9632565ec68b746b4f}
+\index{Image\+Process@{Image\+Process}!get\+Image@{get\+Image}}
+\index{get\+Image@{get\+Image}!Image\+Process@{Image\+Process}}
+\subsubsection[{\texorpdfstring{get\+Image()}{getImage()}}]{\setlength{\rightskip}{0pt plus 5cm}cv\+::\+Mat \& Image\+Process\+::get\+Image (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\hypertarget{classImageProcess_a440fe5754a991d833ff63c28e6888efe}{}\label{classImageProcess_a440fe5754a991d833ff63c28e6888efe}
 
 
 Based on the color chosen in the range from 1 to 3, the corresponding filter will be applied in H\+SV color space. If no color is specified, it would do nothing and await next callback. 
@@ -61,20 +66,6 @@ Based on the color chosen in the range from 1 to 3, the corresponding filter wil
 \begin{DoxyReturn}{Returns}
 none; 
 \end{DoxyReturn}
-\index{Image\+Process@{Image\+Process}!get\+Color@{get\+Color}}
-\index{get\+Color@{get\+Color}!Image\+Process@{Image\+Process}}
-\subsubsection[{\texorpdfstring{get\+Color()}{getColor()}}]{\setlength{\rightskip}{0pt plus 5cm}int Image\+Process\+::get\+Color (
-\begin{DoxyParamCaption}
-{}
-\end{DoxyParamCaption}
-)\hspace{0.3cm}{\ttfamily [inline]}}\hypertarget{classImageProcess_a98f98b789934e466c504977d3af3f031}{}\label{classImageProcess_a98f98b789934e466c504977d3af3f031}
-\index{Image\+Process@{Image\+Process}!get\+Image@{get\+Image}}
-\index{get\+Image@{get\+Image}!Image\+Process@{Image\+Process}}
-\subsubsection[{\texorpdfstring{get\+Image()}{getImage()}}]{\setlength{\rightskip}{0pt plus 5cm}const cv\+::\+Mat\& Image\+Process\+::get\+Image (
-\begin{DoxyParamCaption}
-{}
-\end{DoxyParamCaption}
-)\hspace{0.3cm}{\ttfamily [inline]}}\hypertarget{classImageProcess_abedcfaaa343e334b5bc09a45e69c92ba}{}\label{classImageProcess_abedcfaaa343e334b5bc09a45e69c92ba}
 \index{Image\+Process@{Image\+Process}!load\+Image@{load\+Image}}
 \index{load\+Image@{load\+Image}!Image\+Process@{Image\+Process}}
 \subsubsection[{\texorpdfstring{load\+Image(const cv\+::\+Mat \&)}{loadImage(const cv::Mat &)}}]{\setlength{\rightskip}{0pt plus 5cm}void Image\+Process\+::load\+Image (

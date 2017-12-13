@@ -22,11 +22,9 @@
  * POSSIBILITY OF SUCH DAMAGE.
  */
 
-/** @file imageProcess_test.cpp
- *	@brief This node takes and analyze the range data. Subsequently, pass the
- *	the decision made based on the data to the turtleCtrl node which 
- *	manipulates the turtlebot.
- *	@author Yuyu Hsueh
+/** @file CtrllerTest.cpp
+ *	@brief This is the CTrllerTest class implementation file for the 
+ *  delete model callback used in ctrller_test.
  *  @Copyright 2017, Yuyu Hsueh
  */
 

@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['terminate',['terminate',['../classTurtleCtrl.html#a0022c4d538eef753a0d49d4dfbdd4549',1,'TurtleCtrl']]],
-  ['to',['TO',['../license_8txt.html#a4bddb9a7dc45727be85d1869ee6c870d',1,'license.txt']]]
+  ['special',['SPECIAL',['../license_8txt.html#a910ad17f295c48bc77c8ee2434bf4ac5',1,'license.txt']]],
+  ['statuscheckcli_5f',['statusCheckCli_',['../classTurtleCtrl.html#aa9a72ccbacd4c55c356ba0305ba14a4a',1,'TurtleCtrl']]]
 ];

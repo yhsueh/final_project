@@ -2,5 +2,7 @@
 <area shape="rect" id="node2" href="$Base_8hpp.html" title="In this project, the nodes are being implemented as class objects. This is the header file for the ba..." alt="" coords="17,80,139,107"/>
 <area shape="rect" id="node4" href="$Base_8cpp.html" title="Base class implementation source file. " alt="" coords="127,155,226,181"/>
 <area shape="rect" id="node5" href="$ImageProcess_8cpp.html" title="This node takes and analyze the range data. Subsequently, pass the the decision made based on the dat..." alt="" coords="215,80,368,107"/>
+<area shape="rect" id="node6" href="$base__test_8cpp.html" title="This is the testing file for the base node. " alt="" coords="391,80,522,107"/>
+<area shape="rect" id="node7" href="$imageProcess__test_8cpp.html" title="This is the testing file for imageProcess class. " alt="" coords="547,80,732,107"/>
 <area shape="rect" id="node3" href="$base_8cpp.html" title="This is a source file for the base node of this project. The base node is responsible of getting and ..." alt="" coords="5,155,103,181"/>
 </map>
