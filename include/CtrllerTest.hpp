@@ -34,9 +34,9 @@
 #include <string>
 #include "gazebo_msgs/DeleteModel.h"
 
-class Ctrller_test {
+class CtrllerTest {
 public:
-	Ctrller_test() : deleteFlag(false),
+	CtrllerTest() : deleteFlag(false),
 					 deleteColor("") {}
 	bool deleteCallback(gazebo_msgs::DeleteModel::Request& req,
                     	gazebo_msgs::DeleteModel::Response& res);

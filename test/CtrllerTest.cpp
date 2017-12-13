@@ -30,10 +30,10 @@
  *  @Copyright 2017, Yuyu Hsueh
  */
 
-#include "Ctrllertest.hpp"
+#include "CtrllerTest.hpp"
 #include "gazebo_msgs/DeleteModel.h"
 
-bool Ctrller_test::deleteCallback(gazebo_msgs::DeleteModel::Request& req,
+bool CtrllerTest::deleteCallback(gazebo_msgs::DeleteModel::Request& req,
                     gazebo_msgs::DeleteModel::Response& res) {
 	deleteColor = req.model_name;
 	deleteFlag = true;

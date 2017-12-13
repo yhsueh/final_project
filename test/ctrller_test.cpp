@@ -117,7 +117,7 @@ TEST(integrationTest, TskT3_color_removal) {
   ros::Subscriber velSub = nh->subscribe("/mobile_base/commands/velocity",1,velCallback);
   ros::ServiceClient colorChangeClient = nh->serviceClient<final_package::ColorChange>("base_color_change");
   ros::ServiceServer deleteServer = nh->advertiseService("/gazebo/delete_model",
-  															&Ctrller_test::deleteCallback,
+  															&CtrllerTest::deleteCallback,
   															&ctrllerObj);
 
   srv.request.input = 2;
