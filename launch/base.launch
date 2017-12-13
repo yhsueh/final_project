@@ -1,0 +1,4 @@
+<launch>
+	<arg name="view" />
+	<node pkg="final_package" name="base" type="base" args="$(arg view)" output="screen" />
+</launch>

@@ -43,8 +43,6 @@
 #include "std_msgs/Int64.h"
 #include "ImageProcess.hpp"
 
-
-//std::shared_ptr<ros::NodeHandle> nh;
 float min_dist;
 int displacement, color;
 

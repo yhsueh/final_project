@@ -66,7 +66,7 @@ void ImageProcess::detection() {
       noColor = true;
       break;
     case 1:
-      cv::inRange(lastImage, cv::Scalar(0, 200, 70), cv::Scalar(5, 255, 255),
+      cv::inRange(lastImage, cv::Scalar(0, 190, 65), cv::Scalar(5, 255, 255),
                   lastImage);  // Red
       break;
     case 2:
