@@ -51,7 +51,7 @@
 #include "Base.hpp"
 
 int main(int argc, char **argv) {
-  ros::init(argc, argv, "base");  
+  ros::init(argc, argv, "base");
   Base baseObj;
   baseObj.color = 1;
   bool viewFlag = false;
@@ -72,7 +72,7 @@ int main(int argc, char **argv) {
 
   if (viewFlag) {
     cv::namedWindow("view");
-    cv::startWindowThread(); 
+    cv::startWindowThread();
   }
 
   ros::Rate loop_rate(5);
@@ -97,7 +97,7 @@ int main(int argc, char **argv) {
   srv.request.input = -1;
   baseObj.colorChangeCli_.call(srv);
 
-  if (viewFlag){
+  if (viewFlag) {
     cv::destroyWindow("view");
   }
   ros::shutdown();

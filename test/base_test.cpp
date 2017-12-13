@@ -22,7 +22,7 @@
  * POSSIBILITY OF SUCH DAMAGE.
  */
 
-/** @file base.cpp
+/** @file base_test.cpp
  *	@brief This node takes and analyze the range data. Subsequently, pass the
  *	the decision made based on the data to the turtleCtrl node which 
  *	manipulates the turtlebot.
@@ -30,14 +30,14 @@
  *  @Copyright 2017, Yuyu Hsueh
  */
 
+#include <cv_bridge/cv_bridge.h>
+#include <image_transport/image_transport.h>
 #include <ros/ros.h>
 #include <gtest/gtest.h>
-#include <image_transport/image_transport.h>
+#include <iostream>
 #include <opencv2/highgui/highgui.hpp>
-#include <cv_bridge/cv_bridge.h>
 #include <opencv2/core/core.hpp>
 #include <opencv2/opencv.hpp>
-#include <iostream>
 #include "final_package/StatusCheck.h"
 #include "final_package/ColorChange.h"
 #include "std_msgs/Int64.h"
@@ -46,13 +46,12 @@
 float min_dist;
 int displacement, color;
 
-
 void dispCallback(const std_msgs::Int64 &msg) {
   displacement = msg.data;
 }
 
 bool colorCallback(final_package::ColorChange::Request &req,
-                               final_package::ColorChange::Response &resp) {
+                   final_package::ColorChange::Response &resp) {
   color = req.input;
   return true;
 }
@@ -62,23 +61,23 @@ TEST(IntegrationTest, TskT7_velocity_command_red) {
   ros::NodeHandle nh2;
   std::string test_dir,imgDir;
   nh.getParam("test_dir", test_dir);
-  
+
   ros::Subscriber dispSub = nh2.subscribe("base/disp",1, dispCallback);
   image_transport::ImageTransport it(nh2);
   image_transport::Publisher imgPub = it.advertise("camera/rgb/image_raw", 10);
-  
+
   imgDir = test_dir + "/Redball.jpg";
   cv::Mat lImage = cv::imread(imgDir);
   int count = 0;
   ros::Rate loop_rate(5);
-  while(count < 20) {
+  while (count < 20) {
     sensor_msgs::ImagePtr imMsg = cv_bridge::CvImage(std_msgs::Header(), "bgr8", lImage).toImageMsg();
     imgPub.publish(imMsg);
 
-  ros::spinOnce();
+    ros::spinOnce();
 
-  loop_rate.sleep();
-  ++count;
+    loop_rate.sleep();
+    ++count;
   }
   EXPECT_NE(displacement,0);
 }
@@ -88,17 +87,15 @@ TEST(IntegrationTest, TskT7_velocity_command_void) {
   ros::NodeHandle nh2;
   std::string test_dir,imgDir;
   nh.getParam("test_dir", test_dir);
-  //ASSERT_TRUE(fs::exists(test_dir));
-  
   ros::Subscriber dispSub = nh2.subscribe("base/disp",1, dispCallback);
   image_transport::ImageTransport it(nh2);
   image_transport::Publisher imgPub = it.advertise("camera/rgb/image_raw", 10);
-  
+
   imgDir = test_dir + "/void.png";
   cv::Mat lImage = cv::imread(imgDir);
   int count = 0;
   ros::Rate loop_rate(5);
-  while(count < 20) {
+  while (count < 20) {
     sensor_msgs::ImagePtr imMsg = cv_bridge::CvImage(std_msgs::Header(), "bgr8", lImage).toImageMsg();
     imgPub.publish(imMsg);
 
@@ -122,7 +119,7 @@ TEST(IntegrationTest, TskT6_change_color) {
 
   int count = 0;
   ros::Rate loop_rate(5);
-  while(count < 20) {
+  while (count < 20) {
     ros::spinOnce();
     loop_rate.sleep();
     ++count;
@@ -132,7 +129,6 @@ TEST(IntegrationTest, TskT6_change_color) {
 
 int main(int argc, char **argv) {
   ros::init(argc, argv, "base_test");
-  //nh.reset(new ros::NodeHandle);
   testing::InitGoogleTest(&argc, argv);
   return RUN_ALL_TESTS();
 }

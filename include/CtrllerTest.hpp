@@ -22,50 +22,25 @@
  * POSSIBILITY OF SUCH DAMAGE.
  */
 
-/** @file imageProcess_test.cpp
- *	@brief This node takes and analyze the range data. Subsequently, pass the
- *	the decision made based on the data to the turtleCtrl node which 
- *	manipulates the turtlebot.
+/** 
+ *  @file Base.hpp
+ *	@brief In this project, the nodes are being implemented as class objects.
+ *  This is the header file for the base class.
  *	@author Yuyu Hsueh
  *  @Copyright 2017, Yuyu Hsueh
  */
 
-#include <gtest/gtest.h>
-#include <opencv2/core/core.hpp>
-#include <opencv2/highgui/highgui.hpp>
-#include "ImageProcess.hpp"
+#pragma once
+#include <string>
+#include "gazebo_msgs/DeleteModel.h"
 
-TEST(UnitTesting, color_test_blue_green) {
-  ImageProcess imgObj, imgObj2;
+class Ctrller_test {
+public:
+	Ctrller_test() : deleteFlag(false),
+					 deleteColor("") {}
+	bool deleteCallback(gazebo_msgs::DeleteModel::Request& req,
+                    	gazebo_msgs::DeleteModel::Response& res);
 
-  while (imgObj.color < 4) {
-    imgObj.loadImage(cv::imread("./Greenball.jpg",CV_LOAD_IMAGE_COLOR));
-    imgObj.detection();
-
-    if (imgObj.circles.size() > 0) {
-      break;
-    }
-
-    imgObj.color+=1;
-  }
-
-  EXPECT_EQ(imgObj.color,2);
-
-  while (imgObj2.color < 4) {
-    imgObj2.loadImage(cv::imread("./Blueball.jpg",CV_LOAD_IMAGE_COLOR));
-    imgObj2.detection();
-
-    if (imgObj2.circles.size() > 0) {
-      break;
-    }
-
-    imgObj2.color+=1;
-  }
-
-  EXPECT_EQ(imgObj2.color,3);
-}
-
-int main(int argc, char **argv) {
-  testing::InitGoogleTest(&argc, argv);
-  return RUN_ALL_TESTS();
-}
+	bool deleteFlag;
+	std::string deleteColor;
+};

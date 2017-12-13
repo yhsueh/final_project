@@ -40,7 +40,6 @@
 
 void ImageProcess::loadImage(const cv::Mat& img) {
   cv::GaussianBlur(img,lastImage,cv::Size(9,9),0,0);
-  //lastImage = img;
 }
 
 /**

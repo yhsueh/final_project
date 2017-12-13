@@ -185,6 +185,7 @@ target_link_libraries(base_test ${catkin_LIBRARIES})
 add_rostest_gtest(ctrller_test
   test/ctrller_test.test
   test/ctrller_test.cpp
+  test/CtrllerTest.cpp
 )
 target_link_libraries(ctrller_test ${catkin_LIBRARIES})
 

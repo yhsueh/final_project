@@ -22,7 +22,7 @@
  * POSSIBILITY OF SUCH DAMAGE.
  */
 
-/** @file base.cpp
+/** @file ctrller_test.cpp
  *	@brief This node takes and analyze the range data. Subsequently, pass the
  *	the decision made based on the data to the turtleCtrl node which 
  *	manipulates the turtlebot.
@@ -38,129 +38,110 @@
 #include "geometry_msgs/Twist.h"
 #include "final_package/ColorChange.h"
 #include "gazebo_msgs/DeleteModel.h"
-/*
-#include "ImageProcess.hpp"
-#include <image_transport/image_transport.h>
-#include <opencv2/highgui/highgui.hpp>
-#include <cv_bridge/cv_bridge.h>
-#include <opencv2/core/core.hpp>
-#include <opencv2/opencv.hpp>
-*/
+#include "CtrllerTest.hpp"
 
 std::shared_ptr<ros::NodeHandle> nh;
 float angularZ, linearX;
-bool deleteFlag = false;
-std::string deleteColor;
 
-/** 
- * Testing case confirming that the messages passed between service and 
- * client are same.
- */
-
-void velCallback(const geometry_msgs::Twist &msg ) {
-	linearX = msg.linear.x;
-	angularZ = msg.angular.z;
-}
-
-bool deleteCallback(gazebo_msgs::DeleteModel::Request& req,
-					gazebo_msgs::DeleteModel::Response& res) {
-	deleteColor = req.model_name;
-	deleteFlag = true;
-	return true;
+void velCallback(const geometry_msgs::Twist &msg) {
+  linearX = msg.linear.x;
+  angularZ = msg.angular.z;
 }
 
 TEST(integrationTest, TskT1_advance) {
-	sensor_msgs::LaserScan laserMsg;
-	std_msgs::Int64 dispMsg;
-	float expX = 0.2;
-	
-	ros::Publisher rngPub = nh->advertise<sensor_msgs::LaserScan>("scan",10);
-	ros::Publisher dispPub = nh->advertise<std_msgs::Int64 >("base/disp",10);
-	ros::Subscriber velSub = nh->subscribe("/mobile_base/commands/velocity",1,velCallback);
-	
-	ros::Rate loop_rate(10);
+  sensor_msgs::LaserScan laserMsg;
+  std_msgs::Int64 dispMsg;
+  float expX = 0.2;
 
-	int count = 0;
-	while (count < 20) {
-	    laserMsg.ranges.resize(1);
-	    laserMsg.ranges[0] = 1.0;
-	    rngPub.publish(laserMsg);
+  ros::Publisher rngPub = nh->advertise<sensor_msgs::LaserScan>("scan",10);
+  ros::Publisher dispPub = nh->advertise<std_msgs::Int64 >("base/disp",10);
+  ros::Subscriber velSub = nh->subscribe("/mobile_base/commands/velocity",1,velCallback);
 
-	    dispMsg.data = 10;
-	    dispPub.publish(dispMsg); 
+  ros::Rate loop_rate(10);
 
-		ros::spinOnce();
+  int count = 0;
+  while (count < 20) {
+    laserMsg.ranges.resize(1);
+    laserMsg.ranges[0] = 1.0;
+    rngPub.publish(laserMsg);
 
-	    loop_rate.sleep();
-	    ++count;
-  	}
-  	EXPECT_EQ(0, angularZ);
-  	EXPECT_EQ(expX, linearX);
+    dispMsg.data = 10;
+    dispPub.publish(dispMsg);
+
+    ros::spinOnce();
+
+    loop_rate.sleep();
+    ++count;
+  }
+  EXPECT_EQ(0, angularZ);
+  EXPECT_EQ(expX, linearX);
 }
 
-
 TEST(integrationTest, TskT1_turn) {
-	sensor_msgs::LaserScan laserMsg;
-	std_msgs::Int64 dispMsg;
-	
-	ros::Publisher rngPub = nh->advertise<sensor_msgs::LaserScan>("scan",10);
-	ros::Publisher dispPub = nh->advertise<std_msgs::Int64>("base/disp",10);
-	ros::Subscriber velSub = nh->subscribe("/mobile_base/commands/velocity",1,velCallback);
-	
-	ros::Rate loop_rate(10);
+  sensor_msgs::LaserScan laserMsg;
+  std_msgs::Int64 dispMsg;
 
-	int count = 0;
-	while (count < 20) {
-	    laserMsg.ranges.resize(1);
-	    laserMsg.ranges[0] = 0.0;
-	    rngPub.publish(laserMsg);
+  ros::Publisher rngPub = nh->advertise<sensor_msgs::LaserScan>("scan",10);
+  ros::Publisher dispPub = nh->advertise<std_msgs::Int64>("base/disp",10);
+  ros::Subscriber velSub = nh->subscribe("/mobile_base/commands/velocity",1,velCallback);
 
-	    dispMsg.data = 10000;
-	    dispPub.publish(dispMsg); 
+  ros::Rate loop_rate(10);
 
-		ros::spinOnce();
+  int count = 0;
+  while (count < 20) {
+    laserMsg.ranges.resize(1);
+    laserMsg.ranges[0] = 0.0;
+    rngPub.publish(laserMsg);
 
-	    loop_rate.sleep();
-	    ++count;
-  	}
+    dispMsg.data = 10000;
+    dispPub.publish(dispMsg);
 
-  	EXPECT_EQ(0.5, angularZ);
-  	EXPECT_EQ(0, linearX);
+    ros::spinOnce();
+
+    loop_rate.sleep();
+    ++count;
+  }
+
+  EXPECT_EQ(0.5, angularZ);
+  EXPECT_EQ(0, linearX);
 }
 
 TEST(integrationTest, TskT3_color_removal) {
-	sensor_msgs::LaserScan laserMsg;
-	std_msgs::Int64 dispMsg;
-	final_package::ColorChange srv;
-    int count = 0;
-	ros::Publisher rngPub = nh->advertise<sensor_msgs::LaserScan>("scan",10);
-	ros::Publisher dispPub = nh->advertise<std_msgs::Int64>("base/disp",10);
-	ros::Subscriber velSub = nh->subscribe("/mobile_base/commands/velocity",1,velCallback);
-	ros::ServiceClient colorChangeClient = nh->serviceClient<final_package::ColorChange>("base_color_change");
-	ros::ServiceServer deleteServer = nh->advertiseService("/gazebo/delete_model",deleteCallback);
+  CtrllerTest ctrllerObj;
+  sensor_msgs::LaserScan laserMsg;
+  std_msgs::Int64 dispMsg;
+  final_package::ColorChange srv;
+  int count = 0;
+  ros::Publisher rngPub = nh->advertise<sensor_msgs::LaserScan>("scan",10);
+  ros::Publisher dispPub = nh->advertise<std_msgs::Int64>("base/disp",10);
+  ros::Subscriber velSub = nh->subscribe("/mobile_base/commands/velocity",1,velCallback);
+  ros::ServiceClient colorChangeClient = nh->serviceClient<final_package::ColorChange>("base_color_change");
+  ros::ServiceServer deleteServer = nh->advertiseService("/gazebo/delete_model",
+  															&Ctrller_test::deleteCallback,
+  															&ctrllerObj);
 
-	srv.request.input = 2;
-	colorChangeClient.call(srv);
-	ros::Rate loop_rate(10);
-	while (count < 20) {
-		if(deleteFlag) {
-			break;
-		}		
+  srv.request.input = 2;
+  colorChangeClient.call(srv);
+  ros::Rate loop_rate(10);
+  while (count < 20) {
+    if (ctrllerObj.deleteFlag) {
+      break;
+    }
 
-	    laserMsg.ranges.resize(1);
-	    laserMsg.ranges[0] = 0.1;
-	    rngPub.publish(laserMsg);
+    laserMsg.ranges.resize(1);
+    laserMsg.ranges[0] = 0.1;
+    rngPub.publish(laserMsg);
 
-	    dispMsg.data = 10;
-	    dispPub.publish(dispMsg); 
+    dispMsg.data = 10;
+    dispPub.publish(dispMsg);
 
-		ros::spinOnce();
+    ros::spinOnce();
 
-	    loop_rate.sleep();
-	    ++count;
-  	}
+    loop_rate.sleep();
+    ++count;
+  }
 
-  	EXPECT_EQ("GreenBall", deleteColor);
+  EXPECT_EQ("GreenBall", ctrllerObj.deleteColor);
 }
 
 int main(int argc, char **argv) {

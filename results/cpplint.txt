@@ -1,0 +1,14 @@
+cpplint --verbose=4 $( find . -name \*.hpp -or -name \*.cpp | grep -vE -e "^./build/" -e "^./vendor/" -e "^./docs/" -e "^./results" )
+Done processing ./include/CtrllerTest.hpp
+Done processing ./include/TurtleCtrl.hpp
+Done processing ./include/Base.hpp
+Done processing ./include/ImageProcess.hpp
+Done processing ./src/base.cpp
+Done processing ./src/ImageProcess.cpp
+Done processing ./src/Base.cpp
+Done processing ./src/turtleCtrl.cpp
+Done processing ./src/TurtleCtrl.cpp
+Done processing ./test/CtrllerTest.cpp
+Done processing ./test/imageProcess_test.cpp
+Done processing ./test/base_test.cpp
+Done processing ./test/ctrller_test.cpp
