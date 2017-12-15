@@ -33,4 +33,9 @@
     <remap from="image" to="/camera/depth/image_raw"/>
     <remap from="scan" to="/scan"/>
   </node>
+
+  <!-- Ros Bag -->
+  <node pkg="rosbag" type="record" name="topics_record"
+       args="record --duration=30s -a -o $(find final_package)/results/bagfile -x (.*)/camera(.*)"
+       if="$(arg record_flag)" />
 </launch>
