@@ -28,6 +28,9 @@ https://docs.google.com/spreadsheets/d/12HwD9ipKP0mMze7esa8kOW532ijbNlVK7lirzBBc
 Sprint Planning Notes and Review:
 https://docs.google.com/document/d/1imp_Num2covjx0czFeErUQy3KCeT4MHiEl-_trNzzP8/edit?usp=sharing
 
+## Youtube Link:
+https://www.youtube.com/watch?v=GGgvapKYKoI&t=
+
 ## Build procedures:
 1. Clone from github by inputting
 ```
