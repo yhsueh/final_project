@@ -29,6 +29,15 @@ Sprint Planning Notes and Review:
 https://docs.google.com/document/d/1imp_Num2covjx0czFeErUQy3KCeT4MHiEl-_trNzzP8/edit?usp=sharing
 
 ## Youtube Link:
+Please enter these commands in the terminal.
+```
+gedit ~/.bashrc
+```
+and add these two lines at the end of the file opened.
+
+source /opt/ros/kinetic/setup.bash 
+source ~/catkin_ws/devel/setup.bash
+
 https://www.youtube.com/watch?v=GGgvapKYKoI&t=
 
 ## Build procedures:
