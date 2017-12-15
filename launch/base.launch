@@ -1,4 +1,4 @@
 <launch>
-	<arg name="view" />
+	<arg name="view" default="f"/>
 	<node pkg="final_package" name="base" type="base" args="$(arg view)" output="screen" />
 </launch>

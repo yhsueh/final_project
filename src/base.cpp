@@ -44,6 +44,7 @@
 #include <image_transport/image_transport.h>
 #include <cv_bridge/cv_bridge.h>
 #include <sensor_msgs/image_encodings.h>
+#include <string>
 #include <opencv2/imgproc/imgproc.hpp>
 #include <opencv2/highgui/highgui.hpp>
 #include "sensor_msgs/LaserScan.h"
@@ -56,7 +57,7 @@ int main(int argc, char **argv) {
   baseObj.color = 1;
   bool viewFlag = false;
   ROS_INFO("ARGC:%d",argc);
-  if (argc > 1) {
+  if (strcmp(argv[1],"t") == 0) {
     viewFlag = true;
     baseObj.viewFlag = true;
   }
