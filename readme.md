@@ -49,6 +49,11 @@ to build the ROS package. A catkin_ws must be created previously.
 ```
 roslaunch final_package turtle_world.launch
 ```
+or
+```
+roslaunch final_package turtle_world.launch record_flag:=1
+```
+To trigger rosbag.
 * Second window
 ```
 rosrun final_package turtleCtrller
@@ -56,7 +61,7 @@ rosrun final_package turtleCtrller
 The terminal should show "Initialization".
 * Third window
 ```
-roslaunch final_package base.launch view:=yes
+roslaunch final_package base.launch view:=t
 ```
 The argument at the end would display the image turtlebot perceived.
 
